@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="file://C:/Program Files/Fishbowl/lib" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://C:/Program Files/Fishbowl/lib" />
+    </SOURCES>
+    <jarDirectory url="file://C:/Program Files/Fishbowl/lib" recursive="false" />
+    <jarDirectory url="file://C:/Program Files/Fishbowl/lib" recursive="false" type="SOURCES" />
+  </library>
+</component>
