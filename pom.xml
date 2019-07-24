@@ -28,23 +28,20 @@
         <artifactId>jibx-maven-plugin</artifactId>
         <version>1.3.1</version>
 
-        <configuration>
-            <baseBindingDirectory>src/main/config</baseBindingDirectory>
-            <includeBaseBindings>
-                <includeBaseBinding>
-                    <directory>src/main/config</directory>
-                    <includes>
-                        <include>binding-requests.xml</include>
-                    </includes>
-                </includeBaseBinding>
-            </includeBaseBindings>
-            <verbose>true</verbose>
-        </configuration>
         <executions>
             <execution>
                 <goals>
                     <goal>bind</goal>
                 </goals>
+                <configuration>
+                <baseBindingDirectory>jibx</baseBindingDirectory>
+
+                        <includes>
+                            <include>bindings.xml</include>
+                        </includes>
+
+                <verbose>true</verbose>
+            </configuration>
             </execution>
         </executions>
         <dependencies>

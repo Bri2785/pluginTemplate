@@ -1,0 +1,1072 @@
+<binding name="bindings_objects" force-classes="true" add-constructors="true" package="com.fbi.fbo.impl.wo">
+
+    <format type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+
+    <!--<include path="../../../../../data/fpo/src/main/resources/bindings_accounts.xml" precompiled="true"/>-->
+    <!--<include path="../../../../../data/flo/src/main/resources/bindings_lite_manufacture.xml" precompiled="true"/>-->
+    <!--<include path="../../../../../data/fpo/src/main/resources/bindings_reports.xml" precompiled="true"/>-->
+
+    <!--<include path="bindings-requests.xml" precompiled="false"/>-->
+    <!--<include path="bindings-responses.xml" precompiled="false"/>-->
+
+    <!-- CONTACTS -->
+    <mapping name="Customer" class="com.fbi.fbo.impl.CustomerImpl" ordered="false" flexible="true">
+        <value name="CustomerID"  get-method="getCustomerID" set-method="setCustomerID" usage="optional"/>
+        <value name="AccountID" get-method="getAccount" set-method="setAccount" usage="optional"/>
+        <value name="Status" get-method="getStatus" set-method="setStatus" usage="optional" />
+        <value name="DefPaymentTerms" get-method="getDefaultPaymentTerms" set-method="setDefaultPaymentTerms" usage="optional"/>
+        <value name="DefShipTerms" get-method="getDefaultShipTerms" set-method="setDefaultShipTerms" usage="optional"/>
+        <value name="TaxRate" get-method="getTaxRate" set-method="setTaxRate" usage="optional"/>
+        <value name="Name" get-method="getName" set-method="setName" usage="optional"/>
+        <value name="Number" get-method="getNumber" set-method="setNumber" usage="optional"/>
+        <value name="DateCreated" get-method="getDateCreated" set-method="setDateCreated" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="DateLastModified" get-method="getDateModified" set-method="setDateModified" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional"/>
+        <value name="LastChangedUser" get-method="getLastChangeUser" set-method="setLastChangeUser" usage="optional"/>
+        <value name="CreditLimit" get-method="getCreditLimit" set-method="setCreditLimit" type="com.evnt.util.Money" serializer="com.evnt.util.MoneySerializer.serializeMoney" usage="optional"/>
+        <value name="TaxExempt" get-method="getTaxExempt" set-method="setTaxExempt" usage="optional"/>
+        <value name="TaxExemptNumber" get-method="getTaxExemptNumber"  set-method="setTaxExemptNumber" usage="optional"/>
+        <value name="Note" get-method="getNote" set-method="setNote" usage="optional"/>
+        <value name="ActiveFlag" get-method="getActiveFlag" set-method="setActiveFlag" usage="optional"/>
+        <value name="AccountingID" get-method="getAccountingID" set-method="setAccountingID" usage="optional" />
+        <value name="CurrencyName" get-method="getCurrencyName" set-method="setCurrencyName" usage="optional" />
+        <value name="CurrencyRate" get-method="getCurrencyRate" set-method="setCurrencyRate" usage="optional" />
+        <value name="DefaultSalesman" get-method="getDefaultSalesperson" set-method="setDefaultSalesperson" usage="optional" />
+        <value name="DefaultCarrier" get-method="getDefaultCarrier" set-method="setDefaultCarrier" usage="optional" />
+        <value name="CarrierService" get-method="getCarrierService" set-method="setCarrierService" usage="optional"/>
+        <value name="JobDepth" get-method="getJobDepth" set-method="setJobDepth" usage="optional" />
+        <value name="ParentID" get-method="getParentID" set-method="setParentID" usage="optional" />
+        <value name="URL" get-method="getURL" set-method="setURL" usage="optional" />
+        <value name="QuickBooksClassName" get-method="getQuickBooksClassName" set-method="setQuickBooksClassName" usage="optional" />
+        <collection name="Addresses" add-method="addAddress" item-type="com.fbi.fbdata.accounts.AddressFpo" size-method="getAddressSize" load-method="getAddress" usage="optional" test-method="hasAddress"/>
+        <collection name="CustomFields" field="customFields" item-type="com.fbi.fbo.CustomField" usage="optional" test-method="hasCustomFields" />
+    </mapping>
+
+    <mapping name="Vendor" class="com.fbi.fbo.impl.VendorImpl" ordered="false" flexible="true">
+        <value name="VendorID" get-method="getID" set-method="setID" usage="optional" />
+        <value name="AccountID" get-method="getAccountID" set-method="setAccountID" usage="optional"/>
+        <value name="Status" get-method="getStatus" set-method="setStatus" usage="optional"/>
+        <value name="DefPaymentTerms" get-method="getDefaultPaymentTerms" set-method="setDefaultPaymentTerms" usage="optional" />
+        <value name="DefShipTerms" get-method="getDefaultShipTerms" set-method="setDefaultShipTerms" usage="optional" />
+        <value name="TaxRate" get-method="getTaxRate" set-method="setTaxRate" usage="optional" />
+        <value name="Name" get-method="getName" set-method="setName" usage="optional" />
+        <value name="Number" get-method="getNumber" set-method="setNumber" usage="optional" />
+        <value name="DateCreated" get-method="getDateCreated" set-method="setDateCreated" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="DateModified" get-method="getDateModifed" set-method="setDateModified" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="LastChangedUser" get-method="getLastChangeUser" set-method="setLastChangeUser" usage="optional" />
+        <value name="CreditLimit" get-method="getCreditLimit" set-method="setCreditLimit" type="com.evnt.util.Money" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <value name="Note" get-method="getNote" set-method="setNote" usage="optional" />
+        <structure name="AysUserID" usage="optional"/>
+        <value name="ActiveFlag" get-method="isActive" set-method="setActive" usage="optional" />
+        <value name="AccountingID" get-method="getAccountingID" set-method="setAccountingID" usage="optional"  />
+        <value name="AccountingHash" get-method="getAccountingHash" set-method="setAccountingHash" usage="optional" />
+        <value name="CurrencyName" get-method="getCurrencyName" set-method="setCurrencyName" usage="optional" />
+        <value name="CurrencyRate" get-method="getCurrencyRate" set-method="setCurrencyRate" usage="optional" />
+        <collection name="Addresses" add-method="addAddress" item-type="com.fbi.fbdata.accounts.AddressFpo" size-method="getAddressesSize" load-method="getAddress" />
+    </mapping>
+
+    <!--CUSTOM FIELDS-->
+    <mapping name="CustomField" class="com.fbi.fbo.impl.CustomFieldImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional"/>
+        <value name="Type" get-method="getType" set-method="setType" usage="optional"/>
+        <value name="Name" get-method="getName" set-method="setName" usage="optional"/>
+        <value name="Description" get-method="getDescription" set-method="setDescription" usage="optional" />
+        <value name="SortOrder" get-method="getSortOrder" set-method="setSortOrder" usage="optional"/>
+        <value name="Info" get-method="getInfo" set-method="setInfo" usage="optional"/>
+        <value name="RequiredFlag" get-method="getRequired" set-method="setRequired" usage="optional"/>
+        <value name="ActiveFlag" get-method="getActive" set-method="setActive" usage="optional"/>
+        <structure  get-method="getCustomList" set-method="setCustomList" type="com.fbi.fbo.impl.CustomListImpl" usage="optional" />
+    </mapping>
+
+    <mapping name="CustomList" class="com.fbi.fbo.impl.CustomListImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional"/>
+        <value name="Name" get-method="getName" set-method="setName" usage="optional"/>
+        <value name="Description" get-method="getDescription" set-method="setDescription" usage="optional" />
+        <collection name="CustomListItems" add-method="addCustomListItem" item-type="com.fbi.fbo.CustomListItem" size-method="getCustomListItemSize" load-method="getCustomListItem" usage="optional" test-method="hasItems"/>
+    </mapping>
+
+    <mapping name="CustomListItem" class="com.fbi.fbo.impl.CustomListItemImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional"/>
+        <value name="Name" get-method="getName" set-method="setName" usage="optional"/>
+        <value name="Description" get-method="getDescription" set-method="setDescription" usage="optional" />
+    </mapping>
+
+    <!-- SALES ORDER -->
+    <mapping name="SalesOrder" class="com.fbi.fbo.impl.orders.SalesOrderImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional" />
+        <value name="Note" get-method="getNote" set-method="setNote" usage="optional"/>
+        <value name="TotalPrice" get-method="getTotalPrice" set-method="setTotalPrice" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <value name="TotalTax" get-method="getTotalTax" set-method="setTotalTax" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <value name="EstimatedTax" get-method="getEstimatedTax" set-method="setEstimatedTax" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <value name="PaymentTotal" get-method="getPaymentTotal" set-method="setPaymentTotal" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <value name="ItemTotal" get-method="getItemTotal" set-method="setItemTotal" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <value name="Salesman" get-method="getSalesman" set-method="setSalesman" usage="optional" />
+        <value name="Number" get-method="getNumber" set-method="setNumber" usage="optional" />
+        <value name="Status" get-method="getStatus" set-method="setStatus" usage="optional" />
+        <value name="Carrier" get-method="getCarrier" set-method="setCarrier" usage="optional" />
+        <value name="CarrierID" get-method="getCarrierId" set-method="setCarrierId" usage="optional" />
+        <value name="CarrierService" get-method="getCarrierService" set-method="setCarrierService" usage="optional" />
+        <value name="CarrierServiceID" get-method="getCarrierServiceId" set-method="setCarrierServiceId" usage="optional" />
+        <value name="FirstShipDate" get-method="getDateFirstShip" set-method="setDateFistShip" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="CreatedDate" get-method="getDateCreated" set-method="setDateCreated" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="IssuedDate" get-method="getDateIssued" set-method="setDateIssued" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="ExpiredDate" get-method="getDateExpired" set-method="setDateExpired" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="TaxRatePercentage" get-method="getTaxRatePercent" set-method="setTaxRatePercent" usage="optional" />
+        <value name="TaxRateName" get-method="getTaxRateName" set-method="setTaxRateName" usage="optional" />
+        <value name="ShippingCost" get-method="getShippingCost" set-method="setShippingCost" usage="optional" />
+        <value name="ShippingTerms" get-method="getShippingTerms" set-method="setShippingTerms" usage="optional" />
+        <value name="PaymentTerms" get-method="getPaymentTerms" set-method="setPaymentTerms" usage="optional" />
+        <value name="CustomerContact" get-method="getCustomerContact" set-method="setCustomerContact" usage="optional" />
+        <value name="Phone" get-method="getPhone" set-method="setPhone" usage="optional" />
+        <value name="Email" get-method="getEmail" set-method="setEmail" usage="optional" />
+        <value name="CustomerName" get-method="getCustomerName" set-method="setCustomerName" usage="optional" />
+        <value name="CustomerID" get-method="getCustomerID" set-method="setCustomerID" usage="optional" />
+        <value name="FOB" get-method="getFOB" set-method="setFOB" usage="optional" />
+        <value name="QuickBooksClassName" get-method="getQBClass" set-method="setQBClass" usage="optional" />
+        <value name="LocationGroup" get-method="getLocationGroup" set-method="setLocationGroup" usage="optional" />
+        <value name="PoNum" get-method="getPONumber" set-method="setPONumber" usage="optional" />
+        <value name="PriorityId" get-method="getPriorityId" set-method="setPriorityId" usage="optional" />
+        <value name="CurrencyRate" get-method="getCurrencyRate" set-method="setCurrencyRate" usage="optional" />
+        <value name="CurrencyName" get-method="getCurrencyName" set-method="setCurrencyName" usage="optional" />
+        <value name="PriceIsHomeCurrency" get-method="isPriceIsHomeCurrency" set-method="setPriceIsHomeCurrency" usage="optional" />
+        <structure name="BillTo" usage="optional" >
+            <value name="Name" get-method="getBillToName" set-method="setBillToName" usage="optional" />
+            <value name="AddressField" get-method="getBillToAddress" set-method="setBillToAddress" usage="optional" />
+            <value name="City" get-method="getBillToCity" set-method="setBillToCity" usage="optional" />
+            <value name="Zip" get-method="getBillToZip" set-method="setBillToZip" usage="optional" />
+            <value name="Country" get-method="getBillToCountry" set-method="setBillToCountry" usage="optional" />
+            <value name="State" get-method="getBillToState" set-method="setBillToState" usage="optional" />
+        </structure>
+        <structure name="Ship" usage="optional">
+            <value name="Name" get-method="getShipToName" set-method="setShipToName" usage="optional" />
+            <value name="AddressField" get-method="getShipToAddress" set-method="setShipToAddress" usage="optional" />
+            <value name="City" get-method="getShipToCity" set-method="setShipToCity" usage="optional" />
+            <value name="Zip" get-method="getShipToZip" set-method="setShipToZip" usage="optional" />
+            <value name="Country" get-method="getShipToCountry" set-method="setShipToCountry" usage="optional" />
+            <value name="State" get-method="getShipToState" set-method="setShipToState" usage="optional" />
+        </structure>
+        <value name="IssueFlag" get-method="getIssueFlag" set-method="setIssueFlag" usage="optional" />
+        <value name="VendorPO" get-method="getVendorPONumber" set-method="setVendorPONumber" usage="optional" />
+        <value name="CustomerPO" get-method="getCustomerPO" set-method="setCustomerPO" usage="optional" />
+        <value name="TotalIncludesTax" get-method="isTotalIncludesTax" set-method="setTotalIncludesTax" usage="optional" />
+        <value name="TypeID" get-method="getTypeID" set-method="setTypeID" usage="optional"/>
+        <value name="URL" get-method="getURL" set-method="setURL" usage="optional"/>
+        <value name="Cost" get-method="getCost" set-method="setCost" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <value name="DateCompleted" get-method="getDateCompleted" set-method="setDateCompleted" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="DateLastModified" get-method="getDateLastModified" set-method="setDateLastModified" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="DateRevision" get-method="getDateRevision" set-method="setDateRevision" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="RegisterID" get-method="getRegisterID" set-method="setRegisterID" usage="optional" />
+        <value name="ResidentialFlag" get-method="isResidentialFlag" set-method="setResidentialFlag" usage="optional" />
+        <value name="SalesmanInitials" get-method="getSalesmanInitials" set-method="setSalesmanInitials" usage="optional" />
+        <collection name="CustomFields" add-method="addCustomField" item-type="com.fbi.fbo.CustomField" size-method="getCustomFieldListSize" load-method="getCustomField"  usage="optional" test-method="hasCustomFields"/>
+        <collection name="Memos" add-method="addMemo" item-type="com.fbi.fbo.Memo" size-method="getMemoListSize" load-method="getMemo" usage="optional" test-method="hasMemos"/>
+        <collection name="Items" field="salesOrderItemList" item-type="com.fbi.fbo.orders.SalesOrderItem" usage="optional" test-method="hasItems"/>
+    </mapping>
+
+    <mapping name="SalesOrderItem" class="com.fbi.fbo.impl.orders.SalesOrderItemImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional" />
+        <value name="ProductNumber" get-method="getProductNumber" set-method="setProductNumber" usage="optional"/>
+        <value name="SOID" get-method="getSOID" set-method="setSOID" usage="optional" />
+        <value name="Description" get-method="getDescription" set-method="setDescription" usage="optional" />
+        <value name="CustomerPartNum" get-method="getCustomerPartNum" set-method="setCustomerPartNum" usage="optional"/>
+        <value name="Taxable" get-method="getTaxable" set-method="setTaxable" usage="optional"/>
+        <value name="Quantity" get-method="getQuantity" set-method="setQuantity" type="com.evnt.util.Quantity" serializer="com.evnt.util.Quantity.serializeQuantity"  usage="optional"/>
+        <value name="ProductPrice" get-method="getProductPrice" set-method="setProductPrice" type="com.evnt.util.Money" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <value name="UnitPrice" get-method="getUnitPrice" set-method="setUnitPrice" type="com.evnt.util.Money" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <value name="TotalPrice" get-method="getTotalPrice" set-method="setTotalPrice" type="com.evnt.util.Money" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <value name="UOMCode" get-method="getUOMCode" set-method="setUOMCode" usage="optional" />
+        <value name="ItemType" get-method="getItemType" set-method="setItemType" usage="optional" />
+        <value name="Status" get-method="getStatus" set-method="setStatus" usage="optional" />
+        <value name="Note" get-method="getNote" set-method="setNote" usage="optional" />
+        <value name="QuickBooksClassName" get-method="getQBClass" set-method="setQBClass" usage="optional" />
+        <value name="NewItemFlag" get-method="getNewItemFlag" set-method="setNewItemFlag" usage="optional" />
+        <value name="LineNumber" get-method="getLineItem" set-method="setLineItem" usage="optional" />
+        <value name="KitItemFlag" get-method="getKitItemFlag" set-method="setKitItemFlag" usage="optional" />
+        <value name="ShowItemFlag" get-method="getShowItemFlag" set-method="setShowItemFlag" usage="optional" />
+        <value name="AdjustmentAmount" get-method="getAdjustmentAmount" set-method="setAdjustmentAmount" type="com.evnt.util.Money" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <value name="AdjustPercentage" get-method="getAdjustPercentage" set-method="setAdjustPercentage" type="com.evnt.util.Percent" usage="optional" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <value name="DateLastFulfillment" get-method="getDateLastFulfillment" set-method="setDateLastFulfillment" usage="optional" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="DateLastModified" get-method="getDateLastModified" set-method="setDateLastModified" usage="optional" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="DateScheduledFulfillment" get-method="getDateScheduledFulfillment" set-method="setDateScheduledFulfillment" usage="optional" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="ExchangeSOLineItem" get-method="getExchangeSOLineItem" set-method="setExchangeSOLineItem" usage="optional"/>
+        <value name="ItemAdjustID" get-method="getItemAdjustID" set-method="setItemAdjustID" usage="optional"/>
+        <value name="QtyFulfilled" get-method="getQtyFulfilled" set-method="setQtyFulfilled" usage="optional" type="com.evnt.util.Quantity" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <value name="QtyPicked" get-method="getQtyPicked" set-method="setQtyPicked" usage="optional" type="com.evnt.util.Quantity" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <value name="RevisionLevel" get-method="getRevLevel" set-method="setRevLevel" usage="optional"/>
+        <value name="TotalCost" get-method="getTotalCost" set-method="setTotalCost" type="com.evnt.util.Money" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <value name="TaxID" get-method="getTaxID" set-method="setTaxID" usage="optional"/>
+        <value name="TaxRate" get-method="getTaxRate" set-method="setTaxRate" usage="optional"/>
+        <value name="TaxCode" get-method="getTaxCode" set-method="setTaxCode" usage="optional"/>
+    </mapping>
+
+    <mapping name="SalesOrderSearch" class="com.fbi.fbdata.sales.SOSearch" ordered="false" flexible="true">
+        <value name="ID" get-method="getId" set-method="setId" usage="optional" />
+        <value name="Number" get-method="getNum" set-method="setNum" usage="optional" />
+        <value name="CustomerId" get-method="getCustomerId" set-method="setCustomerId" usage="optional" />
+        <value name="CustomerName" get-method="getCustomer" set-method="setCustomer" usage="optional" />
+        <value name="Status" get-method="getStatus" set-method="setStatus" usage="optional" />
+        <value name="IssuedDate" get-method="getIssuedDate" set-method="setIssuedDate" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="ScheduledDate" get-method="getDateScheduled" set-method="setDateScheduled" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="CustomerPoNum" get-method="getCustomerPO" set-method="setCustomerPO" usage="optional" />
+        <value name="LocationGroupId" get-method="getLocationGroupId" set-method="setLocationGroupId" usage="optional" />
+        <value name="TotalPrice" get-method="getTotalPrice" set-method="setTotalPrice" type="com.evnt.util.Money" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+    </mapping>
+
+    <mapping name="Payment" class="com.fbi.fbo.impl.orders.PaymentImpl" ordered="false" flexible="true">
+        <value name="Amount" get-method="getAmount" set-method="setAmount" type="com.evnt.util.Money" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <value name="SalesOrderNumber" get-method="getSalesOrderNumber" set-method="setSalesOrderNumber" usage="optional"/>
+        <value name="CurrencyRate" get-method="getCurrencyRate" set-method="setCurrencyRate" usage="optional" />
+        <value name="PaymentDate" get-method="getPaymentDate" set-method="setPaymentDate" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="PaymentMethod" get-method="getPaymentMethod" set-method="setPaymentMethod" usage="optional" />
+        <value name="Reference" get-method="getReference" set-method="setReference" usage="optional"/>
+        <value name="Confirmation" get-method="getConfirmation" set-method="setConfirmation" usage="optional"/>
+        <value name="ExpirationDate" get-method="getExpirationDate" set-method="setExpirationDate" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="DepositAccountName" get-method="getDepositAccountName" set-method="setDepositAccountName" usage="optional" />
+        <value name="TransactionID" get-method="getTransactionID" set-method="setTransactionID" usage="optional" />
+        <value name="AuthorizationCode" get-method="getAuthorizationCode" set-method="setAuthorizationCode" usage="optional" />
+        <value name="MerchantAccount" get-method="getMerchantAccount" set-method="setMerchantAccount" usage="optional" />
+        <value name="Info" get-method="getInfo" set-method="setInfo" usage="optional" />
+        <structure get-method="getCreditCard" set-method="addCreditCard" type="com.fbi.fbo.impl.orders.CreditCardImpl" usage="optional" />
+    </mapping>
+
+    <!-- PURCHASE ORDER -->
+    <mapping name="PurchaseOrder" class="com.fbi.fbo.impl.orders.PurchaseOrderImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional" />
+        <structure name="ID" usage="optional"/>
+        <value name="Note" get-method="getNote" set-method="setNote" usage="optional"/>
+        <value name="CreatedDate" get-method="getDateCreated" set-method="setDateCreated" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="ConfirmedDate" get-method="getDateConfirmed" set-method="setDateConfirmed" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="CompletedDate" get-method="getDateCompleted" set-method="setDateCompleted" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="FirstShipDate" get-method="getDateFirstShip" set-method="setDateFirstShip" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="IssuedDate" get-method="getDateIssued" set-method="setDateIssued" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="Number" get-method="getNumber" set-method="setNumber" usage="optional" />
+        <value name="Status" get-method="getStatus" set-method="setStatus" usage="optional" />
+        <value name="Buyer" get-method="getBuyer" set-method="setBuyer" usage="optional" />
+        <structure name="RemitTo" usage="optional">
+            <value name="Name" get-method="getRemitToName" set-method="setRemitToName" usage="optional" />
+            <value name="AddressField" get-method="getRemitToAddress" set-method="setRemitToAddress" usage="optional" />
+            <value name="City" get-method="getRemitToCity" set-method="setRemitToCity" usage="optional" />
+            <value name="Zip" get-method="getRemitToZip" set-method="setRemitToZip" usage="optional" />
+            <value name="Country" get-method="getRemitToCountry" set-method="setRemitToCountry" usage="optional" />
+            <value name="State" get-method="getRemitToState" set-method="setRemitToState" usage="optional" />
+        </structure>
+        <structure name="Ship" usage="optional">
+            <value name="Name" get-method="getShipToName" set-method="setShipToName" usage="optional" />
+            <value name="AddressField" get-method="getShipToAddress" set-method="setShipToAddress" usage="optional" />
+            <value name="City" get-method="getShipToCity" set-method="setShipToCity" usage="optional" />
+            <value name="Zip" get-method="getShipToZip" set-method="setShipToZip" usage="optional" />
+            <value name="Country" get-method="getShipToCountry" set-method="setShipToCountry" usage="optional" />
+            <value name="State" get-method="getShipToState" set-method="setShipToState" usage="optional" />
+        </structure>
+        <value name="DeliverTo" get-method="getDeliverToName" set-method="setDeliverToName" usage="optional" />
+        <value name="ShippingCost" get-method="getShippingCost" set-method="setShippingCost" type="com.evnt.util.Money" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <value name="ShippingTerms" get-method="getShippingTerms" set-method="setShippingTerms" usage="optional" />
+        <value name="PaymentTerms" get-method="getPaymentTerms" set-method="setPaymentTerms" usage="optional" />
+        <value name="FOB" get-method="getFOB" set-method="setFOB" usage="optional" />
+        <value name="VendorContact" get-method="getVendorContact" set-method="setVendorContact" usage="optional" />
+        <value name="VendorName" get-method="getVendorName" set-method="setVendorName" usage="optional" />
+        <value name="VendorSONum" get-method="getVendorSONum" set-method="setVendorSONum" usage="optional" />
+        <value name="QuickBooksClassName" get-method="getQBClass" set-method="setQBClass" usage="optional" />
+        <value name="LocationGroup" get-method="getLocationGroup" set-method="setLocationGroup" usage="optional" />
+        <value name="Carrier" get-method="getCarrier" set-method="setCarrier" usage="optional" />
+        <value name="CurrencyRate" get-method="getCurrencyRate" set-method="setCurrencyRate" usage="optional" />
+        <value name="CurrencyName" get-method="getCurrencyName" set-method="setCurrencyName" usage="optional" />
+        <value name="CostIsHomeCurrency" get-method="isCostIsHomeCurrency" set-method="setCostIsHomeCurrency" usage="optional" />
+        <collection name="CustomFields" add-method="addCustomField" item-type="com.fbi.fbo.CustomField" size-method="getCustomFieldListSize" load-method="getCustomField" usage="optional" test-method="hasCustomFields"/>
+        <collection name="Items" field="itemList" item-type="com.fbi.fbo.orders.PurchaseOrderItem" usage="optional" test-method="hasItems"/>
+    </mapping>
+
+    <mapping name="PurchaseOrderItem" class="com.fbi.fbo.impl.orders.PurchaseOrderItemImpl" ordered="false" flexible="true">
+        <value name="PartNumber" get-method="getPartNumber" set-method="setPartNumber" usage="optional" />
+        <value name="ID" get-method="getID" set-method="setID" usage="optional" />
+        <value name="Description" get-method="getDescription" set-method="setDescription" usage="optional" />
+        <value name="Quantity" get-method="getQuantity" set-method="setQuantity" type="com.evnt.util.Quantity" usage="optional" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <value name="QuantityFulfilled" get-method="getQuantityFulfilled" set-method="setQuantityFulfilled" type="com.evnt.util.Quantity" usage="optional" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <value name="QuantityPicked" get-method="getQuantityPicked" set-method="setQuantityPicked" type="com.evnt.util.Quantity" usage="optional" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <value name="UOMCode" get-method="getUOMCode" set-method="setUOMCode" usage="optional" />
+        <value name="VendorPartNum" get-method="getVendorPartNum" set-method="setVendorPartNum" usage="optional" />
+        <value name="ItemType" get-method="getType" set-method="setType" usage="optional"/>
+        <value name="Status" get-method="getStatus" set-method="setStatus" usage="optional" />
+        <value name="Note" get-method="getNote" set-method="setNote" usage="optional" />
+        <value name="UnitCost" get-method="getUnitCost" set-method="setUnitCost" type="com.evnt.util.Money" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <value name="QuickBooksClassName" get-method="getQBClass" set-method="setQBClass" usage="optional" />
+        <value name="RevisionLevel" get-method="getRevisionLevel" set-method="setRevisionLevel" usage="optional" />
+        <value name="ScheduledFulfillmentDate" get-method="getScheduledFulfillmentDate" set-method="setScheduledFulfillmentDate" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="LastFulfillmentDate" get-method="getLastFulfillmentDate" set-method="setLastFulfillmentDate" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+    </mapping>
+
+    <!-- TRANSFER ORDER -->
+    <mapping name="TransferOrder" class="com.fbi.fbo.impl.orders.TransferOrderImpl" ordered="false" flexible="true">
+        <value name="TOID" get-method="getID" set-method="setID" usage="optional" />
+        <value name="Number" get-method="getTransferOrderNum" set-method="setTransferOrderNum" usage="optional" />
+        <value name="Type" get-method="getType" set-method="setType" usage="optional"/>
+        <value name="TypeID" get-method="getTypeID" set-method="setTypeID" usage="optional" />
+        <value name="Status" get-method="getStatus" set-method="setStatus" usage="optional"/>
+        <value name="StatusID" get-method="getStatusID" set-method="setStatusID" usage="optional"/>
+        <structure name="ShipFromLG" usage="optional" >
+            <structure get-method="getShipFromLG" set-method="setShipFromLG" map-as="com.fbi.fbo.impl.LocationGroup" />
+        </structure>
+        <structure name="ShipFrom" usage="optional" >
+            <structure get-method="getShipFrom" set-method="setShipFrom" map-as="com.fbi.fbdata.accounts.AddressFpo" usage="optional"/>
+        </structure>
+        <structure name="ShipToLG" usage="optional" >
+            <structure get-method="getShipToLG" set-method="setShipToLG" map-as="com.fbi.fbo.impl.LocationGroup" />
+        </structure>
+        <structure name="ShipTo" usage="optional" >
+            <structure get-method="getShipTo" set-method="setShipTo" map-as="com.fbi.fbdata.accounts.AddressFpo" usage="optional"/>
+        </structure>
+        <structure name="MainLocationTag" usage="optional" >
+            <structure get-method="getMainLocationTag" set-method="setMainLocaitonTag" type="com.fbi.fbo.impl.tracking.TagImpl" usage="optional"/>
+        </structure>
+        <value name="OwnerIsFrom" get-method="isOwnerFrom" set-method="setOwner" usage="optional"/>
+        <value name="UserName" get-method="getUserName" set-method="setUserName" usage="optional"/>
+        <value name="RevisionNumber" get-method="getRevision" set-method="setRevision" usage="optional"/>
+        <value name="DateScheduled" get-method="getDateScheduled" set-method="setDateScheduled" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" />
+        <value name="DateLastModified" get-method="getDateLastModified" set-method="setDateLastModified" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional"/>
+        <value name="DateCreated" get-method="getDateCreated" set-method="setDateCreated" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="DateLastIssued" get-method="getDateIssued" set-method="setDateIssued" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="DateConfirmed" get-method="getDateConfirmed" set-method="setDateConfirmed" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="DateFirstShipped" get-method="getDateFirstShipped" set-method="setDateFirstShipped" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="DateFinished" get-method="getDateFinished" set-method="setDateFinished" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="Carrier" get-method="getCarrierName" set-method="setCarrierName" usage="optional" />
+        <value name="CarrierID" get-method="getCarrierID" set-method="setCarrierID" usage="optional" />
+        <value name="CarrierService" get-method="getCarrierServiceName" set-method="setCarrierServiceName" usage="optional" />
+        <value name="CarrierServiceID" get-method="getCarrierServiceId" set-method="setCarrierServiceId" usage="optional" />
+        <value name="Note" get-method="getNote" set-method="setNote" usage="optional" />
+        <value name="ShippingCost" get-method="getShippingCost" set-method="setShippingCost" type="com.evnt.util.Money" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <collection name="TransferOrderItems" add-method="addTransferOrderItem" item-type="com.fbi.fbo.orders.TransferOrderItem" size-method="getItemListSize" load-method="getTransferOrderItem" usage="optional" test-method="hasItems"/>
+        <collection name="CustomFields" add-method="addCustomField" item-type="com.fbi.fbo.CustomField" size-method="getCustomFieldListSize" load-method="getCustomField" usage="optional" test-method="hasCustomFields"/>
+        <collection name="Memos" add-method="addMemo" item-type="com.fbi.fbo.Memo" size-method="getMemoListSize" load-method="getMemo" usage="optional" test-method="hasMemos"/>
+        <collection name="OrderHistorys" add-method="addOrderHistory" item-type="com.fbi.fbo.OrderHistory" size-method="getOrderHistorySize" load-method="getOrderHistory" usage="optional" test-method="hasOrderHistory"/>
+    </mapping>
+
+    <mapping name="TransferOrderItem" class="com.fbi.fbo.impl.orders.TransferOrderItemImpl" ordered="false" flexible="true">
+        <value name="TransferOrderItemID" get-method="getTransferOrderItemID" set-method="setTransferOrderItemID" usage="optional"/>
+        <structure name="Number" usage="optional"/>
+        <value name="Type" get-method="getType" set-method="setType" usage="optional" />
+        <value name="TypeID" get-method="getTypeID" set-method="setTypeID" usage="optional" />
+        <value name="Status" get-method="getStatus" set-method="setStatus" usage="optional" />
+        <value name="StatusID" get-method="getStatusID" set-method="setStatusID" usage="optional" />
+        <structure get-method="getPart" set-method="setPart" type="com.fbi.fbo.impl.part.PartImpl" usage="optional" />
+        <structure get-method="getUOM" set-method="setUOM" type="com.fbi.fbo.impl.UOMImpl" usage="optional" />
+        <value name="LineItem" get-method="getLineItem" set-method="setLineItem" usage="optional" />
+        <value name="LineNumber" get-method="getLineNumber" set-method="setLineNumber" usage="optional" />
+        <value name="LineDescription" get-method="getLineDescription" set-method="setLineDescription" usage="optional"  />
+        <value name="Note" get-method="getNote" set-method="setNote" usage="optional" />
+        <value name="UnitCost" get-method="getUnitCost" set-method="setUnitCost" type="com.evnt.util.Money" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <value name="RevisionNumber" get-method="getRevision" set-method="setRevision" usage="optional" />
+        <value name="QuantityToFulfill" get-method="getQuantityToFulfill" set-method="setQuantityToFulfill" type="com.evnt.util.Quantity" usage="optional" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <value name="QuantityFulfilled" get-method="getQuantityFulfilled" set-method="setQuantityFulfilled" type="com.evnt.util.Quantity" usage="optional" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <value name="QuantityPicked" get-method="getQuantityPicked" set-method="setQuantityPicked" type="com.evnt.util.Quantity" usage="optional" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <value name="DateScheduled" get-method="getDateScheduled" set-method="setDateScheduled" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <structure name="DateFirstShipped" usage="optional"  />
+        <value name="DateFinished" get-method="getDateFinished" set-method="setDateFinished" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+    </mapping>
+
+    <!-- MISC -->
+    <mapping name="Memo" class="com.fbi.fbo.impl.MemoImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional" />
+        <value name="Memo" get-method="getMemo" set-method="setMemo" usage="optional"/>
+        <value name="UserName" get-method="getUserName" set-method="setUserName" usage="optional" />
+        <value name="DateCreated" get-method="getDateCreated" set-method="setDateCreated" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+    </mapping>
+
+    <mapping name="LocationGroup" class="com.fbi.fbo.impl.LocationGroup" ordered="false" flexible="true">
+        <value name="LocationGroupID" get-method="getLocationGroupID" set-method="setLocationGroupID" usage="optional" />
+        <value name="LocationGroupName" get-method="getLocationGroupName" set-method="setLocationGroupName" usage="optional" />
+        <value name="UsersDefaultLG" get-method="isUserDefaultLG" set-method="setUserDefaultLG" usage="optional"/>
+        <value name="DefaultQBClassID" get-method="getDefaultQBClassID" set-method="setDefaultQBClassID" usage="optional" />
+    </mapping>
+
+    <mapping name="Location" class="com.fbi.fbo.impl.LocationImpl" ordered="false" flexible="true">
+        <value name="LocationID" get-method="getLocationID" set-method="setLocationID" usage="optional" />
+        <value name="TypeID" get-method="getTypeID" set-method="setTypeID" usage="optional" />
+        <value name="ParentID" get-method="getParentID" set-method="setParentID" usage="optional"/>
+        <value name="Name" get-method="getName" set-method="setName" usage="optional" />
+        <value name="Description" get-method="getDescription" set-method="setDescription" usage="optional"/>
+        <value name="CountedAsAvailable" get-method="getCountedAsAvailable" set-method="setCountedAsAvailable" usage="optional"/>
+        <value name="Default" get-method="getDefault" set-method="setDefault" usage="optional"/>
+        <value name="Active" get-method="getActive" set-method="setActive" usage="optional"/>
+        <value name="Pickable" get-method="isPickable" set-method="setPickable" usage="optional"/>
+        <value name="Receivable" get-method="isReceivable" set-method="setReceivable" usage="optional"/>
+        <value name="LocationGroupID" get-method="getLocationGroupID" set-method="setLocationGroupID" usage="optional" />
+        <value name="LocationGroupName" get-method="getLocationGroupName" set-method="setLocationGroupName" usage="optional"/>
+        <value name="SortOrder" get-method="getSortOrder" set-method="setSortOrder" usage="optional"/>
+        <value name="TagID" get-method="getTagID" set-method="setTagID" usage="optional" />
+        <value name="TagNumber" get-method="getTagNumber" set-method="setTagNumber" usage="optional" />
+    </mapping>
+
+    <mapping name="User" class="com.fbi.fbo.impl.UserImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional" />
+        <value name="UserName" get-method="getUserName" set-method="setUserName" usage="optional" />
+        <value name="FirstName" get-method="getFirstName" set-method="setFirstName" usage="optional" />
+        <value name="LastName" get-method="getLastName" set-method="setLastName" usage="optional" />
+        <value name="Initials" get-method="getInitials" set-method="setInitials" usage="optional" />
+        <value name="Active" get-method="isActive" set-method="setActive" usage="optional"/>
+    </mapping>
+
+    <mapping name="InvQty" class="com.fbi.fbo.impl.inventory.InvQtyImpl" ordered="false" flexible="true">
+        <structure get-method="getPart" set-method="setPart" type="com.fbi.fbo.impl.part.PartImpl" usage="optional" />
+        <structure get-method="getLocation" set-method="setLocation" type="com.fbi.fbo.impl.LocationImpl" usage="optional" />
+        <value name="QtyOnHand" get-method="getQtyOnHand" set-method="setQtyOnHand" type="com.evnt.util.Quantity" serializer="com.evnt.util.Quantity.serializeQuantity" usage="optional" />
+        <value name="QtyAvailable" get-method="getQtyAvailable" set-method="setQtyAvailable" type="com.evnt.util.Quantity" serializer="com.evnt.util.Quantity.serializeQuantity" usage="optional" />
+        <value name="QtyCommitted" get-method="getQtyCommitted" set-method="setQtyCommitted" type="com.evnt.util.Quantity" serializer="com.evnt.util.Quantity.serializeQuantity" usage="optional" />
+        <structure get-method="getTracking" set-method="setTracking" type="com.fbi.fbo.tracking.Tracking" usage="optional" />
+    </mapping>
+
+    <!-- TRACKING -->
+    <mapping name="Tracking" class="com.fbi.fbo.impl.tracking.TrackingImpl" ordered="false">
+        <collection field="trackingItemList" item-type="com.fbi.fbo.tracking.TrackingItem" usage="optional" test-method="hasTrackingItem"/>
+    </mapping>
+
+    <mapping name="TrackingItem" class="com.fbi.fbo.impl.tracking.TrackingItemImpl" ordered="false" flexible="true">
+        <structure get-method="getPartTracking" set-method="setPartTracking" type="com.fbi.fbo.impl.tracking.PartTrackingImpl" usage="optional" />
+        <value name="TrackingValue" get-method="getTrackingString" set-method="setTracking" usage="optional" />
+        <collection name="SerialBoxList" add-method="addSerialBox" item-type="com.fbi.fbo.tracking.SerialBox" size-method="getSerialListSize" load-method="getSerialBox" usage="optional" test-method="hasSerialBoxes"/>
+    </mapping>
+
+    <mapping name="SerialBox" class="com.fbi.fbo.impl.tracking.SerialBoxImpl" ordered="false" flexible="true">
+        <value name="SerialID" get-method="getSerialID" set-method="setSerialID" usage="optional" />
+        <value name="TagID" get-method="getTagID" set-method="setTagID" usage="optional" />
+        <value name="Committed" get-method="isCommitted" set-method="setCommitted" usage="optional" />
+        <collection name="SerialNumList" add-method="addSerialNum" item-type="com.fbi.fbo.tracking.SerialNum" size-method="getSerialListSize" load-method="getSerialNum" usage="optional" test-method="hasSerialNums"/>
+    </mapping>
+
+    <mapping name="SerialNum" class="com.fbi.fbo.impl.tracking.SerialNumImpl" ordered="false" flexible="true">
+        <value name="SerialID" get-method="getSerialID" set-method="setSerialID" usage="optional"/>
+        <value name="SerialNumID" get-method="getID" set-method="setID" usage="optional" />
+        <value name="Number" get-method="getSerialNum" set-method="setSerialNum" usage="optional" />
+        <structure get-method="getPartTracking" set-method="setPartTracking" type="com.fbi.fbo.impl.tracking.PartTrackingImpl" usage="optional" />
+    </mapping>
+
+    <mapping name="Tag" class="com.fbi.fbo.impl.tracking.TagImpl" ordered="false" flexible="true">
+        <value name="TagID" get-method="getTagID" set-method="setTagID" usage="optional" />
+        <value name="Num" get-method="getNum" set-method="setNum" usage="optional"/>
+        <value name="PartNum" get-method="getPartNumber" set-method="setPartNumber" usage="optional" />
+        <value name="PartID" get-method="getPartID" set-method="setPartID" usage="optional" />
+        <structure get-method="getLocation" set-method="setLocation" type="com.fbi.fbo.impl.LocationImpl" usage="optional" />
+        <value name="Quantity" get-method="getQuantity" set-method="setQuantity" type="com.evnt.util.Quantity" serializer="com.evnt.util.Quantity.serializeQuantity" usage="optional" />
+        <value name="QuantityCommitted" get-method="getQuantityCommitted" set-method="setQuantityCommitted" type="com.evnt.util.Quantity" usage="optional" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <value name="WOItemID" get-method="getWOItemID" set-method="setWOItemID" usage="optional"/>
+        <value name="WOID" get-method="getWOID" set-method="setWOID" usage="optional"/>
+        <value name="WONum" get-method="getWONum" set-method="setWONum" usage="optional"/>
+        <value name="DateCreated" get-method="getDateCreated" set-method="setDateCreated" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <structure name="DateLastCycleCount" usage="optional"/>
+        <value name="SerializedFlag" get-method="tracksSerialNumbers" set-method="setSerializedFlag" usage="optional"/>
+        <value name="UsedFlag" get-method="getUsedFlag" set-method="setUsedFlag" usage="optional"/>
+        <structure get-method="getTracking" set-method="setTracking" type="com.fbi.fbo.impl.tracking.TrackingImpl" usage="optional"/>
+        <value name="TypeID" get-method="getTypeID" set-method="setTypeID" usage="optional"/>
+        <value name="TrackingFlag" get-method="isTracking" set-method="setTrackingFlag" usage="optional"/>
+    </mapping>
+
+    <!-- UOM -->
+    <mapping name="UOMConversion" class="com.fbi.fbo.impl.UOMConversionImpl" ordered="false" flexible="true">
+        <value name="MainUOMID" get-method="getMainUOMID" set-method="setMainUOMID" usage="optional" />
+        <value name="ToUOMID" get-method="getToUOMID" set-method="setToUOMID" usage="optional" />
+        <value name="ToUOMCode" get-method="getToUOMCode" set-method="setToUOMCode" usage="optional" />
+        <value name="ConversionMultiply" get-method="getMultiply" set-method="setMultiply" usage="optional" />
+        <value name="ConversionFactor" get-method="getFactor" set-method="setFactor" usage="optional" />
+        <value name="ToUOMIsIntegral" get-method="getToIsIntegral" set-method="setToIsIntegral" usage="optional" />
+    </mapping>
+
+    <mapping name="UOM" class="com.fbi.fbo.impl.UOMImpl" ordered="false" flexible="true">
+        <value name="UOMID" get-method="getUomId" set-method="setUomId" usage="optional" />
+        <value name="Name" get-method="getName" set-method="setName" usage="optional"/>
+        <value name="Code" get-method="getCode" set-method="setCode" usage="optional" />
+        <value name="Integral" get-method="isIntegral" set-method="setIntegral" usage="optional" />
+        <value name="Active" get-method="isActive" set-method="setActive" usage="optional" />
+        <value name="Type" get-method="getType" set-method="setType" serializer="com.fbi.factory.ConstantSerializer.serializeUOMType" deserializer="com.fbi.factory.ConstantSerializer.deSerializeUOMType" usage="optional" />
+        <collection name="UOMConversions" add-method="addConversion" item-type="com.fbi.fbo.UOMConversion" size-method="getConversionListSize" load-method="getConversion" usage="optional" test-method="hasConversions" />
+    </mapping>
+
+    <mapping name="Part" class="com.fbi.fbo.impl.part.PartImpl" ordered="false" flexible="true">
+        <value name="PartID" get-method="getID" set-method="setID" usage="optional" />
+        <value name="PartClassID" get-method="getPartClassID" set-method="setPartClassID" usage="optional"/>
+        <value name="TypeID" get-method="getTypeID" set-method="setTypeID" usage="optional" />
+        <structure get-method="getUOM" set-method="setUOM" type="com.fbi.fbo.impl.UOMImpl" usage="optional"/>
+        <value name="Num" get-method="getNum" set-method="setNum" usage="optional" />
+        <value name="Description" get-method="getDescription" set-method="setDescription" usage="optional"/>
+        <value name="Manufacturer" get-method="getManufacturer" set-method="setManufacturer" usage="optional" />
+        <value name="Details" get-method="getDetails" set-method="setDetails" usage="optional"/>
+        <value name="ABCCode" get-method="getABCCodeStr" set-method="setABCCodeStr" usage="optional"/>
+        <value name="StandardCost" get-method="getStandardCost" set-method="setStandardCost" type="com.evnt.util.Money" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <value name="HasBOM" get-method="hasBOM" set-method="setHasBOM" usage="optional" />
+        <value name="Configurable" get-method="isConfigurable" set-method="setConfigurable" usage="optional" />
+        <value name="PickInPartUOM" get-method="isPickInUOMofPart" set-method="setPickInUOMofPart" usage="optional"/>
+        <value name="ActiveFlag" get-method="isActive" set-method="setActive" usage="optional" />
+        <value name="SerializedFlag" get-method="isSerialized" set-method="setSerializedFlag" usage="optional" />
+        <value name="TrackingFlag" get-method="hasTracking" set-method="setHasTracking" usage="optional" />
+        <value name="Weight" get-method="getWeight" set-method="setWeight" type="com.evnt.util.Quantity" usage="optional" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <structure name="WeightUOM" usage="optional">
+            <structure get-method="getWeightUOM" set-method="setWeightUOM" type="com.fbi.fbo.impl.UOMImpl" usage="optional"/>
+        </structure>
+        <value name="Width" get-method="getWidth" set-method="setWidth" type="com.evnt.util.Quantity" usage="optional" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <value name="Height" get-method="getHeight" set-method="setHeight" type="com.evnt.util.Quantity" usage="optional" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <value name="Len" get-method="getLength" set-method="setLength" type="com.evnt.util.Quantity" usage="optional" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <structure name="SizeUOM" usage="optional">
+            <structure get-method="getSizeUOM" set-method="setSizeUOM" type="com.fbi.fbo.impl.UOMImpl" usage="optional"/>
+        </structure>
+        <value name="UPC" get-method="getUPC" set-method="setUPC" usage="optional" />
+        <collection name="CustomFields" add-method="addCustomField" item-type="com.fbi.fbo.CustomField" size-method="getCustomFieldListSize" load-method="getCustomField" test-method="hasCustomFields" usage="optional" />
+        <collection name="PartTrackingList" add-method="addPartTracking" item-type="com.fbi.fbo.tracking.PartTracking" size-method="getPartTrackingSize" load-method="getPartTracking" test-method="hasTracking" usage="optional" />
+        <collection name="VendorPartNums" add-method="addVendorPartNumber" item-type="com.fbi.fbo.VendorPartNumber" size-method="getVendorPartSize" load-method="getVendorPartNumber" test-method="hasVendorPartNumbers" usage="optional" />
+        <value name="Image" get-method="getImage" set-method="setImage" usage="optional"/>
+    </mapping>
+
+    <mapping name="LightPart" class="com.fbi.fbo.impl.part.LightPartImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional" />
+        <value name="Num" get-method="getNum" set-method="setNum" usage="optional" />
+        <value name="Description" get-method="getDescription" set-method="setDescription" usage="optional"/>
+        <value name="UPC" get-method="getUPC" set-method="setUPC" usage="optional" />
+        <value name="UOMID" get-method="getUomID" set-method="setUomID" usage="optional" />
+        <value name="ActiveFlag" get-method="isActive" set-method="setActiveFlag" usage="optional" />
+        <collection name="PartTrackingList" add-method="addPartTracking" item-type="com.fbi.fbo.tracking.PartTracking" size-method="getPartTrackingSize" load-method="getPartTracking" test-method="hasTracking" usage="optional" />
+    </mapping>
+
+    <mapping name="PartTracking" class="com.fbi.fbo.impl.tracking.PartTrackingImpl" ordered="false" flexible="true">
+        <value name="PartTrackingID" get-method="getID" set-method="setID" usage="optional" />
+        <value name="Name" get-method="getName" set-method="setName" usage="optional" />
+        <value name="Abbr" get-method="getAbbr" set-method="setAbbr" usage="optional" />
+        <value name="Description" get-method="getDescription" set-method="setDescription" usage="optional" />
+        <value name="SortOrder" get-method="getSortOrder" set-method="setSortOrder" usage="optional" />
+        <value name="TrackingTypeID" get-method="getTrackingTypeID" set-method="setTrackingTypeID" usage="optional" />
+        <value name="Active" get-method="isActive" set-method="setActive" usage="optional" />
+        <value name="UsageCount" get-method="getUsageCount" set-method="setUsageCount" usage="optional" />
+        <value name="Primary" get-method="isPrimary" set-method="setPrimary" usage="optional" />
+    </mapping>
+
+    <mapping name="VendorPartNumber" class="com.fbi.fbo.impl.VendorPartNumberImpl" ordered="false" flexible="true">
+        <value name="Number" get-method="getVendorPartNumber" set-method="setVendorPartNumber" usage="optional" />
+    </mapping>
+
+    <mapping name="OrderHistory" class="com.fbi.fbo.impl.OrderHistoryImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional" />
+        <value name="UserName" get-method="getUserName" set-method="setUserName" usage="optional"/>
+        <value name="DateCreated" get-method="getDateCreated" set-method="setDateCreated" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional" />
+        <value name="Comment" get-method="getComment" set-method="setComment" usage="optional" />
+        <value name="TableID" get-method="getTableID" set-method="setTableID" usage="optional"/>
+        <value name="RecordID" get-method="getRecordID" set-method="setRecordID" usage="optional" />
+    </mapping>
+
+    <mapping name="Pick" class="com.fbi.fbo.impl.picking.PickImpl" ordered="false" flexible="true">
+        <value name="PickID" get-method="getPickID" set-method="setPickID" usage="optional" />
+        <value name="Number" get-method="getPickNum" set-method="setPickNum" usage="optional"/>
+        <value name="Type" get-method="getTypeName" set-method="setTypeName" usage="optional" />
+        <value name="TypeID" get-method="getTypeID" set-method="setTypeID" usage="optional" />
+        <value name="Status" get-method="getStatusName" set-method="setStatusName" usage="optional" />
+        <value name="StatusID" get-method="getStatusID" set-method="setStatusID" usage="optional" />
+        <value name="Priority" get-method="getPriorityName" set-method="setPriorityName" usage="optional"/>
+        <value name="PriorityID" get-method="getPriorityID" set-method="setPriorityID" usage="optional" />
+        <value name="LocationGroupID" get-method="getLocationGroupID" set-method="setLocationGroupID" usage="optional" />
+        <value name="DateLastModified" get-method="getDateLastModified" set-method="setDateLastModified" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional"/>
+        <value name="DateScheduled" get-method="getDateScheduled" set-method="setDateScheduled" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional"/>
+        <value name="DateCreated" get-method="getDateCreated" set-method="setDateCreated" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional"/>
+        <value name="DateStarted" get-method="getDateStarted" set-method="setDateStarted" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="DateFinished" get-method="getDateFinished" set-method="setDateFinished" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="UserName" get-method="getUserName" set-method="setUserName" usage="optional" />
+        <collection name="PickOrders" field="pickOrders" usage="optional"/>
+        <collection name="PickItems" add-method="addPickItem" item-type="com.fbi.fbo.picking.PickItem" size-method="getPickItemSize" load-method="getPickItem" />
+    </mapping>
+
+    <mapping name="PickOrder" class="com.fbi.fbo.impl.picking.PickImpl$PickOrder" ordered="false" flexible="true">
+        <value name="OrderType" field="orderType" usage="optional" />
+        <value name="OrderTypeID" field="orderTypeID" usage="optional" />
+        <value name="OrderNum" field="orderNum" usage="optional" />
+        <value name="OrderID" field="orderID" usage="optional" />
+        <value name="OrderTo" field="orderTo" usage="optional" />
+        <value name="Note" field="note" usage="optional" />
+    </mapping>
+
+    <mapping name="PickItem" class="com.fbi.fbo.impl.picking.PickItemImpl" ordered="false" flexible="true">
+        <value name="PickItemID" get-method="getPickItemID" set-method="setPickItemID" usage="optional" />
+        <value name="Status" get-method="getStatusID" set-method="setStatusID"  usage="optional" />
+        <structure get-method="getPart" set-method="setPart" type="com.fbi.fbo.impl.part.PartImpl" usage="optional"/>
+        <structure get-method="getTag" set-method="setTag" type="com.fbi.fbo.impl.tracking.TagImpl" usage="optional"/>
+        <value name="Quantity" get-method="getQty" set-method="setQty" type="com.evnt.util.Quantity" serializer="com.evnt.util.Quantity.serializeQuantity" usage="optional"/>
+        <structure get-method="getUOM" set-method="setUOM" type="com.fbi.fbo.impl.UOMImpl" usage="optional" />
+        <structure get-method="getTracking" set-method="setTracking" type="com.fbi.fbo.impl.tracking.TrackingImpl" usage="optional"/>
+        <structure name="DestinationTag" usage="optional">
+            <structure get-method="getDestinationTag" set-method="setDestinationTag" type="com.fbi.fbo.impl.tracking.TagImpl" usage="optional"/>
+        </structure>
+        <value name="OrderType" get-method="getOrderType" set-method="setOrderType" usage="optional" />
+        <value name="OrderTypeID" get-method="getOrderTypeID" set-method="setOrderTypeID" usage="optional" />
+        <value name="OrderNum" get-method="getOrderNum" set-method="setOrderNum" usage="optional" />
+        <value name="OrderID" get-method="getOrderID" set-method="setOrderID" usage="optional" />
+        <value name="SoItemId" get-method="getSoItemId" set-method="setSoItemId" usage="optional" />
+        <value name="PoItemId" get-method="getPoItemId" set-method="setPoItemId" usage="optional" />
+        <value name="XoItemId" get-method="getXoItemId" set-method="setXoItemId" usage="optional" />
+        <value name="WoItemId" get-method="getWoItemId" set-method="setWoItemId" usage="optional" />
+        <value name="SlotNumber" get-method="getSlotNum" set-method="setSlotNum" usage="optional" />
+        <value name="OverPicked" get-method="isOverPicked" set-method="setOverPicked" usage="optional" />
+        <value name="Note" get-method="getNote" set-method="setNote" usage="optional"/>
+        <value name="SourceTagID" get-method="getSourceTagID" set-method="setSourceTagID" usage="optional" />
+        <structure get-method="getSourceLocation" set-method="setSourceLocation" type="com.fbi.fbo.impl.LocationImpl" usage="optional" />
+        <value name="PickItemType" get-method="getPickItemTypeID" set-method="setPickItemTypeID" usage="optional" />
+        <collection name="AvailablePickLocations" field="availablePickLocationIDs" type="java.util.ArrayList" usage="optional" >
+            <value name="LocationID" type="java.lang.Integer" />
+        </collection>
+        <value name="AltNumber" get-method="getAltNumber" set-method="setAltNumber" usage="optional" />
+    </mapping>
+
+    <mapping name="PickSearchItem" class="com.fbi.fbo.impl.picking.PickSearchItemImpl" ordered="false" flexible="true">
+        <value name="PickID" get-method="getPickId" set-method="setPickId" usage="optional" />
+        <value name="Number" get-method="getNumber" set-method="setNumber" usage="optional"/>
+        <value name="OrderTypeNumber" get-method="getOrderTypeNumber" set-method="setOrderTypeNumber" usage="optional"/>
+        <value name="Priority" get-method="getPriority" set-method="setPriority" usage="optional" />
+        <value name="DateScheduled" get-method="getDateScheduled" set-method="setDateScheduled" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional"/>
+        <value name="OrderValue" get-method="getOrderValue" set-method="setOrderValue" usage="optional"/>
+    </mapping>
+
+    <mapping name="CreditCard" class="com.fbi.fbo.impl.orders.CreditCardImpl" ordered="false" flexible="true">
+        <value name="CardNumber" get-method="getCardNumber" set-method="setCardNumber" usage="optional" />
+        <value name="CardExpMonth" get-method="getCardExpMonth" set-method="setCardExpMonth" usage="optional" />
+        <value name="CardExpYear" get-method="getCardExpYear" set-method="setCardExpYear" usage="optional" />
+        <value name="SecurityCode" get-method="getSecurityCode" set-method="setSecurityCode" usage="optional" />
+        <value name="NameOnCard" get-method="getNameOnCard" set-method="setNameOnCard" usage="optional" />
+        <value name="CardAddress" get-method="getCardAddress" set-method="setCardAddress" usage="optional" />
+        <value name="CardZipCode" get-method="getCardZipcode" set-method="setCardZipcode" usage="optional" />
+        <value name="CardCountryCode" get-method="getCardCountryCode" set-method="setCardCountryCode" usage="optional" />
+    </mapping>
+
+    <mapping name="ShipSearchItem" class="com.fbi.fbo.impl.shipping.ShipSearchItemImpl" ordered="false" flexible="true">
+        <value name="ShipID" get-method="getId" set-method="setId" usage="optional" />
+        <value name="ShipNumber" get-method="getShipNum" set-method="setShipNum" usage="optional"/>
+        <value name="OrderNumber" get-method="getOrderNum" set-method="setOrderNum" usage="optional"/>
+        <value name="OrderType" get-method="getOrderType" set-method="setOrderType" usage="optional"/>
+        <value name="ShipTo" get-method="getShipTo" set-method="setShipTo" usage="optional" />
+        <value name="ShipToNum" get-method="getShipToNum" set-method="setShipToNum" usage="optional" />
+        <value name="Carrier" get-method="getCarrier" set-method="setCarrier" usage="optional" />
+        <value name="DateScheduled" get-method="getDateScheduled" set-method="setDateScheduled" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional" />
+        <value name="DateShipped" get-method="getDateShipped" set-method="setDateShipped" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional" />
+        <value name="Status" get-method="getStatus" set-method="setStatus" usage="optional"/>
+    </mapping>
+
+    <mapping name="AssociatedProduct" class="com.fbi.fbo.impl.product.AssociatedProductImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional" />
+        <structure get-method="getProduct" set-method="setProduct" type="com.fbi.fbo.impl.product.ProductImpl" usage="optional"/>
+        <value name="ParentProductID" get-method="getParentProductID" set-method="setParentProductID" usage="optional"/>
+        <value name="Note" get-method="getNote" set-method="setNote" usage="optional"/>
+        <value name="SortOrder" get-method="getSortOrder" set-method="setSortOrder" usage="optional" />
+        <value name="DateCreated" get-method="getDateCreated" set-method="setDateCreated" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional"/>
+        <value name="DateModified" get-method="getDateModified" set-method="setDateModified" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional"/>
+    </mapping>
+
+    <mapping name="Product" class="com.fbi.fbo.impl.product.ProductImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional" />
+        <value name="PartID" get-method="getPartID" set-method="setPartID" usage="optional" />
+        <structure get-method="getPart" set-method="setPart" type="com.fbi.fbo.impl.part.PartImpl" usage="optional"/>
+        <value name="Num" get-method="getNumber" set-method="setNumber" usage="optional"/>
+        <value name="Description" get-method="getDescription" set-method="setDescription" usage="optional"/>
+        <value name="Details" get-method="getDetails" set-method="setDetails" usage="optional"/>
+        <value name="UPC" get-method="getUPC" set-method="setUPC" usage="optional"/>
+        <value name="SKU" get-method="getSKU" set-method="setSKU" usage="optional"/>
+        <value name="Price" get-method="getPrice" set-method="setPrice" type="com.evnt.util.Money" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <structure get-method="getUOM" set-method="setUOM" type="com.fbi.fbo.impl.UOMImpl" usage="optional"/>
+        <value name="DefaultSOItemType" get-method="getDefaultSOItemType" set-method="setDefaultSOItemType" />
+        <value name="DisplayType" get-method="getDisplayType" set-method="setDisplayType" usage="optional"/>
+        <value name="URL" get-method="getURL" set-method="setURL" usage="optional"/>
+        <value name="Weight" get-method="getWeight" set-method="setWeight" usage="optional" type="com.evnt.util.Quantity" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <value name="WeightUOMID" get-method="getWeightUOMID" set-method="setWeightUOMID" usage="optional"/>
+        <value name="Width" get-method="getWidth" set-method="setWidth" usage="optional" type="com.evnt.util.Quantity" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <value name="Height" get-method="getHeight" set-method="setHeight" type="com.evnt.util.Quantity" usage="optional" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <value name="Len" get-method="getLength" set-method="setLength"  type="com.evnt.util.Quantity" usage="optional" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <value name="SizeUOMID" get-method="getSizeUOMID" set-method="setSizeUOMID" usage="optional"/>
+        <value name="IncomeAccountID" get-method="getIncomeAccountID" set-method="setIncomeAccountID" usage="optional"/>
+        <value name="AccountingID" get-method="getAccountingID" set-method="setAccountingID" usage="optional"/>
+        <value name="AccountingHash" get-method="getAccountingHash" set-method="setAccountingHash" usage="optional"/>
+        <value name="SellableInOtherUOMFlag" get-method="isSellableInOtherUOMs" set-method="setSellableInOtherUOMs" usage="optional"/>
+        <value name="ActiveFlag" get-method="isActive" set-method="setActiveFlag" usage="optional"/>
+        <value name="TaxableFlag" get-method="isTaxable" set-method="setTaxableFlag" usage="optional"/>
+        <value name="UsePriceFlag" get-method="usePrice" set-method="setUsePrice" usage="optional"/>
+        <value name="KitFlag" get-method="isKit" set-method="setKitFlag" usage="optional" />
+        <value name="KitGroupedFlag" get-method="isKitGrouped" set-method="setKitGroupedFlag" usage="optional"/>
+        <value name="ShowSOComboFlag" get-method="showOnSOCombo" set-method="setShowOnSOComboFlag" usage="optional"/>
+        <value name="DateCreated" get-method="getDateCreated" set-method="setDateCreated" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="DateModified" get-method="getDateModified" set-method="setDateModified" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="Image" get-method="getImage" set-method="setImage" usage="optional"/>
+        <collection name="CustomFields" add-method="addCustomField" item-type="com.fbi.fbo.CustomField" size-method="getCustomFieldListSize" load-method="getCustomField" test-method="hasCustomFields" usage="optional" />
+    </mapping>
+
+    <mapping name="KitOption" class="com.fbi.fbo.impl.product.KitOptionImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional" />
+        <value name="KitItemID" get-method="getKitItemID" set-method="setKitItemID" usage="optional" />
+        <structure get-method="getProduct" set-method="setProduct" type="com.fbi.fbo.impl.product.ProductImpl" usage="optional"/>
+        <value name="DefaultFlag" get-method="isDefault" set-method="setDefault" usage="optional"/>
+        <value name="PriceAdjustment" get-method="getPriceAdjustment" set-method="setPriceAdjustment" type="com.evnt.util.Money" usage="optional" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <value name="DateCreated" get-method="getDateCreated" set-method="setDateCreated" usage="optional" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="DateModified" get-method="getDateModified" set-method="setDateModified" usage="optional" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+    </mapping>
+
+    <mapping name="KitItem" class="com.fbi.fbo.impl.product.KitItemImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional" />
+        <value name="Description" get-method="getDescription" set-method="setDescription" usage="optional" />
+        <value name="KitItemType" get-method="getKitItemType" set-method="setKitItemType" usage="optional"/>
+        <structure get-method="getProduct" set-method="setProduct" type="com.fbi.fbo.impl.product.ProductImpl" usage="optional"/>
+        <structure get-method="getTaxRate" set-method="setTaxRate" type="com.fbi.fbo.impl.TaxRateImpl" usage="optional"/>
+        <structure get-method="getDiscount" set-method="setDiscount" type="com.fbi.fbo.impl.DiscountImpl" usage="optional"/>
+        <value name="ParentProductID" get-method="getParentProductID" set-method="setParentProductID" usage="optional" />
+        <value name="QtyPriceAdjustment" get-method="getQtyPriceAdjustment" set-method="setQtyPriceAdjustment" usage="optional" type="com.evnt.util.Money" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <value name="SortOrder" get-method="getSortOrder" set-method="setSortOrder" usage="optional" />
+        <value name="DefaultQty" get-method="getQtyDefault" set-method="setQtyDefault" type="com.evnt.util.Quantity" serializer="com.evnt.util.Quantity.serializeQuantity" usage="optional"/>
+        <value name="MinQty" get-method="getQtyMin" set-method="setQtyMin" type="com.evnt.util.Quantity" serializer="com.evnt.util.Quantity.serializeQuantity" usage="optional"/>
+        <value name="MaxQty" get-method="getQtyMax" set-method="setQtyMax" type="com.evnt.util.Quantity" usage="optional" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <structure get-method="getUOM" set-method="setUOM" type="com.fbi.fbo.impl.UOMImpl" usage="optional"/>
+        <value name="KitType" get-method="getKitType" set-method="setKitType" usage="optional" />
+        <value name="SOItemType" get-method="getSOItemType" set-method="setSOItemType" usage="optional" />
+        <value name="Note" get-method="getNote" set-method="setNote" usage="optional"/>
+        <value name="DateCreated" get-method="getDateCreated" set-method="setDateCreated" usage="optional" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="DateModified" get-method="getDateModified" set-method="setDateModified" usage="optional" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <collection name="OptionList" field="kitOptionList" item-type="com.fbi.fbo.product.KitOption" usage="optional" />
+    </mapping>
+
+    <mapping name="TaxRate" class="com.fbi.fbo.impl.TaxRateImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional"/>
+        <value name="Name" get-method="getName" set-method="setName" usage="optional"/>
+        <value name="TaxCode" get-method="getTaxCode" set-method="setTaxCode" usage="optional"/>
+        <value name="Description" get-method="getDescription" set-method="setDescription" usage="optional"/>
+        <value name="Rate" get-method="getRate" set-method="setRate" usage="optional"/>
+        <value name="Type" get-method="getType" set-method="setType" usage="optional" />
+        <value name="TypeID" get-method="getTypeID" set-method="setTypeID" usage="optional" />
+        <value name="VendorID" get-method="getVendorID" set-method="setVendorID" usage="optional" />
+        <value name="DefaultFlag" get-method="isDefault" set-method="setDefaultFlag" usage="optional" />
+        <value name="ActiveFlag" get-method="isActive" set-method="setActiveFlag" usage="optional" />
+    </mapping>
+
+    <mapping name="Discount" class="com.fbi.fbo.impl.DiscountImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional"/>
+        <value name="Type" get-method="getType" set-method="setType" usage="optional" />
+        <value name="TypeID" get-method="getTypeID" set-method="setTypeID" usage="optional" />
+        <value name="Name" get-method="getName" set-method="setName" usage="optional"/>
+        <value name="Description" get-method="getDescription" set-method="setDescription" usage="optional"/>
+        <value name="Percentage" get-method="getPercentage" set-method="setPercentage" usage="optional"/>
+        <value name="Amount" get-method="getAmount" set-method="setAmount" usage="optional" type="com.evnt.util.Money" serializer="com.evnt.util.MoneySerializer.serializeMoney"/>
+        <value name="TaxableFlag" get-method="isTaxable" set-method="setTaxableFlag" usage="optional" />
+    </mapping>
+
+    <mapping name="WO" class="com.fbi.fbo.impl.wo.WOImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional" />
+        <value name="Num" get-method="getNum" set-method="setNum" usage="optional" />
+        <value name="CustomerID" get-method="getCustomerID" set-method="setCustomerID" usage="optional" />
+        <value name="MOItemID" get-method="getMoItemID" set-method="setMoItemID" usage="optional" />
+        <collection name="WOItems" add-method="addItem" item-type="com.fbi.fbo.wo.WOItem" size-method="getItemsSize" load-method="getItem" />
+        <collection name="WoInstructions" field="woInstructionList" usage="optional" />
+        <value name="Cost" get-method="getCost" set-method="setCost" type="com.evnt.util.Money" serializer="com.evnt.util.MoneySerializer.serializeMoney" usage="optional"/>
+        <structure name="Location" usage="optional">
+            <structure get-method="getLocation" set-method="setLocation" type="com.fbi.fbo.impl.LocationImpl" usage="optional" />
+        </structure>
+        <value name="Note" get-method="getNote" set-method="setNote" usage="optional" />
+        <value name="StatusID" get-method="getStatusID" set-method="setStatusID" usage="optional"/>
+        <value name="QBClass" get-method="getQbClass" set-method="setQbClass" usage="optional" />
+        <value name="QBClassID" get-method="getQbClassID" set-method="setQbClassID" usage="optional" />
+        <value name="QtyOrdered" get-method="getQtyOrdered" set-method="setQtyOrdered" usage="optional" />
+        <value name="QtyScrapped" get-method="getQtyScrapped" set-method="setQtyScrapped" usage="optional" />
+        <value name="QtyTarget" get-method="getQtyTarget" set-method="setQtyTarget" usage="optional" />
+
+        <value name="DateCreated" get-method="getDateCreated" set-method="setDateCreated" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional" />
+        <value name="DateFinished" get-method="getDateFinished" set-method="setDateFinished" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional" />
+        <value name="DateLastModified" get-method="getDateLastModified" set-method="setDateLastModified" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional" />
+        <value name="DateScheduled" get-method="getDateScheduled" set-method="setDateScheduled" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional" />
+        <value name="DateScheduledToStart" get-method="getDateScheduledToStart" set-method="setDateScheduledToStart" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional" />
+        <value name="DateStarted" get-method="getDateStarted" set-method="setDateStarted" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional" />
+
+        <collection name="AssignedUsers" add-method="addAssignedUser" item-type="com.fbi.fbo.User" size-method="getAssignedUsersSize" load-method="getAssignedUser" test-method="hasAssignedUsers" usage="optional" />
+        <structure name="User" usage="optional">
+            <structure get-method="getUser" set-method="setUser" type="com.fbi.fbo.impl.UserImpl" usage="optional" />
+        </structure>
+        <collection name="Memos" add-method="addMemo" item-type="com.fbi.fbo.Memo" size-method="getMemoListSize" load-method="getMemo" test-method="hasMemos" usage="optional" />
+    </mapping>
+
+    <mapping name="WOItem" class="com.fbi.fbo.impl.wo.WOItemImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional" />
+        <value name="MOItemID" get-method="getMoItemID" set-method="setMoItemID" usage="optional" />
+        <value name="TypeID" get-method="getTypeID" set-method="setTypeID"  usage="optional" />
+        <structure get-method="getPart" set-method="setPart" type="com.fbi.fbo.impl.part.PartImpl" usage="optional" />
+        <value name="Description" get-method="getDescription" set-method="setDescription" usage="optional" />
+        <value name="Cost" get-method="getCost" set-method="setCost" usage="optional"/>
+        <value name="DateScheduled" get-method="getDateScheduled" set-method="setDateScheduled" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional" />
+        <value name="QtyScrapped" get-method="getQtyScrapped" set-method="setQtyScrapped" usage="optional" />
+        <value name="QtyToFulfill" get-method="getQtyToFulfill" set-method="setQtyToFulfill" usage="optional" />
+        <value name="OriginalQtyToFulfill" get-method="getOriginalQtyToFulfill" set-method="setOriginalQtyToFulfill" usage="optional" />
+        <value name="QtyUsed" get-method="getQtyUsed" set-method="setQtyUsed" usage="optional" />
+        <structure name="DestLocation" usage="optional">
+            <structure get-method="getDestLocation" set-method="setDestLocation" type="com.fbi.fbo.impl.LocationImpl" usage="optional" />
+        </structure>
+        <structure get-method="getUOM" set-method="setUOM" type="com.fbi.fbo.impl.UOMImpl" usage="optional"/>
+        <structure get-method="getTracking" set-method="setTracking" type="com.fbi.fbo.impl.tracking.TrackingImpl" usage="optional"/>
+        <value name="SortID" get-method="getSortID" set-method="setSortID" usage="optional" />
+        <collection name="ConsumeItems" add-method="addConsumeItem" item-type="com.fbi.fbo.impl.wo.ConsumeItem" size-method="getConsumeItemsSize" load-method="getConsumeItem" test-method="hasConsumeItems" usage="optional" />
+    </mapping>
+
+    <mapping name="WOInstruction" class="com.fbi.fbo.impl.wo.WoInstruction" ordered="false" flexible="true">
+        <value name="ID" get-method="getId" set-method="setId" usage="optional" />
+        <value name="Name" get-method="getName" set-method="setName" usage="optional" />
+        <value name="WOID" get-method="getWoId" set-method="setWoId" usage="optional" />
+        <value name="URL" get-method="getUrl" set-method="setUrl" usage="optional" />
+        <value name="Details" get-method="getDetails" set-method="setDetails" usage="optional" />
+        <value name="Description" get-method="getDescription" set-method="setDescription" usage="optional" />
+        <value name="SortOrder" get-method="getSortOrder" set-method="setSortOrder" usage="optional" />
+        <value name="BomInstructionItemID" get-method="getBomInstructionItemId" set-method="setBomInstructionItemId" usage="optional" />
+        <value name="QtyReady" get-method="getQtyReady" set-method="setQtyReady" usage="optional" />
+        <value name="QtyFulfilled" get-method="getQtyFulfilled" set-method="setQtyFulfilled" usage="optional" />
+        <value name="DateFirstReady" get-method="getDateFirstReady" set-method="setDateFirstReady" usage="optional" />
+        <value name="DateLastFulfilled" get-method="getDateLastFulfilled" set-method="setDateLastFulfilled" usage="optional" />
+    </mapping>
+
+    <!--RECEIVING-->
+    <mapping name="ReceivedReceipt" class="com.fbi.fbo.impl.receiving.ReceivedReceiptImpl" ordered="false" flexible="true">
+        <value name="ItemType" get-method="getItemType" set-method="setItemType" usage="optional" />
+        <value name="Quantity" get-method="getQuantity" set-method="setQuantity" type="com.evnt.util.Quantity" usage="optional" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <value name="Responsible" get-method="getResponsibleID" set-method="setResponsibleID" usage="optional" />
+        <value name="Reason" get-method="getReason" set-method="setReason" usage="optional"/>
+        <value name="TagNum" get-method="getTagNum" set-method="setTagNum" usage="optional"/>
+        <value name="LocationID" get-method="getLocationID" set-method="setLocationID" usage="optional"/>
+        <structure get-method="getTracking" set-method="setTracking" type="com.fbi.fbo.impl.tracking.TrackingImpl" usage="optional"/>
+    </mapping>
+
+    <mapping name="ReceivedReceipts" class="com.fbi.fbo.impl.receiving.ReceivedReceiptsImpl" ordered="false">
+        <collection field="receiptList" item-type="com.fbi.fbo.receiving.ReceivedReceipt" usage="optional" test-method="hasReceivingReceipts"/>
+    </mapping>
+
+    <mapping name="Receipt" class="com.fbi.fbo.impl.receiving.ReceiptImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getId" set-method="setId" usage="optional" />
+        <value name="StatusID" get-method="getStatusId" set-method="setStatusId" usage="optional" />
+        <value name="TypeID" get-method="getTypeId" set-method="setTypeId" usage="optional" />
+        <value name="OrderTypeID" get-method="getOrderTypeId" set-method="setOrderTypeId" usage="optional" />
+        <value name="SOID" get-method="getSoId" set-method="setSoId" usage="optional" />
+        <value name="POID" get-method="getPoId" set-method="setPoId" usage="optional" />
+        <value name="XOID" get-method="getXoId" set-method="setXoId" usage="optional" />
+        <value name="OrderNote" get-method="getOrderNote" set-method="setOrderNote" usage="optional" />
+        <value name="DropShipPOFlag" get-method="isDropShipPO" set-method="setDropShipPO" usage="optional" />
+        <value name="UserID" get-method="getUserId" set-method="setUserId" usage="optional" />
+        <value name="LocationGroupID" get-method="getLocationGroupId" set-method="setLocationGroupId" usage="optional" />
+        <collection name="ReceiptItems" add-method="addReceiptItem" item-type="com.fbi.fbo.receiving.ReceiveItem" size-method="getReceiptItemSize" load-method="getReceiptItem" />
+    </mapping>
+
+    <mapping name="ReceiveItem" class="com.fbi.fbo.impl.receiving.ReceiveItemImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional"/>
+        <value name="ItemNum" get-method="getItemNum" set-method="setItemNum" usage="optional"/>
+        <value name="Description" get-method="getDescription" set-method="setDescription" usage="optional"/>
+        <value name="LineNum" get-method="getLineNum" set-method="setLineNum" usage="optional"/>
+        <value name="ItemStatus" get-method="getItemStatus" set-method="setItemStatus" usage="optional"/>
+        <value name="ItemType" get-method="getItemType" set-method="setItemType" usage="optional" />
+        <value name="DateLastModified" get-method="getDateLastModified" set-method="setDateLastModified" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="OrderNum" get-method="getOrderNum" set-method="setOrderNum" usage="optional"/>
+        <value name="OrderType" get-method="getOrderTypeId" set-method="setOrderTypeId" usage="optional"/>
+        <value name="SoItemId" get-method="getSoItemId" set-method="setSoItemId" usage="optional"/>
+        <value name="PoItemId" get-method="getPoItemId" set-method="setPoItemId" usage="optional"/>
+        <value name="XoItemId" get-method="getXoItemId" set-method="setXoItemId" usage="optional"/>
+        <value name="OrderItemType" get-method="getOrderItemType" set-method="setOrderItemType" usage="optional"/>
+        <value name="ReceiptID" get-method="getReceiptId" set-method="setReceiptId" usage="optional"/>
+        <value name="Quantity" get-method="getQuantity" set-method="setQuantity" type="com.evnt.util.Quantity" usage="optional" serializer="com.evnt.util.Quantity.serializeQuantity"/>
+        <value name="UOMName" get-method="getUOMName" set-method="setUOMName" usage="optional"/>
+        <value name="UOMID" get-method="getUomId" set-method="setUomId" usage="optional"/>
+        <value name="SuggestedLocationID" get-method="getSuggestedLocationId" set-method="setSuggestedLocationId" usage="optional"/>
+        <value name="OriginalUnitCost" get-method="getOriginalUnitCost" set-method="setOriginalUnitCost" serializer="com.evnt.util.MoneySerializer.serializeMoney" usage="optional"/>
+        <value name="BilledUnitCost" get-method="getBilledUnitCost" set-method="setBilledUnitCost" serializer="com.evnt.util.MoneySerializer.serializeMoney" usage="optional"/>
+        <value name="LandedUnitCost" get-method="getLandedUnitCost" set-method="setLandedUnitCost" serializer="com.evnt.util.MoneySerializer.serializeMoney" usage="optional"/>
+        <value name="DateReceived" get-method="getDateReceived" set-method="setDateReceived" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="DateReconciled" get-method="getDateReconciled" set-method="setDateReconciled" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="DeliverTo" get-method="getDeliverTo" set-method="setDeliverTo" usage="optional"/>
+        <value name="billVendorFlag" get-method="getBillVendorFlag" set-method="setBillVendorFlag" usage="optional"/>
+        <value name="CarrierID" get-method="getCarrierId" set-method="setCarrierId" usage="optional"/>
+        <value name="PartTypeID" get-method="getPartTypeId" set-method="setPartTypeId" usage="optional"/>
+        <value name="ShipItemID" get-method="getShipItemId" set-method="setShipItemId" usage="optional"/>
+        <value name="TrackingNum" get-method="getTrackingNum" set-method="setTrackingNum" usage="optional"/>
+        <value name="PackageCount" get-method="getPackageCount" set-method="setPackageCount" usage="optional"/>
+        <value name="ReferenceNum" get-method="getRefNo" set-method="setRefNo" usage="optional" />
+        <value name="DateScheduled" get-method="getDateScheduled" set-method="setDateScheduled" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <structure get-method="getReceivedReceipts" set-method="setReceivedReceipts" type="com.fbi.fbo.impl.receiving.ReceivedReceiptsImpl" usage="optional"/>
+        <structure get-method="getLinkedOrder" set-method="setLinkedOrder" type="com.fbi.fbo.impl.orders.LinkedOrderImpl" usage="optional"/>
+        <structure get-method="getPart" set-method="setPart" type="com.fbi.fbo.part.Part" usage="optional"/>
+    </mapping>
+
+    <mapping name="RMAItemLink" class="com.fbi.fbo.impl.rma.RMAItemLinkImpl" ordered="false" flexible="true">
+        <value name="LinkID" get-method="getLinkID" set-method="setLinkID" usage="optional" />
+        <value name="Type" get-method="getType" set-method="setType" usage="optional" />
+        <value name="FromTable" get-method="getFromTable" set-method="setFromTable" usage="optional" />
+        <value name="FromRecord" get-method="getFromRecord" set-method="setFromRecord" usage="optional" />
+        <value name="ToTable" get-method="getToTable" set-method="setToTable" usage="optional" />
+        <value name="ToRecord" get-method="getToRecord" set-method="setToRecord" usage="optional" />
+        <value name="Description" get-method="getDescription" set-method="setDescription" usage="optional"/>
+        <value name="OrderType" get-method="getOrderType" set-method="setOrderType" usage="optional"/>
+        <value name="OrderNum" get-method="getOrderNum" set-method="setOrderNum" usage="optional"/>
+        <value name="OrderStatus" get-method="getOrderStatus" set-method="setOrderStatus" usage="optional"/>
+    </mapping>
+
+    <mapping name="LinkedOrders" class="com.fbi.fbo.impl.orders.LinkedOrderImpl" ordered="false">
+        <collection field="rmaList" item-type="com.fbi.fbo.rma.RMAItemLink" usage="optional" test-method="hasItemLinks"/>
+    </mapping>
+
+    <mapping name="Receive" class="com.fbi.fbo.impl.receiving.ReceiveImpl" ordered="false" flexible="true">
+        <value name="Type" get-method="getType" set-method="setType" usage="optional" />
+        <value name="Quantity" get-method="getQuantity" set-method="setQuantity" type="com.evnt.util.Quantity" serializer="com.evnt.util.Quantity.serializeQuantity" usage="optional"/>
+        <value name="UOMName" get-method="getUOMName" set-method="setUOMName" usage="optional" />
+        <structure get-method="getTracking" set-method="setTracking" type="com.fbi.fbo.impl.tracking.TrackingImpl" usage="optional" />
+    </mapping>
+
+    <mapping name="ReceiveTicket" class="com.fbi.fbo.impl.receiving.ReceiveTicketImpl" ordered="false" flexible="true">
+        <value name="OrderNumber" get-method="getOrderNumber" set-method="setOrderNumber" usage="optional" />
+        <value name="OrderType" get-method="getOrderType" set-method="setOrderType" usage="optional" />
+        <value name="VendorName" get-method="getVendorName" set-method="setVendorName" usage="optional" />
+        <value name="LocationGroupID" get-method="getLocationGroupID" set-method="setLocationGroupID" usage="optional" />
+    </mapping>
+
+    <mapping name="RMAItem" class="com.fbi.fbo.impl.rma.RMAItemImpl" ordered="false" flexible="true">
+        <value name="RMAItemID" get-method="getRMAItemID" set-method="setRMAItemID" usage="optional" />
+        <value name="LineNum" get-method="getLineNum" set-method="setLineNum" usage="optional" />
+        <value name="ProductNum" get-method="getProductNum" set-method="setProductNum" usage="optional" />
+        <value name="ProductID" get-method="getProductID" set-method="setProductID" usage="optional" />
+        <value name="Quantity" get-method="getQuantity" set-method="setQuantity" type="com.evnt.util.Quantity" serializer="com.evnt.util.Quantity.serializeQuantity" usage="optional"/>
+        <structure get-method="getUOM" set-method="setUOM" type="com.fbi.fbo.UOM" usage="optional"/>
+        <structure get-method="getTracking" set-method="setTracking" type="com.fbi.fbo.impl.tracking.TrackingImpl" usage="optional" />
+        <value name="Issue" get-method="getReturnIssue" set-method="setReturnIssue" usage="optional"/>
+        <value name="RMAType" get-method="getRMAType" set-method="setRMAType" usage="optional" />
+        <value name="Resolution" get-method="getResolution" set-method="setResolution" usage="optional"/>
+        <value name="ProductSubstitution" get-method="getProductSubstitution" set-method="setProductSubstitution" usage="optional"/>
+        <value name="ProductSubstitutionID" get-method="getProductSubstitutionID" set-method="setProductSubstitutionID" usage="optional"/>
+        <value name="CrossShippedFlag" get-method="isCrossShipped" set-method="setCrossShipped" usage="optional"/>
+        <value name="ShippedFlag" get-method="isShipped" set-method="setShipped" usage="optional"/>
+        <value name="ReturnedFlag" get-method="isReturned" set-method="setReturned" usage="optional"/>
+        <value name="VendorName" get-method="getVendorName" set-method="setVendorName" usage="optional"/>
+        <value name="VendorRMA" get-method="getVendorRMA" set-method="setVendorRMA" usage="optional"/>
+        <value name="DateResolved" get-method="getDateResolved" set-method="setDateResolved" type="java.util.Date" usage="optional" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
+        <value name="Note" get-method="getNote" set-method="setNote" usage="optional" />
+        <structure get-method="getLinkedOrder" set-method="setLinkedOrder" type="com.fbi.fbo.impl.orders.LinkedOrderImpl" usage="optional"/>
+    </mapping>
+
+    <mapping name="RMA" class="com.fbi.fbo.impl.rma.RMAImpl" ordered="false" flexible="true">
+        <value name="RMAID" get-method="getID" set-method="setID" usage="optional" />
+        <value name="Number" get-method="getNumber" set-method="setNumber" usage="optional" />
+        <value name="CustomerName" get-method="getCustomerName" set-method="setCustomerName" usage="optional" />
+        <value name="Status" get-method="getStatus" set-method="setStatus" usage="optional" />
+        <value name="LocationGroup" get-method="getLocationGroup" set-method="setLocationGroup" usage="optional" />
+        <value name="DateCreated" get-method="getDateCreated" set-method="setDateCreated" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional"/>
+        <value name="DateExpires" get-method="getDateExpires" set-method="setDateExpires" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional"/>
+        <collection name="RMAItems" add-method="addRMAItem" item-type="com.fbi.fbo.rma.RMAItem" size-method="getRMAItemListSize" load-method="getRMAItem" />
+        <collection name="CustomFields" add-method="addCustomField" item-type="com.fbi.fbo.CustomField" size-method="getCustomFieldListSize" load-method="getCustomField" usage="optional" test-method="hasCustomFields" />
+        <collection name="Memos" add-method="addMemo" item-type="com.fbi.fbo.Memo" size-method="getMemoListSize" load-method="getMemo" usage="optional" test-method="hasMemos" />
+    </mapping>
+
+    <!--SHIPPING-->
+    <mapping name="ShippingItem" class="com.fbi.fbo.impl.shipping.ShippingItemImpl" ordered="false" flexible="true">
+        <value name="ShipItemID" get-method="getID" set-method="setID" usage="optional"/>
+        <value name="ProductNumber" get-method="getProductNumber" set-method="setProductNumber" usage="optional"/>
+        <value name="ProductDescription" get-method="getProductDesc" set-method="setProductDesc" usage="optional"/>
+        <value name="QtyShipped" get-method="getQuantityShipped" set-method="setQuantityShipped" type="com.evnt.util.Quantity" serializer="com.evnt.util.Quantity.serializeQuantity" usage="optional"/>
+        <structure get-method="getUOM" set-method="setUOM" type="com.fbi.fbo.impl.UOMImpl" usage="optional"/>
+        <value name="Cost" get-method="getCost" set-method="setCost" type="com.evnt.util.Money" serializer="com.evnt.util.MoneySerializer.serializeMoney" usage="optional"/>
+        <value name="SKU" get-method="getSKU" set-method="setSKU" usage="optional"/>
+        <value name="UPC" get-method="getUPC" set-method="setUPC" usage="optional"/>
+        <value name="SoItemId" get-method="getSoItemId" set-method="setSoItemId" usage="optional"/>
+        <value name="PoItemId" get-method="getPoItemId" set-method="setPoItemId" usage="optional"/>
+        <value name="XoItemId" get-method="getXoItemId" set-method="setXoItemId" usage="optional"/>
+        <value name="OrderLineItem" get-method="getOrderLineItem" set-method="setOrderLineItem" usage="optional"/>
+        <value name="CartonName" get-method="getCartonName" set-method="setCartonName" usage="optional"/>
+        <value name="CartonID" get-method="getCartonID" set-method="setCartonID" usage="optional"/>
+        <value name="TagNum" get-method="getTagNum" set-method="setTagNum" usage="optional"/>
+        <value name="Weight" get-method="getWeight" set-method="setWeight" usage="optional"/>
+        <structure name="WeightUOM" usage="optional">
+            <structure get-method="getWeightUOM" set-method="setWeightUOM" type="com.fbi.fbo.impl.UOMImpl" usage="optional" />
+        </structure>
+        <value name="DisplayWeight" get-method="getDisplayWeight" set-method="setDisplayWeight" usage="optional"/>
+        <structure name="DisplayWeightUOM" usage="optional">
+            <structure get-method="getDisplayWeightUOM" set-method="setDisplayWeightUOM" type="com.fbi.fbo.impl.UOMImpl" usage="optional" />
+        </structure>
+        <value name="IsNew" get-method="isNew" set-method="setNew" usage="optional" />
+        <structure get-method="getTracking" set-method="setTracking" type="com.fbi.fbo.impl.tracking.TrackingImpl" usage="optional"/>
+    </mapping>
+
+    <mapping name="Carton" class="com.fbi.fbo.impl.shipping.CartonImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional" />
+        <value name="ShipID" get-method="getShipID" set-method="setShipID" usage="optional"/>
+        <value name="CartonNum" get-method="getCartonNumber" set-method="setCartonNumber" usage="optional"/>
+        <value name="TrackingNum" get-method="getTrackingNum" set-method="setTrackingNum" usage="optional"/>
+        <value name="FreightWeight" get-method="getFreightWeight" set-method="setFreightWeight" type="com.evnt.util.Quantity" serializer="com.evnt.util.Quantity.serializeQuantity" usage="optional"/>
+        <value name="FreightAmount" get-method="getFreightAmount" set-method="setFreightAmount" type="com.evnt.util.Money" serializer="com.evnt.util.MoneySerializer.serializeMoney" usage="optional"/>
+        <value name="Width" get-method="getWidth" set-method="setWidth" type="com.evnt.util.Quantity" serializer="com.evnt.util.Quantity.serializeQuantity" usage="optional"/>
+        <value name="Height" get-method="getHeight" set-method="setHeight" type="com.evnt.util.Quantity" serializer="com.evnt.util.Quantity.serializeQuantity" usage="optional"/>
+        <value name="Length" get-method="getLen" set-method="setLen" type="com.evnt.util.Quantity" serializer="com.evnt.util.Quantity.serializeQuantity" usage="optional"/>
+        <value name="DeclaredValue" get-method="getInsuredValue" set-method="setInsuredValue" type="com.evnt.util.Money" serializer="com.evnt.util.MoneySerializer.serializeMoney" usage="optional"/>
+        <value name="NewFlag" get-method="isNew" set-method="setNew" usage="optional" />
+        <collection name="ShippingItems" add-method="addShippingItem" item-type="com.fbi.fbo.shipping.ShippingItem" size-method="getShippingItemSize" load-method="getShippingItem" />
+    </mapping>
+
+    <mapping name="Shipping" class="com.fbi.fbo.impl.shipping.ShipmentImpl" ordered="false" flexible="true">
+        <value name="ID" get-method="getID" set-method="setID" usage="optional"/>
+        <value name="OrderNumber" get-method="getOrderNumber" set-method="setOrderNumber" usage="optional"/>
+        <value name="ShipmentNumber" get-method="getShipNumber" set-method="setShipNumber" usage="optional"/>
+        <value name="OrderType" get-method="getOrderType" set-method="setOrderType" usage="optional"/>
+        <value name="CreatedDate" get-method="getCreateDate" set-method="setCreateDate" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional"/>
+        <value name="DateLastModified" get-method="getDateLastModified" set-method="setDateLastModified" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional" />
+        <value name="Carrier" get-method="getCarrier" set-method="setCarrier" usage="optional"/>
+        <value name="CarrierService" get-method="getCarrierService" set-method="setCarrierService" usage="optional" />
+        <value name="CarrierServiceID" get-method="getCarrierServiceId" set-method="setCarrierServiceId" usage="optional" />
+        <value name="Status" get-method="getStatus" set-method="setStatus" usage="optional"/>
+        <value name="FOB" get-method="getFOB" set-method="setFOB" usage="optional"/>
+        <value name="Note" get-method="getNote" set-method="setNote" usage="optional"/>
+        <value name="CartonCount" get-method="getCartonCount" set-method="setCartonCount" usage="optional"/>
+        <value name="ServiceItems" get-method="hasServiceItems" set-method="setServiceItemFlag" usage="optional"/>
+        <value name="Contact" get-method="getContact" set-method="setContact" usage="optional"/>
+        <structure get-method="getShipTo" set-method="setShipTo" map-as="com.fbi.fbdata.accounts.AddressFpo" usage="optional"/>
+        <collection name="Cartons" add-method="addCarton" item-type="com.fbi.fbo.shipping.Carton" size-method="getCartonCount" load-method="getCarton" usage="optional" test-method="hasCartons" />
+        <collection name="CustomFields" add-method="addCustomField" item-type="com.fbi.fbo.CustomField" size-method="getCustomFieldListSize" load-method="getCustomField" test-method="hasCustomFields" usage="optional" />
+    </mapping>
+
+    <mapping name="Account" class="com.fbi.fbo.impl.AccountImpl" ordered="false" flexible="true">
+        <value name="Name" get-method="getName" set-method="setName" usage="optional" />
+        <value name="AccountingID" get-method="getAccountingID" set-method="setAccountingID" usage="optional" />
+        <value name="AccountType" get-method="getAccountType" set-method="setAccountType" usage="optional" />
+        <value name="Balance" get-method="getBalance" set-method="setBalance" type="com.evnt.util.Money" serializer="com.evnt.util.MoneySerializer.serializeMoney" usage="optional"/>
+    </mapping>
+
+    <mapping name="AsAccount" class="com.fbi.fbo.impl.AsAccount" ordered="false" flexible="true">
+        <value name="ID" get-method="getId" set-method="setId" usage="optional" />
+        <value name="Name" get-method="getName" set-method="setName" usage="optional" />
+        <value name="TypeID" get-method="getTypeId" set-method="setTypeId" usage="optional" />
+        <value name="DateCreated" get-method="getDateCreated" set-method="setDateCreated" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional"/>
+        <value name="DateLastModified" get-method="getDateLastModified" set-method="setDateLastModified" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional" />
+        <value name="AccountingID" get-method="getAccountingId" set-method="setAccountingId" usage="optional" />
+        <value name="AccountingHash" get-method="getAccountingHash" set-method="setAccountingHash" usage="optional" />
+        <value name="ActiveFlag" get-method="getActiveFlag" set-method="setActiveFlag" usage="optional" />
+        <value name="AccountNumber" get-method="getAccountNumber" set-method="setAccountNumber" usage="optional" />
+    </mapping>
+
+    <mapping name="PartDefaultLocation" class="com.fbi.fbo.impl.PartDefaultLocationImpl" ordered="false" flexible="true">
+        <structure get-method="getPart" set-method="setPart" type="com.fbi.fbo.impl.part.PartImpl" usage="optional"/>
+        <structure get-method="getLocation" set-method="setLocation" type="com.fbi.fbo.impl.LocationImpl" usage="optional"/>
+    </mapping>
+
+    <mapping name="Carrier" class="com.fbi.fbo.impl.CarrierImpl" ordered="false" flexible="true">
+        <value name="Name" get-method="getName" set-method="setName" usage="optional" />
+    </mapping>
+
+    <mapping name="Parameter" class="com.fbi.fbo.impl.ParameterImpl" ordered="false" flexible="true">
+        <value name="Key" get-method="getKey" set-method="setKey" usage="optional" />
+        <value name="Value" get-method="getValue" set-method="setValue" usage="optional" />
+    </mapping>
+
+    <mapping name="SystemProperty" class="com.fbi.fbo.impl.property.SystemPropertyImpl" ordered="false" flexible="true">
+        <value name="Name" get-method="getName" set-method="setName" usage="optional" />
+        <value name="Value" get-method="getValue" set-method="setValue" usage="optional" />
+    </mapping>
+
+    <mapping name="UserProperty" class="com.fbi.fbo.impl.property.UserPropertyImpl" ordered="false" flexible="true">
+        <value name="Name" get-method="getName" set-method="setName" usage="optional" />
+        <value name="Value" get-method="getValue" set-method="setValue" usage="optional" />
+    </mapping>
+
+    <mapping name="ReportParam" class="com.fbi.fbo.impl.property.ReportParamImpl" ordered="false" flexible="true">
+        <value name="Name" get-method="getName" set-method="setName" usage="optional" />
+        <value name="Value" get-method="getValue" set-method="setValue" usage="optional" />
+    </mapping>
+
+    <mapping name="ConsumeItem" class="com.fbi.fbo.impl.wo.ConsumeItem" ordered="false" flexible="true">
+        <value name="ID" get-method="getId" set-method="setId" usage="optional"/>
+        <value name="WOItemID" get-method="getWoItemId" set-method="setWoItemId" usage="optional"/>
+        <structure get-method="getTracking" set-method="setTracking" type="com.fbi.fbo.impl.tracking.TrackingImpl" usage="optional" />
+        <value name="Quantity" get-method="getQuantity" set-method="setQuantity" type="com.evnt.util.Quantity" serializer="com.evnt.util.Quantity.serializeQuantity" usage="optional" />
+        <structure get-method="getUom" set-method="setUom" type="com.fbi.fbo.impl.UOMImpl" usage="optional"/>
+        <structure get-method="getPickItem" set-method="setPickItem" type="com.fbi.fbo.impl.picking.PickItemImpl" usage="optional" />
+        <structure get-method="getPart" set-method="setPart" type="com.fbi.fbo.impl.part.PartImpl" usage="optional" />
+    </mapping>
+
+</binding>

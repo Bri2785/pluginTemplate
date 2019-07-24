@@ -1,4 +1,0 @@
-<binding>
-    <include path="src/main/resources/bindings-requests.xml" precompiled="false"/>
-    <include path="src/main/resources/bindings-responses.xml" precompiled="false"/>
-</binding>

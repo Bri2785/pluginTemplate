@@ -1,4 +1,4 @@
-<binding>
+<binding package="com.fbi.fbo">
     <mapping name="GetPartRq" class="com.fbi.fbo.impl.message.request.GetPartRequestImpl" ordered="false" flexible="true">
         <value name="Number" get-method="getNumber" set-method="setNumber" />
         <value name="GetImage" get-method="getGetImage" set-method="setGetImage" usage="optional"/>
@@ -11,5 +11,3 @@
     </mapping>
 </binding>
 
-
-<!--Were we left off, don't know how to extend and use the masterResponseIMpl class since all of the responses are hard coded-->

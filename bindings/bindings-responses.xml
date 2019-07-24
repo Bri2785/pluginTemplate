@@ -1,4 +1,4 @@
-<binding name="binding">
+<binding name="binding" package="com.fbi.fbo">
     <mapping name="GetPartRs" class="com.fbi.fbo.impl.message.response.GetPartResponseImpl">
         <value name="TestString" get-method="getTestString" set-method="setTestString" usage="optional" />
         <value name="statusCode" style="attribute" get-method="getStatusCode" set-method="setStatusCode" usage="optional" />
