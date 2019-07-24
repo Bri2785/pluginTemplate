@@ -20,16 +20,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository.RunSql {
-    public static final String MODULE_NAME = "TestPlugin"; //CHANGE
-    public static final String MODULE_FRIENDLY_NAME = "Plugin Addons"; //CHANGE
-    private static final Logger LOGGER = LoggerFactory.getLogger((Class)Plugin.class);
+public class ApiExtensionsPlugin extends FishbowlPlugin implements PropertyGetter, Repository.RunSql {
+    public static final String MODULE_NAME = "ApiExtensions"; //CHANGE
+    public static final String MODULE_FRIENDLY_NAME = "Api Extensions"; //CHANGE
+    private static final Logger LOGGER = LoggerFactory.getLogger((Class)ApiExtensionsPlugin.class);
 
     private static final String PLUGIN_GENERIC_PANEL = "pluginGenericPanel";
 
     private Repository repository;
 
-    private static Plugin instance = null;
+    private static ApiExtensionsPlugin instance = null;
 
     EVEManager eveManager = EVEManagerUtil.getEveManager(); //get access to eve manager
 
@@ -40,9 +40,9 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
     private JPanel pnlCards;
     private JPanel pnlGeneric;
 
-    public Plugin() {
+    public ApiExtensionsPlugin() {
         instance = this; //this is so we can access the FishbowlPlugin module methods from other classes
-        this.setModuleName(Plugin.MODULE_NAME);
+        this.setModuleName(ApiExtensionsPlugin.MODULE_NAME);
         this.setMenuGroup(MenuGroupNameConst.INTEGRATIONS);//this is the module group it shows up in
         this.setMenuListLocation(1000); //bottom of the list
         this.setIconClassPath("/images/unigrative48.png"); // make sure there is a 24 version in the folder so it can use that for the tabs
@@ -53,12 +53,12 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
     }
 
 
-    public static Plugin getInstance() {
+    public static ApiExtensionsPlugin getInstance() {
         return instance;
     }
 
     public String getModuleTitle() {
-        return "<html><center>TEST<br>PLUGIN</center></html>"; //CHANGE -> THIS SHOWS IN THE MODULE LIST
+        return "<html><center>Api<br>Extensions</center></html>"; //CHANGE -> THIS SHOWS IN THE MODULE LIST
     }
 
     public String getProperty(final String key) {
@@ -154,7 +154,7 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
     private void initLayout() {
         //PANELS TO BE ADDED TO THE TABBED LAYOUT IF DESIRED
         JLabel lblMessage = new JLabel();
-        lblMessage.setText("This plugin is for...."); //CHANGE
+        lblMessage.setText("This plugin is for extending the API to include custom functions"); //CHANGE
 
 
         this.pnlCards.add(lblMessage);
@@ -197,7 +197,7 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
             this.btnSave.addActionListener((ActionListener) new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
-                    Plugin.this.btnSaveActionPerformed();
+                    ApiExtensionsPlugin.this.btnSaveActionPerformed();
                 }
             });
             this.mainToolBar.add((Component) this.btnSave);

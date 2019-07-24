@@ -3,6 +3,7 @@ package com.unigrative.plugins.repository;
 
 import com.evnt.util.Util;
 import com.fbi.fbo.impl.dataexport.QueryRow;
+import com.unigrative.plugins.ApiExtensionsPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,7 +35,7 @@ public class Repository {
 
 
     public String getProperty(String key) {
-        List<QueryRow> result = this.sql.executeSql(this.loadSql(Compatibility.handleFirebirdCompatibility(this, "getProperty.sql"), quote(key), quote("Customer Addons")));
+        List<QueryRow> result = this.sql.executeSql(this.loadSql(Compatibility.handleFirebirdCompatibility(this, "getProperty.sql"), quote(key), quote(ApiExtensionsPlugin.MODULE_NAME)));
         return Util.isEmpty(result) ? "" : ((QueryRow)result.get(0)).getString("info");
     }
 

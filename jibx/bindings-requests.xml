@@ -1,0 +1,15 @@
+<binding>
+    <mapping name="GetPartRq" class="com.fbi.fbo.impl.message.request.GetPartRequestImpl" ordered="false" flexible="true">
+        <value name="Number" get-method="getNumber" set-method="setNumber" />
+        <value name="GetImage" get-method="getGetImage" set-method="setGetImage" usage="optional"/>
+    </mapping>
+
+    <mapping name="SaveSOWithCFRq" class="com.fbi.fbo.impl.message.request.SaveSOWithCFRequestImpl" ordered="false" flexible="true">
+        <structure get-method="getSO" set-method="setSO" type="com.fbi.fbo.impl.orders.SalesOrderImpl" />
+        <value name="IssueFlag" get-method="getIssueFlag" set-method="setIssue" usage="optional"/>
+        <value name="IgnoreItems" get-method="isIgnoreItems" set-method="setIgnoreItems" usage="optional"/>
+    </mapping>
+</binding>
+
+
+<!--Were we left off, don't know how to extend and use the masterResponseIMpl class since all of the responses are hard coded-->

@@ -5,8 +5,68 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.unigrative.plugins</groupId>
-    <artifactId>pluginTemplate</artifactId>
+    <artifactId>apiExtensionsPlugin</artifactId>
     <version>1.0-SNAPSHOT</version>
+
+    <build>
+    <!--<defaultGoal>install</defaultGoal>-->
+
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.0</version>
+            <configuration>
+                <source>1.8</source>
+                <target>1.8</target>
+            </configuration>
+        </plugin>
+
+    <plugin>
+
+        <groupId>org.jibx</groupId>
+        <artifactId>jibx-maven-plugin</artifactId>
+        <version>1.3.1</version>
+
+        <configuration>
+            <baseBindingDirectory>src/main/config</baseBindingDirectory>
+            <includeBaseBindings>
+                <includeBaseBinding>
+                    <directory>src/main/config</directory>
+                    <includes>
+                        <include>binding-requests.xml</include>
+                    </includes>
+                </includeBaseBinding>
+            </includeBaseBindings>
+            <verbose>true</verbose>
+        </configuration>
+        <executions>
+            <execution>
+                <goals>
+                    <goal>bind</goal>
+                </goals>
+            </execution>
+        </executions>
+        <dependencies>
+            <!--<dependency>-->
+                <!--<groupId>org.jibx</groupId>-->
+                <!--<artifactId>jibx-bind</artifactId>-->
+                <!--<version>1.3.1</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>org.jibx</groupId>-->
+                <!--<artifactId>jibx-run</artifactId>-->
+                <!--<version>1.3.1</version>-->
+            <!--</dependency>-->
+            <!--<dependency>-->
+                <!--<groupId>org.jibx</groupId>-->
+                <!--<artifactId>jibx-extras</artifactId>-->
+                <!--<version>1.3.1</version>-->
+            <!--</dependency>-->
+        </dependencies>
+    </plugin>
+    </plugins>
+    </build>
 
 
 </project>

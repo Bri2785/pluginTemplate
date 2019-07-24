@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="plugin">
-    <output-path>P:/</output-path>
-    <root id="archive" name="plugin.jar">
-      <element id="module-output" name="pluginTemplate" />
-    </root>
-  </artifact>
-</component>

@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="2019">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../libs/2019.5.1" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../libs/2019.5.1" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../libs/2019.5.1" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../libs/2019.5.1" recursive="false" type="SOURCES" />
+  </library>
+</component>
