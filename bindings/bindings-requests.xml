@@ -9,5 +9,12 @@
         <value name="IssueFlag" get-method="getIssueFlag" set-method="setIssue" usage="optional"/>
         <value name="IgnoreItems" get-method="isIgnoreItems" set-method="setIgnoreItems" usage="optional"/>
     </mapping>
+
+    <mapping name="PrintReportToPrinterRq" class="com.fbi.fbo.impl.message.request.PrintReportToPrinterRequestImpl" ordered="false" flexible="true">
+        <value name="NumberOfCopies" get-method="getNumberOfCopies" set-method="setNumberOfCopies" usage="optional"/>
+        <value name="PrinterName" get-method="getPrinterName" set-method="setPrinterName" usage="optional"/>
+        <value name="ReportName" get-method="getReportName" set-method="setReportName" usage="optional"/>
+        <collection name="ParameterList" add-method="addReportParam" item-type="com.fbi.fbo.property.ReportParam" size-method="getParamListSize" load-method="getReportParam" test-method="hasParams"  usage="optional" />
+    </mapping>
 </binding>
 
