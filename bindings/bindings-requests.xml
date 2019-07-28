@@ -16,5 +16,8 @@
         <value name="ReportName" get-method="getReportName" set-method="setReportName" usage="optional"/>
         <collection name="ParameterList" add-method="addReportParam" item-type="com.fbi.fbo.property.ReportParam" size-method="getParamListSize" load-method="getReportParam" test-method="hasParams"  usage="optional" />
     </mapping>
+
+    <mapping name="GetServerPrinterListRq" class="com.fbi.fbo.impl.message.request.GetServerPrinterListRequestImpl" ordered="false" flexible="true">
+    </mapping>
 </binding>
 

@@ -15,4 +15,13 @@
         <value name="statusCode" style="attribute" get-method="getStatusCode" set-method="setStatusCode" usage="optional" />
         <value name="statusMessage" style="attribute" get-method="getStatusMessage" set-method="setStatusMessage" usage="optional" />
     </mapping>
+
+    <mapping name="GetServerPrinterListRs" class="com.fbi.fbo.impl.message.response.GetServerPrinterListResponseImpl">
+        <!--<collection name="Printers" field="printers" get-method="getPrinters" set-method="setPrinters" usage="optional" create-type="java.util.List" item-type="java.lang.String" test-method="hasPrinters" />-->
+        <collection name="Printers" field="printers" type="java.util.ArrayList" usage="optional" >
+            <value name="Printer" type="java.lang.String" usage="optional" />
+        </collection>
+        <value name="statusCode" style="attribute" get-method="getStatusCode" set-method="setStatusCode" usage="optional" />
+        <value name="statusMessage" style="attribute" get-method="getStatusMessage" set-method="setStatusMessage" usage="optional" />
+    </mapping>
 </binding>
