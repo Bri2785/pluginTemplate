@@ -83,7 +83,13 @@ public class PrintReportToPrinterHandler extends Handler {
             //LogicReport.printReport(jasperPrint, printerRequest.getPrinterName(), true,true,false);
 
             //custom exporter print method
-            printReport(jasperPrint, selectedService, printerRequest.getNumberOfCopies());
+
+            //number of copies is optional
+            int numberOfCopies = 1;
+            if (printerRequest.getNumberOfCopies() > 0){
+                numberOfCopies = printerRequest.getNumberOfCopies();
+            }
+            printReport(jasperPrint, selectedService, numberOfCopies);
 
 
 //            this.getDataManager().getReportLogic().mergeParameters(reportFpo, null);
