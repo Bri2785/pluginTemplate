@@ -30,6 +30,8 @@ public class GetServerPrinterListHandler extends Handler {
         ArrayList<String> printerList = new ArrayList();
 
         try {
+            refreshSystemPrinterList();
+
             //locate the printer on the machine
             final PrintService[] lookupPrintServices = PrintServiceLookup.lookupPrintServices(null, null);
             for (final PrintService service : lookupPrintServices) {
@@ -46,5 +48,23 @@ public class GetServerPrinterListHandler extends Handler {
             printerListResponse.setStatusMessage(e2.getMsgErr());
         }
 
+    }
+
+    /**
+     * Printer list does not necessarily refresh if you change the list of
+     * printers within the O/S; you can run this to refresh if necessary.
+     */
+    public static void refreshSystemPrinterList() {
+
+        Class[] classes = PrintServiceLookup.class.getDeclaredClasses();
+
+        for (int i = 0; i < classes.length; i++) {
+
+            if ("javax.print.PrintServiceLookup$Services".equals(classes[i].getName())) {
+
+                sun.awt.AppContext.getAppContext().remove(classes[i]);
+                break;
+            }
+        }
     }
 }
