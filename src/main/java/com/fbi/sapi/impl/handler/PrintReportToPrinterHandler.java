@@ -56,19 +56,18 @@ public class PrintReportToPrinterHandler extends Handler {
             }
 
             //locate the printer on the machine
-            PrintService selectedService = null;
-            final PrintService[] lookupPrintServices = PrintServiceLookup.lookupPrintServices(null, null);
-            for (final PrintService service : lookupPrintServices) {
-                FBLogger.debug(service.getName()); //log names
-                if (service.getName().equalsIgnoreCase(printerRequest.getPrinterName())) {
-                    selectedService = service;
-                    break;
-                }
-            }
+            PrintService selectedService = getMatchingPrintService(printerRequest.getPrinterName());
+
 
             if (selectedService == null) {
+                refreshSystemPrinterList(); //try to refresh it first
+                selectedService = getMatchingPrintService(printerRequest.getPrinterName());
+            }
+
+            if (selectedService == null) { //still cant find so throw error
                 throw new FbiException("Printer requested not found. Check printer name or installation");
             }
+
 
             final HashMap<String, Object> requestParamList = new HashMap<String, Object>();
 
@@ -226,5 +225,30 @@ public class PrintReportToPrinterHandler extends Handler {
 
     }
 
+    private PrintService getMatchingPrintService(String serviceName){
+        final PrintService[] lookupPrintServices = PrintServiceLookup.lookupPrintServices(null, null);
+        for (final PrintService service : lookupPrintServices) {
+            FBLogger.debug(service.getName()); //log names
+            if (service.getName().equalsIgnoreCase(serviceName)) {
+                return service;
+
+            }
+        }
+        return null;
+    }
+
+    public static void refreshSystemPrinterList() {
+
+        Class[] classes = PrintServiceLookup.class.getDeclaredClasses();
+
+        for (int i = 0; i < classes.length; i++) {
+
+            if ("javax.print.PrintServiceLookup$Services".equals(classes[i].getName())) {
+
+                sun.awt.AppContext.getAppContext().remove(classes[i]);
+                break;
+            }
+        }
+    }
 
 }
