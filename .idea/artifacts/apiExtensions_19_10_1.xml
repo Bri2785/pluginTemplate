@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="apiExtensions-19.10.1">
+    <output-path>S:/Computer Software/Fishbowl/Plugins/2019.10</output-path>
+    <root id="archive" name="apiExtensions-19.10.1.jar">
+      <element id="module-output" name="apiExtensions" />
+    </root>
+  </artifact>
+</component>

@@ -1,6 +1,8 @@
 package com.fbi.sapi.impl.handler;
 
 
+import com.evnt.eve.modules.logic.extra.LogicCustomField;
+import com.evnt.eve.modules.logic.extra.LogicMemo;
 import com.evnt.util.FbiMessage;
 import com.fbi.fbo.impl.message.request.SaveSOWithCFRequestImpl;
 import com.fbi.fbo.impl.message.response.MasterResponseImpl;
@@ -13,11 +15,16 @@ import com.fbi.util.FbiException;
 import com.fbi.util.UtilXML;
 import com.fbi.util.exception.ExceptionMainFree;
 import com.fbi.util.logging.FBLogger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service("SaveSOWithCFRq")
 public class SaveSOWithCFHandler extends Handler{
 
+    @Autowired
+    private LogicCustomField logicCustomField;
+    @Autowired
+    private LogicMemo logicMemo;
 
     @Override
     public void execute(String request, int userId, Response response) {
@@ -36,11 +43,12 @@ public class SaveSOWithCFHandler extends Handler{
             //now we need to save the custom fields and the memos again and this time commit the transaction
 
             if (so.hasCustomFields()) {
-                this.getCustomFieldModule().saveCustomFields(so);
+
+                logicCustomField.saveCustomFields(so);
             }
 
             if (so.hasMemos()) {
-                this.getMemoModule().saveMemos(so);
+                logicMemo.saveMemos(so);
             }
 
             this.getTransactionRepository().commit();

@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="apiExtensions">
-    <output-path>P:/</output-path>
-    <root id="archive" name="apiExtensions-19.5.2.jar">
-      <element id="module-output" name="apiExtensions" />
-    </root>
-  </artifact>
-</component>

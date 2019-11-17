@@ -1,5 +1,6 @@
 package com.fbi.sapi.impl.handler;
 
+import com.evnt.eve.modules.logic.extra.LogicReport;
 import com.evnt.util.Util;
 import com.fbi.fbdata.reports.ReportFpo;
 import com.fbi.fbdata.reports.ReportParameterFpo;
@@ -35,6 +36,8 @@ import java.util.Map;
 @Service("PrintReportToPrinterRq")
 public class PrintReportToPrinterHandler extends Handler {
 
+    LogicReport logicReport;
+
     @Override
     public void execute(final String request, final int userId, final Response response) {
 
@@ -54,6 +57,8 @@ public class PrintReportToPrinterHandler extends Handler {
             if (Util.isEmpty(printerRequest.getPrinterName())) {
                 throw new FbiException("Printer Name is Required");
             }
+
+            logicReport = new LogicReport();
 
             //locate the printer on the machine
             PrintService selectedService = getMatchingPrintService(printerRequest.getPrinterName());
@@ -134,8 +139,8 @@ public class PrintReportToPrinterHandler extends Handler {
 
         int reportID = reportSearchResults.get(0).getId();
 
-        final Map<String, String> userDefaultParameters = this.getDataManager().getReportLogic().getUserDefaultParameters();
-        return this.getDataManager().getReportLogic().getReport(reportID, userDefaultParameters);
+        final Map<String, String> userDefaultParameters = logicReport.getUserDefaultParameters();
+        return logicReport.getReport(reportID, userDefaultParameters);
 
 
     }
@@ -176,7 +181,7 @@ public class PrintReportToPrinterHandler extends Handler {
         //this sets all parameters and our parameters for the report
         //if (dlgParams.isSuccess()){
         //compiles the report into the jpPrint object to be printed/exported
-        return this.getDataManager().getReportLogic().getJasperPrint(jasperReport, parameterOverrides);
+        return logicReport.getJasperPrint(jasperReport, parameterOverrides);
 
         //}
         //return null;
