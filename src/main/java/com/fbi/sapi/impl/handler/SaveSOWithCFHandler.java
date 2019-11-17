@@ -51,7 +51,9 @@ public class SaveSOWithCFHandler extends Handler{
                 logicMemo.saveMemos(so);
             }
 
-            this.getTransactionRepository().commit();
+            //Shouldnt need in 2019.10, the logicCustomFields saves and flushes the records.
+            //TODO: needs tested on regular API call to see if it saves the Custom Fields
+            //this.getTransactionRepository().commit();
 
 
             saveResponse.setSO(newSo);
