@@ -7,7 +7,7 @@ package com.unigrative.plugins.fbapi;
 import com.fbi.fbo.impl.ApiCallType;
 import com.fbi.fbo.message.request.RequestBase;
 import com.fbi.fbo.message.response.ResponseBase;
-import com.unigrative.plugins.customer.exception.FishbowlException;
+import com.unigrative.plugins.exception.FishbowlException;
 
 @FunctionalInterface
 public interface ApiCaller

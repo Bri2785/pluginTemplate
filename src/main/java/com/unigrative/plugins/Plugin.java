@@ -2,11 +2,16 @@ package com.unigrative.plugins;
 
 import com.evnt.client.common.EVEManager;
 import com.evnt.client.common.EVEManagerUtil;
+import com.fbi.fbo.impl.ApiCallType;
 import com.fbi.fbo.impl.dataexport.QueryRow;
+import com.fbi.fbo.message.request.RequestBase;
+import com.fbi.fbo.message.response.ResponseBase;
 import com.fbi.gui.button.FBMainToolbarButton;
 import com.fbi.gui.panel.TitlePanel;
 import com.fbi.plugins.FishbowlPlugin;
 import com.fbi.sdk.constants.MenuGroupNameConst;
+import com.unigrative.plugins.exception.FishbowlException;
+import com.unigrative.plugins.fbapi.ApiCaller;
 import com.unigrative.plugins.repository.Repository;
 import com.unigrative.plugins.util.property.PropertyGetter;
 import org.slf4j.Logger;
@@ -20,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository.RunSql {
+public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository.RunSql, ApiCaller {
 
     public static final String MODULE_NAME = "TestPlugin"; //CHANGE
     public static final String MODULE_FRIENDLY_NAME = "Plugin Addons"; //CHANGE
@@ -233,4 +238,13 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
         LOGGER.info("init done");
     }
 
+    @Override
+    public ResponseBase call(ApiCallType requestType, RequestBase requestBase) throws FishbowlException {
+        try {
+            return this.runApiRequest(requestType, requestBase);
+        }
+        catch (Exception e) {
+            throw new FishbowlException(e);
+        }
+    }
 }
