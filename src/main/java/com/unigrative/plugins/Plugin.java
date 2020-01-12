@@ -27,8 +27,8 @@ import java.util.Map;
 
 public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository.RunSql, ApiCaller {
 
-    public static final String MODULE_NAME = "TestPlugin"; //CHANGE
-    public static final String MODULE_FRIENDLY_NAME = "Plugin Addons"; //CHANGE
+    private static final String MODULE_NAME = "TestPlugin"; //CHANGE
+    private static final String MODULE_FRIENDLY_NAME = "Plugin Addons"; //CHANGE
     private static final Logger LOGGER = LoggerFactory.getLogger((Class)Plugin.class);
 
     private static final String PLUGIN_GENERIC_PANEL = "pluginGenericPanel";
@@ -152,7 +152,7 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
         super.initModule();
         this.initComponents(); //HAS TO COME FIRST SINCE THE PANELS NEED TO BE MADE
         this.setMainToolBar(this.mainToolBar);
-        this.initLayout();
+        this.initLayout(); //FILLS THE CARD PANEL WITH THE INTERIOR PANELS
         this.setButtonPrintVisible(false); //OPTIONAL
         this.setButtonEmailVisible(false); //OPTIONAL
 
@@ -160,17 +160,14 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
     }
 
     private void initLayout() {
-        //PANELS TO BE ADDED TO THE TABBED LAYOUT IF DESIRED
-        JLabel lblMessage = new JLabel();
-        lblMessage.setText("This plugin is for...."); //CHANGE
+        //PANELS TO BE ADDED TO THE CARD LAYOUT (TYPICALLY ONLY ONE UNLESS THE ENTIRE SCREEN NEEDS TO BE SWITCHED)
+        //TABBED PANELS ARE CREATED SEPARATELY (GENERIC PANEL)
 
-
-        this.pnlCards.add(lblMessage);
-        this.pnlCards.add(pnlGeneric, "GenericPanel" );
-        this.hideShowPanels();
+        this.pnlCards.add(pnlGeneric, "GenericPanel" ); //CHANGE STRING NAME IF DESIRED
+        this.hideShowPanels(); //Makes the interior panel visible
     }
 
-    void hideShowPanels() {
+    private void hideShowPanels() {
         final CardLayout layout = (CardLayout)this.pnlCards.getLayout();
         this.enableControls(true);
         layout.show(this.pnlCards, PLUGIN_GENERIC_PANEL);
@@ -217,8 +214,9 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
             ((GridBagLayout) this.getLayout()).rowHeights = new int[]{0, 0, 0};
             ((GridBagLayout) this.getLayout()).columnWeights = new double[]{1.0, 1.0E-4};
             ((GridBagLayout) this.getLayout()).rowWeights = new double[]{0.0, 1.0, 1.0E-4};
+
             this.titleLabel.setModuleIcon(new ImageIcon(this.getClass().getResource("/images/unigrative32.png"))); //CHANGE
-            this.titleLabel.setModuleTitle(this.MODULE_FRIENDLY_NAME);
+            this.titleLabel.setModuleTitle(MODULE_FRIENDLY_NAME);
             this.titleLabel.setBackground(new Color(44, 94, 140));
             this.titleLabel.setName("titleLabel");
             this.add((Component) this.titleLabel, (Object) new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, 10, 1, new Insets(0, 0, 0, 0), 0, 0));
@@ -226,7 +224,7 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
 
 
 
-
+//Layout container for module
             this.pnlCards.setName("pnlCards");
             this.pnlCards.setLayout(new CardLayout());
             this.add((Component) this.pnlCards, (Object) new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0, 10, 1, new Insets(0, 0, 0, 0), 0, 0));
