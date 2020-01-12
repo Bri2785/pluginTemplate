@@ -12,6 +12,7 @@ import com.fbi.plugins.FishbowlPlugin;
 import com.fbi.sdk.constants.MenuGroupNameConst;
 import com.unigrative.plugins.exception.FishbowlException;
 import com.unigrative.plugins.fbapi.ApiCaller;
+import com.unigrative.plugins.panels.SettingsPanel;
 import com.unigrative.plugins.repository.Repository;
 import com.unigrative.plugins.util.property.PropertyGetter;
 import org.slf4j.Logger;
@@ -44,7 +45,8 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
     private FBMainToolbarButton btnSave;
 
     private JPanel pnlCards;
-    private JPanel pnlSettings;
+    //private JPanel pnlSettings;
+    private SettingsPanel settingsPanel;
 
     public Plugin() {
         instance = this; //this is so we can access the FishbowlPlugin module methods from other classes
@@ -162,8 +164,8 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
     private void initLayout() {
         //PANELS TO BE ADDED TO THE CARD LAYOUT (TYPICALLY ONLY ONE UNLESS THE ENTIRE SCREEN NEEDS TO BE SWITCHED)
         //TABBED PANELS ARE CREATED SEPARATELY (GENERIC PANEL)
-
-        this.pnlCards.add(pnlSettings, "SettingsPanel" ); //CHANGE STRING NAME IF DESIRED
+        this.settingsPanel = new SettingsPanel(this);
+        this.pnlCards.add(this.settingsPanel, "SettingsPanel" ); //CHANGE STRING NAME IF DESIRED
         this.hideShowPanels(); //Makes the interior panel visible
     }
 
@@ -185,7 +187,7 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
             this.btnSave = new FBMainToolbarButton();
 
             //GENERIC PANEL
-            this.pnlSettings = new JPanel();
+            //this.pnlSettings = new JPanel();
 
             this.mainToolBar.setFloatable(false);
             this.mainToolBar.setRollover(true);
