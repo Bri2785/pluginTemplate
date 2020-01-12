@@ -21,6 +21,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository.RunSql {
+
     public static final String MODULE_NAME = "TestPlugin"; //CHANGE
     public static final String MODULE_FRIENDLY_NAME = "Plugin Addons"; //CHANGE
     private static final Logger LOGGER = LoggerFactory.getLogger((Class)Plugin.class);
@@ -47,6 +48,8 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
         this.setMenuListLocation(1000); //bottom of the list
         this.setIconClassPath("/images/unigrative48.png"); // make sure there is a 24 version in the folder so it can use that for the tabs
         this.setDefaultHelpPath("https://www.unigrative.com/kbtopic/fishbowl-plugins/");
+
+        //this.addAccessRight("Import Button"); //optional access rights that can be set and checked later
 
         this.repository = new Repository(this);
 
