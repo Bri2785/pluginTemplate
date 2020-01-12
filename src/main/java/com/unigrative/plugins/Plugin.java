@@ -44,7 +44,7 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
     private FBMainToolbarButton btnSave;
 
     private JPanel pnlCards;
-    private JPanel pnlGeneric;
+    private JPanel pnlSettings;
 
     public Plugin() {
         instance = this; //this is so we can access the FishbowlPlugin module methods from other classes
@@ -163,7 +163,7 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
         //PANELS TO BE ADDED TO THE CARD LAYOUT (TYPICALLY ONLY ONE UNLESS THE ENTIRE SCREEN NEEDS TO BE SWITCHED)
         //TABBED PANELS ARE CREATED SEPARATELY (GENERIC PANEL)
 
-        this.pnlCards.add(pnlGeneric, "GenericPanel" ); //CHANGE STRING NAME IF DESIRED
+        this.pnlCards.add(pnlSettings, "SettingsPanel" ); //CHANGE STRING NAME IF DESIRED
         this.hideShowPanels(); //Makes the interior panel visible
     }
 
@@ -185,7 +185,7 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
             this.btnSave = new FBMainToolbarButton();
 
             //GENERIC PANEL
-            this.pnlGeneric  = new JPanel();
+            this.pnlSettings = new JPanel();
 
             this.mainToolBar.setFloatable(false);
             this.mainToolBar.setRollover(true);
