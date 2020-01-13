@@ -29,7 +29,7 @@ import java.util.Map;
 public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository.RunSql, ApiCaller {
 
     private static final String MODULE_NAME = "TestPlugin"; //CHANGE
-    private static final String MODULE_FRIENDLY_NAME = "Plugin Addons"; //CHANGE
+    public static final String MODULE_FRIENDLY_NAME = "Plugin Addons"; //CHANGE
     private static final Logger LOGGER = LoggerFactory.getLogger((Class)Plugin.class);
 
     private static final String PLUGIN_GENERIC_PANEL = "pluginGenericPanel";
