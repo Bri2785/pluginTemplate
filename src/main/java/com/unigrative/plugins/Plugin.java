@@ -84,7 +84,8 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
 
 
     private void loadSettings() {
-        LOGGER.info("Loading Settings");
+        LOGGER.debug("Loading Settings");
+
 //        this.txtSqlConnectionUrl.setText(Property.SQL_CONNECTION_URL.get(this));
 //        LOGGER.info(Property.SQL_CONNECTION_URL.get(this));
 //        this.txtUsername.setText(Property.USERNAME.get(this));
@@ -96,12 +97,12 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
 //
 //        this.txtCampaignDate.setText(Property.CAMPAIGN_CREATED_DATE.get(this));
 
-        LOGGER.info("Settings Loaded");
+        LOGGER.debug("Settings Loaded");
 
     }
 
     protected void saveSettings(){
-        LOGGER.info("Saving settings");
+        LOGGER.debug("Saving settings");
 
         final Map<String, String> properties = new HashMap<>();
 
@@ -145,7 +146,7 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
 
         this.savePluginProperties(properties);
 
-        LOGGER.info("Settings Saved");
+        LOGGER.debug("Settings Saved");
     }
 
     private void btnSaveActionPerformed() {

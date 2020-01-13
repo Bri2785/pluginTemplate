@@ -8,6 +8,7 @@ import com.unigrative.plugins.util.property.reader.StringReader;
 
 public final class Property
 {
+    //enable the type needed for the plugin
     private static final StringReader STRING;
 //    private static final BooleanReader BOOLEAN_DEFAULT_FALSE;
 //    private static final BooleanReader BOOLEAN_DEFAULT_TRUE;
@@ -26,6 +27,8 @@ public final class Property
 
     
     static {
+        //set the default fro the enabled types
+
         STRING = new StringReader();
 //        BOOLEAN_DEFAULT_FALSE = new BooleanReader(false);
 //        BOOLEAN_DEFAULT_TRUE = new BooleanReader(true);

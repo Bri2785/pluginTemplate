@@ -1,4 +1,4 @@
-package com.unigrative.plugins.util.view;
+package com.unigrative.plugins.util.views;
 
 import com.evnt.client.common.EVEManager;
 import com.evnt.common.MethodConst;
