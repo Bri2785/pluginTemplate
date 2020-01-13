@@ -41,4 +41,28 @@ public class ViewUtil {
             UtilGui.showMessageDialog("Error Running Query. Check logs for details");
         }
     }
+
+    private static void grantViewAccess(String viewName, EVEManager eveManager){
+        LOGGER.debug("Running grant on " + viewName);
+
+        String query = "Grant SELECT ON " + viewName + " TO 'gone'";
+
+        EVEvent request = eveManager.createRequest(MethodConst.RUN_DATA_EXPORT);
+        request.add(KeyConst.DATA_EXPORT_QUERY, query);
+        request.add(KeyConst.SUPPORT_LOGGED_IN, true);
+
+        try {
+            DataExportFpo.validateSQL(query, true);
+        } catch (ExceptionMainFree var4) {
+            LOGGER.error("Error validating query", var4);
+        }
+
+        EVEvent response = eveManager.sendAndWait(request);
+        DataExportResult queryData;
+        queryData = (DataExportResult)response.getObject(KeyConst.DATA_EXPORT_RESULTS, DataExportResult.class);
+
+        if (response.isMessageException()){
+            UtilGui.showMessageDialog("Error granting select permissions. Check logs for details");
+        }
+    }
 }
