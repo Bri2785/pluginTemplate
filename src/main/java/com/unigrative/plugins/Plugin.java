@@ -58,13 +58,16 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
 
         //this.addAccessRight("Import Button"); //optional access rights that can be set and checked later
 
+        this.setButtonPrintVisible(false); //CHANGE IF NEEDED
+        this.setButtonEmailVisible(false);
+
         this.repository = new Repository(this);
 
     }
 
 
     public static Plugin getInstance() {
-        return instance;
+        return instance; //used from other places (buttons) to get access to the EVEManager since that's restricted to the plugin class
     }
 
     public String getModuleTitle() {
@@ -163,7 +166,7 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
 
     private void initLayout() {
         //PANELS TO BE ADDED TO THE CARD LAYOUT (TYPICALLY ONLY ONE UNLESS THE ENTIRE SCREEN NEEDS TO BE SWITCHED)
-        //TABBED PANELS ARE CREATED SEPARATELY (GENERIC PANEL)
+        //TABBED PANELS ARE CREATED SEPARATELY (SETTINGS PANEL)
         this.settingsPanel = new SettingsPanel(this);
         this.pnlCards.add(this.settingsPanel, "SettingsPanel" ); //CHANGE STRING NAME IF DESIRED
         this.hideShowPanels(); //Makes the interior panel visible
