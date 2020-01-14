@@ -13,6 +13,7 @@ import com.fbi.sdk.constants.MenuGroupNameConst;
 import com.unigrative.plugins.exception.FishbowlException;
 import com.unigrative.plugins.fbapi.ApiCaller;
 import com.unigrative.plugins.panels.SettingsPanel;
+import com.unigrative.plugins.panels.masterdetailsearch.MasterDetailPanel;
 import com.unigrative.plugins.repository.Repository;
 import com.unigrative.plugins.util.property.PropertyGetter;
 import org.slf4j.Logger;
@@ -45,8 +46,15 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
     private FBMainToolbarButton btnSave;
 
     private JPanel pnlCards;
-    //private JPanel pnlSettings;
+
+    //PICK A PANEL TO ADD TO THE CARDS PANEL UNLESS WE HAVE A WAY TO SWITCH BETWEEN THEM
+    //GENERIC SETTINGS PANEL OPTION
     private SettingsPanel settingsPanel;
+
+    //MASTER DETAIL TABLE SEARCH OPTION
+    private MasterDetailPanel masterDetailPanel;
+
+
 
     public Plugin() {
         instance = this; //this is so we can access the FishbowlPlugin module methods from other classes
@@ -163,20 +171,29 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
         this.setButtonEmailVisible(false); //OPTIONAL
 
 
+
     }
 
     private void initLayout() {
         //PANELS TO BE ADDED TO THE CARD LAYOUT (TYPICALLY ONLY ONE UNLESS THE ENTIRE SCREEN NEEDS TO BE SWITCHED)
         //TABBED PANELS ARE CREATED SEPARATELY (SETTINGS PANEL)
-        this.settingsPanel = new SettingsPanel(this);
-        this.pnlCards.add(this.settingsPanel, "SettingsPanel" ); //CHANGE STRING NAME IF DESIRED
+
+        //GENERIC SETTINGS PANEL
+//        this.settingsPanel = new SettingsPanel(this);
+//        this.pnlCards.add(this.settingsPanel, PLUGIN_GENERIC_PANEL );
+
+        //GENERIC MASTER DETAIL TABLE
+        this.masterDetailPanel = new MasterDetailPanel(this);
+        this.pnlCards.add(this.masterDetailPanel, PLUGIN_GENERIC_PANEL);
+
+
         this.hideShowPanels(); //Makes the interior panel visible
     }
 
     private void hideShowPanels() {
         final CardLayout layout = (CardLayout)this.pnlCards.getLayout();
         this.enableControls(true);
-        layout.show(this.pnlCards, PLUGIN_GENERIC_PANEL);
+        layout.show(this.pnlCards, PLUGIN_GENERIC_PANEL); //DIFFERENT CARD NAMES IF USING IT
     }
 
     private void enableControls(final boolean enable) {
@@ -189,9 +206,6 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
             this.pnlCards = new JPanel(); //Tabbed layout Option
             this.mainToolBar = new JToolBar();
             this.btnSave = new FBMainToolbarButton();
-
-            //GENERIC PANEL
-            //this.pnlSettings = new JPanel();
 
             this.mainToolBar.setFloatable(false);
             this.mainToolBar.setRollover(true);

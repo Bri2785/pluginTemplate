@@ -1,0 +1,124 @@
+JFDML JFormDesigner: "7.0.0.6.255" Java: "11.0.3" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		auxiliary() {
+			"JavaCodeGenerator.memberVariableThis": true
+		}
+		add( new FormContainer( "com.fbi.gui.panel.FBSplitPane", new FormLayoutManager( class javax.swing.JSplitPane ) ) {
+			name: "splitPanels"
+			"oneTouchExpandable": true
+			"dividerLocation": 250
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) {
+				"hgap": 5
+				"vgap": 5
+			} ) {
+				name: "panel1"
+				"minimumSize": new java.awt.Dimension( 50, 0 )
+				"preferredSize": new java.awt.Dimension( 50, 0 )
+				add( new FormContainer( "com.fbi.gui.misc.IconTitleBorderPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+					"$columnSpecs": "0:1.0"
+					"$rowSpecs": "0:1.0, 0, 0"
+					"$hGap": 2
+					"$vGap": 2
+					"$alignTop": true
+					"$alignLeft": true
+				} ) {
+					name: "iconTitleBorderPanel1"
+					"type": enum com.fbi.gui.misc.IconTitleBorderPanel$IconConst Search
+					"title": "Search"
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) {
+						"alignment": 2
+					} ) {
+						name: "bottomButtonsPanel"
+						add( new FormComponent( "javax.swing.JButton" ) {
+							name: "viewButton"
+							"text": "View"
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "viewButtonActionPerformed", true ) )
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+						"gridy": 1
+					} )
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) {
+						"hgap": 10
+						"vgap": 10
+					} ) {
+						name: "searchPanel"
+						auxiliary() {
+							"JavaCodeGenerator.className": "SearchPanel"
+							"JavaCodeGenerator.variableModifiers": 1
+						}
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+							"$columnSpecs": "0, 0:1.0"
+							"$rowSpecs": "0, 0, 0"
+							"$hGap": 10
+							"$vGap": 8
+							"$alignLeft": true
+							"$alignTop": true
+						} ) {
+							name: "pnlCriteria"
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "lblField1"
+								"text": "ID:"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+								"insets": new java.awt.Insets( 0, 5, 0, 0 )
+							} )
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "textField2"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+								"gridx": 1
+								"insets": new java.awt.Insets( 0, 0, 0, 5 )
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "lblField2"
+								"text": "Name:"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+								"gridy": 1
+								"insets": new java.awt.Insets( 0, 5, 0, 0 )
+							} )
+							add( new FormComponent( "javax.swing.JTextField" ) {
+								name: "textField3"
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+								"gridx": 1
+								"gridy": 1
+								"insets": new java.awt.Insets( 0, 0, 0, 5 )
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "searchButton"
+								"text": "Search"
+								"mnemonic": 82
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "searchButtonActionPerformed", true ) )
+							}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+								"gridx": 1
+								"gridy": 2
+								"hAlign": 4
+								"insets": new java.awt.Insets( 0, 0, 0, 5 )
+							} )
+						}, new FormLayoutConstraints( class java.lang.String ) {
+							"value": "North"
+						} )
+						add( new FormComponent( "com.evnt.client.common.PnlPagedSearch" ) {
+							name: "pnlPagedSearch2"
+							auxiliary() {
+								"JavaCodeGenerator.customCreate": true
+								"JavaCodeGenerator.variableGetter": true
+								"JavaCodeGenerator.variableName": "pnlPagedSearch"
+								"JavaCodeGenerator.typeParameters": "GenericRowData, GenericDataObject"
+							}
+						}, new FormLayoutConstraints( class java.lang.String ) {
+							"value": "Center"
+						} )
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "Center"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "left"
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 50, 15 )
+			"size": new java.awt.Dimension( 725, 565 )
+		} )
+	}
+}
