@@ -1,56 +1,110 @@
+package com.unigrative.plugins.util.sql;
 
-package com.unigrative.plugins.repository;
-
-import com.evnt.util.Util;
-import com.fbi.fbo.impl.dataexport.QueryRow;
-import com.unigrative.plugins.Plugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+public class SqlUtil {
 
-public class Repository {
-    private static final Logger LOGGER = LoggerFactory.getLogger(Repository.class);
-    private static final int FIRE_BIRD_LIST_LIMIT = 1500;
-    private static int databaseVersion = -1;
-    public static final int FB_VERSION_2017_01 = 100;
-    private final Repository.RunSql sql;
+    private static final Logger LOGGER = LoggerFactory.getLogger(SqlUtil.class);
     private final Map<String, String> storedSql = new ConcurrentHashMap();
 
-    public Repository(Repository.RunSql sql) {
-        this.sql = sql;
-    }
+    public static Object[] paramsListToString(List params){
+        if (params == null) {
+            return new Object[0];
+        } else {
+            Object[] strings = new String[params.size()];
 
+            for(int i = 0; i < params.size(); ++i) {
+                if (params.get(i) == null) {
+                    strings[i] = "NULL";
+                } else if (params.get(i) instanceof List) {
+                    List<Object> list = (List)params.get(i);
+                    if (list.isEmpty()) {
+                        strings[i] = "NULL";
+                    } else {
+                        strings[i] = (String)list.stream().map(String::valueOf).collect(Collectors.joining(","));
+                    }
+                } else {
+                    strings[i] = quote(params.get(i).toString());
+                }
+            }
 
-    public String getCompanyName() {
-        List<QueryRow> result = this.sql.executeSql("SELECT name FROM company");
-        return result.isEmpty() ? "" : ((QueryRow)result.get(0)).getString("name");
-    }
-
-
-    public String getProperty(String key) {
-        List<QueryRow> result = this.sql.executeSql(this.loadSql(Compatibility.handleFirebirdCompatibility(this, "getProperty.sql"), quote(key), quote(Plugin.MODULE_FRIENDLY_NAME)));
-        return Util.isEmpty(result) ? "" : ((QueryRow)result.get(0)).getString("info");
-    }
-
-    public synchronized int getDatabaseVersion() {
-        if (databaseVersion == -1) {
-            databaseVersion = ((QueryRow)this.sql.executeSql("SELECT MAX(version) AS version FROM databaseVersion ").get(0)).getInt("version").intValue();
+            return strings;
         }
-
-        return databaseVersion;
     }
 
-    private String loadSql(String fileName, Object... params) {
+    public static String paramsMapToWhereClause(HashMap params){
+
+        boolean first = true;
+        StringBuilder whereClause = new StringBuilder();
+
+        if (params == null) {
+            return "";
+        } else {
+
+            for (Object o : params.entrySet()) {
+                Map.Entry e = (Map.Entry) o;
+                String key = (String) e.getKey();
+                Object comp = e.getValue();
+
+                if(first) {
+                    whereClause.append(" WHERE ").append(key.toString()).append(" LIKE ").append(quote(comp.toString()));
+                    first = false;
+                }
+                else{
+                    whereClause.append(" AND ").append(key.toString()).append(" LIKE ").append(quote(comp.toString()));
+                }
+            }
+            return whereClause.toString();
+        }
+    }
+
+
+
+    public static Object[] paramsToString(Object[] params) {
+        if (params == null) {
+            return new Object[0];
+        } else {
+            Object[] strings = new String[params.length];
+
+            for(int i = 0; i < params.length; ++i) {
+                if (params[i] == null) {
+                    strings[i] = "NULL";
+                } else if (params[i] instanceof List) {
+                    List<Object> list = (List)params[i];
+                    if (list.isEmpty()) {
+                        strings[i] = "NULL";
+                    } else {
+                        strings[i] = (String)list.stream().map(String::valueOf).collect(Collectors.joining(","));
+                    }
+                } else {
+                    strings[i] = quote(params[i].toString());
+                }
+            }
+
+            return strings;
+        }
+    }
+
+    public static String quote(Object o) {
+        return "'" + o.toString().replaceAll("'", "''") + "'";
+    }
+
+    public String loadSql(String fileName, Object... params) {
+
+
         String sqlString = (String)this.storedSql.computeIfAbsent(fileName, (k) -> {
             try {
-                InputStream stream = Repository.class.getResourceAsStream(k);
+                InputStream stream = SqlUtil.class.getResourceAsStream(k);
                 Throwable var2 = null;
 
                 Object var7;
@@ -128,52 +182,6 @@ public class Repository {
                 return "";
             }
         });
-        return String.format(sqlString, this.paramsToString(params));
-    }
-
-    private Object[] paramsToString(Object[] params) {
-        if (params == null) {
-            return new Object[0];
-        } else {
-            Object[] strings = new String[params.length];
-
-            for(int i = 0; i < params.length; ++i) {
-                if (params[i] == null) {
-                    strings[i] = "NULL";
-                } else if (params[i] instanceof List) {
-                    List<Object> list = (List)params[i];
-                    if (list.isEmpty()) {
-                        strings[i] = "NULL";
-                    } else {
-                        strings[i] = (String)list.stream().map(String::valueOf).collect(Collectors.joining(","));
-                    }
-                } else {
-                    strings[i] = params[i].toString();
-                }
-            }
-
-            return strings;
-        }
-    }
-
-    private static String quote(Object o) {
-        return "'" + o.toString().replaceAll("'", "''") + "'";
-    }
-
-    private static String escape(Object o) {
-        return "'" + o.toString().replaceAll("([|_%;])", "|$1").replaceAll("'", "''") + "'";
-    }
-
-    private QueryRow getSingleResult(List<QueryRow> queryRowList) {
-        return queryRowList.isEmpty() ? null : (QueryRow)queryRowList.get(0);
-    }
-
-    private static <T> List<T> page(List<T> l, int start) {
-        return l.subList(start, Math.min(l.size(), start + 1500));
-    }
-
-    @FunctionalInterface
-    public interface RunSql {
-        List<QueryRow> executeSql(String var1);
+        return String.format(sqlString, params);
     }
 }

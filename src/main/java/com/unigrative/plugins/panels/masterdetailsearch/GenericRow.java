@@ -8,9 +8,9 @@ import com.fbi.gui.table.FBTableColumnSettings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GenericRowData implements RowDataToolTip { //TOOLTIP IS FANCIER THAN JUST ROWDATA
+public class GenericRow implements RowDataToolTip { //TOOLTIP IS FANCIER THAN JUST ROWDATA
 
-    private static final Logger LOGGER = LoggerFactory.getLogger((Class)GenericRowData.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger((Class) GenericRow.class);
     private static int colCount;
 
     //LIST OF COLUMNS
@@ -22,7 +22,7 @@ public class GenericRowData implements RowDataToolTip { //TOOLTIP IS FANCIER THA
 
     private GenericDataObject dataObject; //this is the object that is tied to the row. TABLE COLUMN TYPES NEED TO MATCH THE DATA TYPE OF THE CLASS PROPERTIES
 
-    public GenericRowData(GenericDataObject dataObject) {
+    public GenericRow(GenericDataObject dataObject) {
         this.dataObject = dataObject;
     }
 
@@ -30,7 +30,7 @@ public class GenericRowData implements RowDataToolTip { //TOOLTIP IS FANCIER THA
 
         //initialize columns
         colCount = 0;
-        colDataObjectId = new FBTableColumn(colCount++, "Id", int.class, 40,"", FBTableColumnEditable.NOT_EDITABLE,true,false);
+        colDataObjectId = new FBTableColumn(colCount++, "Id", String.class, 40,"", FBTableColumnEditable.NOT_EDITABLE,true,false);
         colDataObjectName = new FBTableColumn(colCount++, "Name", String.class, 100, "", FBTableColumnEditable.ON_CLICK, false, true);
 
         //OTHER COLUMN EXAMPLES
@@ -63,11 +63,11 @@ public class GenericRowData implements RowDataToolTip { //TOOLTIP IS FANCIER THA
 
     @Override
     public Object[] getRow() {
-        final Object[] values = new Object[GenericRowData.colCount]; //array to hold the column values
+        final Object[] values = new Object[GenericRow.colCount]; //array to hold the column values
 
         //ITERATE THE DATA OBJECT PROPERTIES AND ASSIGN THEM TO THE MATCHING COLUMN INDEX IN THE ARRAY
-        values[GenericRowData.colDataObjectId.getColIndex()] = dataObject.getId();
-        values[GenericRowData.colDataObjectName.getColIndex()] = dataObject.getName();
+        values[GenericRow.colDataObjectId.getColIndex()] = dataObject.getId();
+        values[GenericRow.colDataObjectName.getColIndex()] = dataObject.getName();
 
         return values;
     }
@@ -92,8 +92,8 @@ public class GenericRowData implements RowDataToolTip { //TOOLTIP IS FANCIER THA
         final FBTableColumnSettings settings = new FBTableColumnSettings(true, true);
 
         //ADD ALL COLUMNS
-        settings.addColumn(GenericRowData.colDataObjectId);
-        settings.addColumn(GenericRowData.colDataObjectName);
+        settings.addColumn(GenericRow.colDataObjectId);
+        settings.addColumn(GenericRow.colDataObjectName);
 
         return settings;
     }
@@ -101,7 +101,7 @@ public class GenericRowData implements RowDataToolTip { //TOOLTIP IS FANCIER THA
     public String getToolTip(final int columnIndex) {
         //set tool tip values based on the column index
 
-        if (columnIndex == GenericRowData.colDataObjectName.getColIndex()) {
+        if (columnIndex == GenericRow.colDataObjectName.getColIndex()) {
             return this.dataObject.getName();
         }
 //        if (columnIndex == BIPickItemRowData.colType.getColIndex()) {

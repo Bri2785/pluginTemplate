@@ -191,9 +191,14 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
     }
 
     private void hideShowPanels() {
-        final CardLayout layout = (CardLayout)this.pnlCards.getLayout();
-        this.enableControls(true);
-        layout.show(this.pnlCards, PLUGIN_GENERIC_PANEL); //DIFFERENT CARD NAMES IF USING IT
+        try {
+            final CardLayout layout = (CardLayout) this.pnlCards.getLayout();
+            this.enableControls(true);
+            layout.show(this.pnlCards, PLUGIN_GENERIC_PANEL); //DIFFERENT CARD NAMES IF USING IT
+        }
+        catch (Exception e){
+            LOGGER.error("Error showing view", e);
+        }
     }
 
     private void enableControls(final boolean enable) {
