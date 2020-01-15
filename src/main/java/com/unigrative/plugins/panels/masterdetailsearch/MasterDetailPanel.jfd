@@ -68,6 +68,7 @@ new FormModel {
 								} )
 								add( new FormComponent( "javax.swing.JTextField" ) {
 									name: "txtID"
+									addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "txtIDKeyPressed", true ) )
 								}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 									"gridx": 1
 									"insets": new java.awt.Insets( 0, 0, 0, 5 )
@@ -81,6 +82,7 @@ new FormModel {
 								} )
 								add( new FormComponent( "javax.swing.JTextField" ) {
 									name: "txtName"
+									addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "txtNameKeyPressed", true ) )
 								}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 									"gridx": 1
 									"gridy": 1
@@ -91,6 +93,7 @@ new FormModel {
 									"text": "Search"
 									"mnemonic": 82
 									addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "searchButtonActionPerformed", true ) )
+									addEvent( new FormEvent( "java.awt.event.KeyListener", "keyPressed", "searchButtonKeyPressed", true ) )
 								}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 									"gridx": 1
 									"gridy": 2

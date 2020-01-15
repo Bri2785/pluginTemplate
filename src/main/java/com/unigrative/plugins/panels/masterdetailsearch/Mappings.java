@@ -20,6 +20,7 @@ public class Mappings {
                 GenericDataObject dataObject = new GenericDataObject();
 
                 //ADD LINES FOR EACH PROPERTY
+                //ROW fields match the sql query field names
                 dataObject.setId(row.getInt("id"));
                 dataObject.setName(row.getString("name"));
 

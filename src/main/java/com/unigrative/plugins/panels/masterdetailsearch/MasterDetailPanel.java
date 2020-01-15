@@ -92,11 +92,12 @@ public class MasterDetailPanel extends JPanel {
         this.searchPanel = new SearchPanel();
 
         //======== this ========
-        setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder(
-        0, 0, 0, 0) , "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e", javax. swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder
-        . BOTTOM, new java .awt .Font ("D\u0069al\u006fg" ,java .awt .Font .BOLD ,12 ), java. awt. Color.
-        red) , getBorder( )) );  addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .
-        beans .PropertyChangeEvent e) {if ("\u0062or\u0064er" .equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
+        setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing.
+        border. EmptyBorder( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border. TitledBorder. CENTER
+        , javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font
+        .BOLD ,12 ), java. awt. Color. red) , getBorder( )) );  addPropertyChangeListener (
+        new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("bord\u0065r"
+        .equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
         setLayout(new BorderLayout());
 
         //======== splitPanels ========
@@ -217,6 +218,24 @@ public class MasterDetailPanel extends JPanel {
             return this.searchPanelFromSql;
         }
 
+        private void txtIDKeyPressed(KeyEvent e) {
+            if (e.getKeyCode() == 10) {
+                executeSearch();
+            }
+        }
+
+        private void txtNameKeyPressed(KeyEvent e) {
+            if (e.getKeyCode() == 10) {
+                executeSearch();
+            }
+        }
+
+        private void searchButtonKeyPressed(KeyEvent e) {
+            if (e.getKeyCode() == 10) {
+                executeSearch();
+            }
+        }
+
         private void initComponents() {
             // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
             // Generated using JFormDesigner Evaluation license - Brian Nordstrom
@@ -245,6 +264,14 @@ public class MasterDetailPanel extends JPanel {
                 this.pnlCriteria.add(this.lblField1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 5, 8, 10), 0, 0));
+
+                //---- txtID ----
+                this.txtID.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        txtIDKeyPressed(e);
+                    }
+                });
                 this.pnlCriteria.add(this.txtID, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 8, 5), 0, 0));
@@ -254,6 +281,14 @@ public class MasterDetailPanel extends JPanel {
                 this.pnlCriteria.add(this.lblField2, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 5, 8, 10), 0, 0));
+
+                //---- txtName ----
+                this.txtName.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        txtNameKeyPressed(e);
+                    }
+                });
                 this.pnlCriteria.add(this.txtName, new GridBagConstraints(1, 1, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 8, 5), 0, 0));
@@ -262,6 +297,12 @@ public class MasterDetailPanel extends JPanel {
                 this.searchButton.setText("Search");
                 this.searchButton.setMnemonic('R');
                 this.searchButton.addActionListener(e -> searchButtonActionPerformed(e));
+                this.searchButton.addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        searchButtonKeyPressed(e);
+                    }
+                });
                 this.pnlCriteria.add(this.searchButton, new GridBagConstraints(1, 2, 1, 1, 0.0, 0.0,
                     GridBagConstraints.EAST, GridBagConstraints.VERTICAL,
                     new Insets(0, 0, 0, 5), 0, 0));
