@@ -179,12 +179,12 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
         //TABBED PANELS ARE CREATED SEPARATELY (SETTINGS PANEL)
 
         //GENERIC SETTINGS PANEL
-//        this.settingsPanel = new SettingsPanel(this);
-//        this.pnlCards.add(this.settingsPanel, PLUGIN_GENERIC_PANEL );
+        this.settingsPanel = new SettingsPanel(this);
+        this.pnlCards.add(this.settingsPanel, PLUGIN_GENERIC_PANEL );
 
         //GENERIC MASTER DETAIL TABLE
-        this.masterDetailPanel = new MasterDetailPanel(this);
-        this.pnlCards.add(this.masterDetailPanel, PLUGIN_GENERIC_PANEL);
+//        this.masterDetailPanel = new MasterDetailPanel(this);
+//        this.pnlCards.add(this.masterDetailPanel, PLUGIN_GENERIC_PANEL);
 
 
         this.hideShowPanels(); //Makes the interior panel visible

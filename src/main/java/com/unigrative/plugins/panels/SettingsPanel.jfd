@@ -7,13 +7,18 @@ new FormModel {
 			name: "this"
 			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
 				"$columnSpecs": "0:1.0"
-				"$rowSpecs": "0, 0:1.0, 0"
+				"$rowSpecs": "0, 0, 0:1.0, 0"
 				"$hGap": 5
 				"$vGap": 5
 				"$alignLeft": true
 				"$alignTop": true
 			} ) {
 				name: "panel1"
+				add( new FormComponent( "javax.swing.JTextField" ) {
+					name: "textField1"
+				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+					"gridy": 1
+				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
 					"$columnSpecs": "0:1.0, 0, 0"
 					"$rowSpecs": "0"
@@ -26,6 +31,7 @@ new FormModel {
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "button1"
 						"text": "Test"
+						addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "button1ActionPerformed", true ) )
 					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 						"gridx": 1
 					} )
@@ -36,7 +42,7 @@ new FormModel {
 						"gridx": 2
 					} )
 				}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
-					"gridy": 2
+					"gridy": 3
 					"insets": new java.awt.Insets( 0, 0, 10, 10 )
 				} )
 			}, new FormLayoutConstraints( class java.lang.String ) {
