@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 public class GenericScheduledTask implements IFBRunnable {
 
+    //IF THE CLASS NAME OR PATH CHANGES, THE SERVER WILL NEED TO BE RESTARTED SO THE CLASS CAN BE SCANNED AND FOUND
     private static final Logger LOGGER = LoggerFactory.getLogger(GenericScheduledTask.class);
 
     public GenericScheduledTask() {
