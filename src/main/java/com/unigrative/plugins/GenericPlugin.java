@@ -30,8 +30,8 @@ import java.util.Map;
 
 public class GenericPlugin extends FishbowlPlugin implements PropertyGetter, Repository.RunSql, ApiCaller {
 
-    private static final String MODULE_NAME = "TestPlugin"; //CHANGE
-    public static final String MODULE_FRIENDLY_NAME = "Generic Plugin"; //CHANGE
+    private static final String MODULE_NAME = "GenericPlugin"; //TODO CHANGE
+    public static final String MODULE_FRIENDLY_NAME = "Generic Plugin"; //TODO CHANGE
     private static final Logger LOGGER = LoggerFactory.getLogger((Class) GenericPlugin.class);
 
     private static final String PLUGIN_GENERIC_PANEL = "pluginGenericPanel";
@@ -91,15 +91,15 @@ public class GenericPlugin extends FishbowlPlugin implements PropertyGetter, Rep
 
     @Override
     public boolean activateModule() {
-        super.activateModule();
+        if (this.eveManager.isConnected()) {
+            super.activateModule();
+            if (this.isInitialized()) {
+                LOGGER.info("Initializing models");
+                InitializeModels.init(this); //TODO: build tables if needed
+                this.masterDetailPanel.searchPanel.executeSearch(); //TODO : ONLY NEEDED TO SEARCH RIGHT ON START UP
 
-        if (this.isInitialized()) {
-            LOGGER.info("Initializing models");
-            InitializeModels.init(this); //build tables if needed
-
-            this.masterDetailPanel.searchPanel.executeSearch(); //TODO : ONLY NEEDED TO SEARCH RIGHT ON START UP
-
-            return true;
+                return this.isInitialized();
+            }
         }
 
         return false;
