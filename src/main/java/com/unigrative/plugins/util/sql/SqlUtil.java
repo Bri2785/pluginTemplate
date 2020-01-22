@@ -1,6 +1,7 @@
 package com.unigrative.plugins.util.sql;
 
 import com.evnt.client.common.EVEManager;
+import com.evnt.client.modules.dataexport.data.DataExportResultRowData;
 import com.evnt.common.MethodConst;
 import com.evnt.eve.event.EVEvent;
 import com.evnt.util.KeyConst;
@@ -199,13 +200,14 @@ public class SqlUtil {
         runElevatedQuery(SQLStatement.toString(), eveManager);
     }
 
-    public static void createTableFromFile(String tableName, String createSqlFileName, EVEManager eveManager){
+    public static void createTableFromFile(String tableName, String createSqlFilePath, EVEManager eveManager){
 
 
         if (!checkTableExists(tableName, eveManager)) {
             LOGGER.info(String.format("Creating table %s", tableName));
-            String sql = loadSql(createSqlFileName, null);
+            String sql = loadSql(createSqlFilePath, null);
             LOGGER.debug("Creation query loaded");
+
             LOGGER.debug(sql);
             runElevatedQuery(sql, eveManager);
             LOGGER.debug("Table created");
@@ -217,11 +219,21 @@ public class SqlUtil {
         //check if table exist first
         final String query = String.format("SHOW TABLES LIKE '%s'", tableName);
 
-        //no table
-        return runElevatedQuery(query, eveManager).size() != 0;
+
+        EVEvent response = runElevatedQuery(query, eveManager);
+
+        DataExportResult queryData = response.getObject(KeyConst.DATA_EXPORT_RESULTS, DataExportResult.class);
+
+        if (response.isMessageException()){
+            //return true;
+            UtilGui.showMessageDialog("Error Running Query. Check logs for details");
+
+        }
+
+        return (Integer) queryData.getResults().get(0).get(1) != 0;
     }
 
-    private static List<QueryRow> runElevatedQuery(String query, EVEManager eveManager) {
+    private static EVEvent runElevatedQuery(String query, EVEManager eveManager) {
         LOGGER.debug("Running Query");
         LOGGER.debug(query);
 
@@ -232,17 +244,15 @@ public class SqlUtil {
         try {
             DataExportFpo.validateSQL(query, true);
         } catch (ExceptionMainFree var4) {
+            LOGGER.error("Ran from elevated, so ignore not allowed warning");
             LOGGER.error("Error validating query", var4);
         }
 
-        EVEvent response = eveManager.sendAndWait(request);
-        List<QueryRow> queryData = response.getList(KeyConst.DATA_EXPORT_RESULTS, QueryRow.class);
 
-        if (response.isMessageException()){
-            UtilGui.showMessageDialog("Error Running Query. Check logs for details");
-        }
+        return eveManager.sendAndWait(request);
 
-        return queryData;
+
+
     }
 
     private static void grantViewAccess(String viewName, EVEManager eveManager){
