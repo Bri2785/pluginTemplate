@@ -5,12 +5,9 @@
 package com.unigrative.plugins.panels.masterdetailsearch;
 
 import com.evnt.client.common.EVEManagerUtil;
-import com.evnt.client.common.PnlPagedSearch;
-import com.evnt.common.MethodConst;
-import com.evnt.util.KeyConst;
 import com.fbi.gui.misc.IconTitleBorderPanel;
 import com.fbi.gui.panel.FBSplitPane;
-import com.unigrative.plugins.Plugin;
+import com.unigrative.plugins.GenericPlugin;
 import com.unigrative.plugins.util.sql.SqlUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,16 +22,16 @@ import java.util.List;
 /**
  * @author Brian Nordstrom
  */
-public class MasterDetailPanel extends JPanel {
+public class MasterDetailPanel extends FBSplitPane {
     private static final Logger LOGGER = LoggerFactory.getLogger((Class)MasterDetailPanel.class);
 
     private SqlUtil sqlUtil;
 
-    private Plugin _plugin;
+    private GenericPlugin _Generic_plugin;
 
-    public MasterDetailPanel(Plugin plugin) {
+    public MasterDetailPanel(GenericPlugin genericPlugin) {
         try {
-            _plugin = plugin; //FOR EVE ACCESS
+            _Generic_plugin = genericPlugin; //FOR EVE ACCESS
             initComponents();
 
             LOGGER.debug("Master Detail Screen Components init");
@@ -84,7 +81,6 @@ public class MasterDetailPanel extends JPanel {
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Brian Nordstrom
-        this.splitPanels = new FBSplitPane();
         this.panel1 = new JPanel();
         this.iconTitleBorderPanel1 = new IconTitleBorderPanel();
         this.bottomButtonsPanel = new JPanel();
@@ -92,62 +88,55 @@ public class MasterDetailPanel extends JPanel {
         this.searchPanel = new SearchPanel();
 
         //======== this ========
-        setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing.
-        border. EmptyBorder( 0, 0, 0, 0) , "JFor\u006dDesi\u0067ner \u0045valu\u0061tion", javax. swing. border. TitledBorder. CENTER
-        , javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dia\u006cog" ,java .awt .Font
-        .BOLD ,12 ), java. awt. Color. red) , getBorder( )) );  addPropertyChangeListener (
-        new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("bord\u0065r"
-        .equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
-        setLayout(new BorderLayout());
+        setOneTouchExpandable(true);
+        setDividerLocation(250);
 
-        //======== splitPanels ========
+        //======== panel1 ========
         {
-            this.splitPanels.setOneTouchExpandable(true);
-            this.splitPanels.setDividerLocation(250);
+            this.panel1.setMinimumSize(new Dimension(50, 0));
+            this.panel1.setPreferredSize(new Dimension(50, 0));
+            this.panel1.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border.
+            EmptyBorder(0,0,0,0), "JFor\u006dDesi\u0067ner \u0045valu\u0061tion",javax.swing.border.TitledBorder.CENTER,javax.swing
+            .border.TitledBorder.BOTTOM,new java.awt.Font("Dia\u006cog",java.awt.Font.BOLD,12),
+            java.awt.Color.red),this.panel1. getBorder()));this.panel1. addPropertyChangeListener(new java.beans.PropertyChangeListener()
+            {@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("bord\u0065r".equals(e.getPropertyName()))
+            throw new RuntimeException();}});
+            this.panel1.setLayout(new BorderLayout(5, 5));
 
-            //======== panel1 ========
+            //======== iconTitleBorderPanel1 ========
             {
-                this.panel1.setMinimumSize(new Dimension(50, 0));
-                this.panel1.setPreferredSize(new Dimension(50, 0));
-                this.panel1.setLayout(new BorderLayout(5, 5));
+                this.iconTitleBorderPanel1.setType(IconTitleBorderPanel.IconConst.Search);
+                this.iconTitleBorderPanel1.setTitle("Search");
+                this.iconTitleBorderPanel1.setLayout(new GridBagLayout());
+                ((GridBagLayout)this.iconTitleBorderPanel1.getLayout()).columnWidths = new int[] {0, 0};
+                ((GridBagLayout)this.iconTitleBorderPanel1.getLayout()).rowHeights = new int[] {0, 0, 0, 0};
+                ((GridBagLayout)this.iconTitleBorderPanel1.getLayout()).columnWeights = new double[] {1.0, 1.0E-4};
+                ((GridBagLayout)this.iconTitleBorderPanel1.getLayout()).rowWeights = new double[] {1.0, 0.0, 0.0, 1.0E-4};
 
-                //======== iconTitleBorderPanel1 ========
+                //======== bottomButtonsPanel ========
                 {
-                    this.iconTitleBorderPanel1.setType(IconTitleBorderPanel.IconConst.Search);
-                    this.iconTitleBorderPanel1.setTitle("Search");
-                    this.iconTitleBorderPanel1.setLayout(new GridBagLayout());
-                    ((GridBagLayout)this.iconTitleBorderPanel1.getLayout()).columnWidths = new int[] {0, 0};
-                    ((GridBagLayout)this.iconTitleBorderPanel1.getLayout()).rowHeights = new int[] {0, 0, 0, 0};
-                    ((GridBagLayout)this.iconTitleBorderPanel1.getLayout()).columnWeights = new double[] {1.0, 1.0E-4};
-                    ((GridBagLayout)this.iconTitleBorderPanel1.getLayout()).rowWeights = new double[] {1.0, 0.0, 0.0, 1.0E-4};
+                    this.bottomButtonsPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
-                    //======== bottomButtonsPanel ========
-                    {
-                        this.bottomButtonsPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
-
-                        //---- viewButton ----
-                        this.viewButton.setText("View");
-                        this.viewButton.addActionListener(e -> viewButtonActionPerformed(e));
-                        this.bottomButtonsPanel.add(this.viewButton);
-                    }
-                    this.iconTitleBorderPanel1.add(this.bottomButtonsPanel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
-                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                        new Insets(0, 0, 2, 0), 0, 0));
-                    this.iconTitleBorderPanel1.add(this.searchPanel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
-                        GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                        new Insets(0, 0, 2, 0), 0, 0));
+                    //---- viewButton ----
+                    this.viewButton.setText("View");
+                    this.viewButton.addActionListener(e -> viewButtonActionPerformed(e));
+                    this.bottomButtonsPanel.add(this.viewButton);
                 }
-                this.panel1.add(this.iconTitleBorderPanel1, BorderLayout.CENTER);
+                this.iconTitleBorderPanel1.add(this.bottomButtonsPanel, new GridBagConstraints(0, 1, 1, 1, 0.0, 0.0,
+                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                    new Insets(0, 0, 2, 0), 0, 0));
+                this.iconTitleBorderPanel1.add(this.searchPanel, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
+                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                    new Insets(0, 0, 2, 0), 0, 0));
             }
-            this.splitPanels.setLeftComponent(this.panel1);
+            this.panel1.add(this.iconTitleBorderPanel1, BorderLayout.CENTER);
         }
-        add(this.splitPanels, BorderLayout.CENTER);
+        setLeftComponent(this.panel1);
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
     // Generated using JFormDesigner Evaluation license - Brian Nordstrom
-    private FBSplitPane splitPanels;
     private JPanel panel1;
     private IconTitleBorderPanel iconTitleBorderPanel1;
     private JPanel bottomButtonsPanel;

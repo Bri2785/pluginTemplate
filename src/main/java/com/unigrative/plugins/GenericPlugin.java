@@ -7,13 +7,13 @@ import com.fbi.fbo.impl.dataexport.QueryRow;
 import com.fbi.fbo.message.request.RequestBase;
 import com.fbi.fbo.message.response.ResponseBase;
 import com.fbi.gui.button.FBMainToolbarButton;
+import com.fbi.gui.misc.GUIProperties;
 import com.fbi.gui.panel.TitlePanel;
 import com.fbi.plugins.FishbowlPlugin;
 import com.fbi.sdk.constants.MenuGroupNameConst;
 import com.unigrative.plugins.exception.FishbowlException;
 import com.unigrative.plugins.fbapi.ApiCaller;
 import com.unigrative.plugins.models.InitializeModels;
-import com.unigrative.plugins.panels.SettingsPanel;
 import com.unigrative.plugins.panels.masterdetailsearch.MasterDetailPanel;
 import com.unigrative.plugins.repository.Repository;
 import com.unigrative.plugins.util.property.PropertyGetter;
@@ -28,17 +28,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository.RunSql, ApiCaller {
+public class GenericPlugin extends FishbowlPlugin implements PropertyGetter, Repository.RunSql, ApiCaller {
 
     private static final String MODULE_NAME = "TestPlugin"; //CHANGE
-    public static final String MODULE_FRIENDLY_NAME = "Plugin Addons"; //CHANGE
-    private static final Logger LOGGER = LoggerFactory.getLogger((Class)Plugin.class);
+    public static final String MODULE_FRIENDLY_NAME = "Generic Plugin"; //CHANGE
+    private static final Logger LOGGER = LoggerFactory.getLogger((Class) GenericPlugin.class);
 
     private static final String PLUGIN_GENERIC_PANEL = "pluginGenericPanel";
 
     private Repository repository;
 
-    private static Plugin instance = null;
+    private static GenericPlugin instance = null;
 
     EVEManager eveManager = EVEManagerUtil.getEveManager(); //get access to eve manager
 
@@ -57,9 +57,9 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
 
 
 
-    public Plugin() {
+    public GenericPlugin() {
         instance = this; //this is so we can access the FishbowlPlugin module methods from other classes
-        this.setModuleName(Plugin.MODULE_NAME);
+        this.setModuleName(GenericPlugin.MODULE_NAME);
         this.setMenuGroup(MenuGroupNameConst.INTEGRATIONS);//this is the module group it shows up in
         this.setMenuListLocation(1000); //bottom of the list
         this.setIconClassPath("/images/unigrative48.png"); // make sure there is a 24 version in the folder so it can use that for the tabs
@@ -76,6 +76,19 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
 
     }
 
+    protected void initModule() {
+        super.initModule();
+        this.initComponents(); //HAS TO COME FIRST SINCE THE PANELS NEED TO BE MADE
+        this.setMainToolBar(this.mainToolBar);
+        this.initLayout(); //FILLS THE CARD PANEL WITH THE INTERIOR PANELS
+        this.setButtonPrintVisible(false); //TODO: OPTIONAL
+        this.setButtonEmailVisible(false); //TODO : OPTIONAL
+
+        GUIProperties.registerComponent(this.masterDetailPanel, this.getModuleName()); //TODO HIDE IF NOT USING MASTER DETAIL. SAVES WIDTH
+
+        GUIProperties.loadComponents(this.getModuleName());
+    }
+
     @Override
     public boolean activateModule() {
         super.activateModule();
@@ -83,20 +96,29 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
         if (this.isInitialized()) {
             LOGGER.info("Initializing models");
             InitializeModels.init(this); //build tables if needed
+
+            this.masterDetailPanel.searchPanel.executeSearch(); //TODO : ONLY NEEDED TO SEARCH RIGHT ON START UP
+
             return true;
         }
 
         return false;
     }
 
+    public boolean closeModule() {
+        GUIProperties.saveComponents(this.getModuleName());
+        //this.getController().setModified(false); //TODO: TURN ON WHEN CONTROLLER IS SETUP
+        return super.closeModule();
+    }
+    //TODO: REGISTER CONTROLLER FOR MASTER DETAIL CHANGES TO DETAILS
 
 
-    public static Plugin getInstance() {
+    public static GenericPlugin getInstance() {
         return instance; //used from other places (buttons) to get access to the EVEManager since that's restricted to the plugin class
     }
 
     public String getModuleTitle() {
-        return "<html><center>TEST<br>PLUGIN</center></html>"; //CHANGE -> THIS SHOWS IN THE MODULE LIST
+        return "<html><center>Generic<br>Plugin</center></html>"; // TODO CHANGE -> THIS SHOWS IN THE MODULE LIST
     }
 
     public EVEManager getPluginEveManager(){
@@ -183,17 +205,7 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
 
     }
 
-    protected void initModule() {
-        super.initModule();
-        this.initComponents(); //HAS TO COME FIRST SINCE THE PANELS NEED TO BE MADE
-        this.setMainToolBar(this.mainToolBar);
-        this.initLayout(); //FILLS THE CARD PANEL WITH THE INTERIOR PANELS
-        this.setButtonPrintVisible(false); //OPTIONAL
-        this.setButtonEmailVisible(false); //OPTIONAL
 
-
-
-    }
 
     private void initLayout() {
         //PANELS TO BE ADDED TO THE CARD LAYOUT (TYPICALLY ONLY ONE UNLESS THE ENTIRE SCREEN NEEDS TO BE SWITCHED)
@@ -239,7 +251,7 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
 
             this.btnSave.setIcon((Icon) new ImageIcon(this.getClass().getResource("/icon24/filesystem/disks/disk_gold.png")));
             this.btnSave.setText("Save");
-            this.btnSave.setToolTipText("Save your Plugin settings."); //CHANGE NAME
+            this.btnSave.setToolTipText("Save your GenericPlugin settings."); //CHANGE NAME
             this.btnSave.setHorizontalTextPosition(0);
             this.btnSave.setIconTextGap(0);
             this.btnSave.setMargin(new Insets(0, 2, 0, 2));
@@ -248,7 +260,7 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
             this.btnSave.addActionListener((ActionListener) new ActionListener() {
                 @Override
                 public void actionPerformed(final ActionEvent e) {
-                    Plugin.this.btnSaveActionPerformed();
+                    GenericPlugin.this.btnSaveActionPerformed();
                 }
             });
             this.mainToolBar.add((Component) this.btnSave);

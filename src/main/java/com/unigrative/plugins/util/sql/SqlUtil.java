@@ -1,16 +1,13 @@
 package com.unigrative.plugins.util.sql;
 
 import com.evnt.client.common.EVEManager;
-import com.evnt.client.modules.dataexport.data.DataExportResultRowData;
 import com.evnt.common.MethodConst;
 import com.evnt.eve.event.EVEvent;
 import com.evnt.util.KeyConst;
 import com.fbi.fbdata.general.DataExportFpo;
 import com.fbi.fbo.impl.dataexport.DataExportResult;
-import com.fbi.fbo.impl.dataexport.QueryRow;
 import com.fbi.gui.util.UtilGui;
 import com.fbi.util.exception.ExceptionMainFree;
-import com.unigrative.plugins.Plugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
