@@ -12,6 +12,7 @@ import com.fbi.plugins.FishbowlPlugin;
 import com.fbi.sdk.constants.MenuGroupNameConst;
 import com.unigrative.plugins.exception.FishbowlException;
 import com.unigrative.plugins.fbapi.ApiCaller;
+import com.unigrative.plugins.models.InitializeModels;
 import com.unigrative.plugins.panels.SettingsPanel;
 import com.unigrative.plugins.panels.masterdetailsearch.MasterDetailPanel;
 import com.unigrative.plugins.repository.Repository;
@@ -49,7 +50,7 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
 
     //PICK A PANEL TO ADD TO THE CARDS PANEL UNLESS WE HAVE A WAY TO SWITCH BETWEEN THEM
     //GENERIC SETTINGS PANEL OPTION
-    private SettingsPanel settingsPanel;
+    //private SettingsPanel settingsPanel;
 
     //MASTER DETAIL TABLE SEARCH OPTION
     private MasterDetailPanel masterDetailPanel;
@@ -71,7 +72,23 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
 
         this.repository = new Repository(this);
 
+
+
     }
+
+    @Override
+    public boolean activateModule() {
+        super.activateModule();
+
+        if (this.isInitialized()) {
+            LOGGER.info("Initializing models");
+            InitializeModels.init(this); //build tables if needed
+            return true;
+        }
+
+        return false;
+    }
+
 
 
     public static Plugin getInstance() {
@@ -80,6 +97,10 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
 
     public String getModuleTitle() {
         return "<html><center>TEST<br>PLUGIN</center></html>"; //CHANGE -> THIS SHOWS IN THE MODULE LIST
+    }
+
+    public EVEManager getPluginEveManager(){
+        return eveManager;
     }
 
     public String getProperty(final String key) {
@@ -179,12 +200,12 @@ public class Plugin extends FishbowlPlugin implements PropertyGetter, Repository
         //TABBED PANELS ARE CREATED SEPARATELY (SETTINGS PANEL)
 
         //GENERIC SETTINGS PANEL
-        this.settingsPanel = new SettingsPanel(this);
-        this.pnlCards.add(this.settingsPanel, PLUGIN_GENERIC_PANEL );
+//        this.settingsPanel = new SettingsPanel(this);
+//        this.pnlCards.add(this.settingsPanel, PLUGIN_GENERIC_PANEL );
 
         //GENERIC MASTER DETAIL TABLE
-//        this.masterDetailPanel = new MasterDetailPanel(this);
-//        this.pnlCards.add(this.masterDetailPanel, PLUGIN_GENERIC_PANEL);
+        this.masterDetailPanel = new MasterDetailPanel(this);
+        this.pnlCards.add(this.masterDetailPanel, PLUGIN_GENERIC_PANEL);
 
 
         this.hideShowPanels(); //Makes the interior panel visible

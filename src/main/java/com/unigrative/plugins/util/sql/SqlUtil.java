@@ -6,15 +6,16 @@ import com.evnt.eve.event.EVEvent;
 import com.evnt.util.KeyConst;
 import com.fbi.fbdata.general.DataExportFpo;
 import com.fbi.fbo.impl.dataexport.DataExportResult;
+import com.fbi.fbo.impl.dataexport.QueryRow;
 import com.fbi.gui.util.UtilGui;
 import com.fbi.util.exception.ExceptionMainFree;
+import com.unigrative.plugins.Plugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
 public class SqlUtil {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SqlUtil.class);
-    private final Map<String, String> storedSql = new ConcurrentHashMap();
+    private static final Map<String, String> storedSql = new ConcurrentHashMap();
 
     public static Object[] paramsListToString(List params){
         if (params == null) {
@@ -107,10 +108,10 @@ public class SqlUtil {
         return "'" + o.toString().replaceAll("'", "''") + "'";
     }
 
-    public String loadSql(String fileName, Object... params) {
+    public static String loadSql(String fileName, Object... params) {
 
 
-        String sqlString = (String)this.storedSql.computeIfAbsent(fileName, (k) -> {
+        String sqlString = (String)storedSql.computeIfAbsent(fileName, (k) -> {
             try {
                 InputStream stream = SqlUtil.class.getResourceAsStream(k);
                 Throwable var2 = null;
@@ -195,10 +196,32 @@ public class SqlUtil {
 
     public static void createView(String SQLStatement, EVEManager eveManager ){
 
-        RunQuery(SQLStatement.toString(), eveManager);
+        runElevatedQuery(SQLStatement.toString(), eveManager);
     }
 
-    private static void RunQuery(String query, EVEManager eveManager) {
+    public static void createTableFromFile(String tableName, String createSqlFileName, EVEManager eveManager){
+
+
+        if (!checkTableExists(tableName, eveManager)) {
+            LOGGER.info(String.format("Creating table %s", tableName));
+            String sql = loadSql(createSqlFileName, null);
+            LOGGER.debug("Creation query loaded");
+            LOGGER.debug(sql);
+            runElevatedQuery(sql, eveManager);
+            LOGGER.debug("Table created");
+        }
+
+    }
+
+    private static boolean checkTableExists(String tableName, EVEManager eveManager){
+        //check if table exist first
+        final String query = String.format("SHOW TABLES LIKE '%s'", tableName);
+
+        //no table
+        return runElevatedQuery(query, eveManager).size() != 0;
+    }
+
+    private static List<QueryRow> runElevatedQuery(String query, EVEManager eveManager) {
         LOGGER.debug("Running Query");
         LOGGER.debug(query);
 
@@ -213,12 +236,13 @@ public class SqlUtil {
         }
 
         EVEvent response = eveManager.sendAndWait(request);
-        DataExportResult queryData;
-        queryData = (DataExportResult)response.getObject(KeyConst.DATA_EXPORT_RESULTS, DataExportResult.class);
+        List<QueryRow> queryData = response.getList(KeyConst.DATA_EXPORT_RESULTS, QueryRow.class);
 
         if (response.isMessageException()){
             UtilGui.showMessageDialog("Error Running Query. Check logs for details");
         }
+
+        return queryData;
     }
 
     private static void grantViewAccess(String viewName, EVEManager eveManager){
