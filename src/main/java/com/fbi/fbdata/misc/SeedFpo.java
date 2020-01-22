@@ -1,4 +1,4 @@
-package com.unigrative.plugins.models;
+package com.fbi.fbdata.misc;
 
 import com.fbi.fbdata.FbEntity;
 import org.hibernate.validator.constraints.Length;
@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity(name = "Seed") //TODO: CHANGE
-@Table(name = "gcs_seed", uniqueConstraints = { @UniqueConstraint(columnNames = { "commonName" }) })
+@Table(name = "GcsSeed", uniqueConstraints = { @UniqueConstraint(columnNames = { "commonName" }) })
 public class SeedFpo extends FbEntity<SeedFpo> {
 
     public static final int COL_LENGTH_NAME = 60;

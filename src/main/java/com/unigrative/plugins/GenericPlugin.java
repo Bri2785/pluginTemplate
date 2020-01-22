@@ -2,6 +2,8 @@ package com.unigrative.plugins;
 
 import com.evnt.client.common.EVEManager;
 import com.evnt.client.common.EVEManagerUtil;
+import com.evnt.common.MethodConst;
+import com.evnt.eve.event.EVEvent;
 import com.fbi.fbo.impl.ApiCallType;
 import com.fbi.fbo.impl.dataexport.QueryRow;
 import com.fbi.fbo.message.request.RequestBase;
@@ -14,6 +16,7 @@ import com.fbi.sdk.constants.MenuGroupNameConst;
 import com.unigrative.plugins.exception.FishbowlException;
 import com.unigrative.plugins.fbapi.ApiCaller;
 import com.unigrative.plugins.models.InitializeModels;
+import com.unigrative.plugins.models.Seed;
 import com.unigrative.plugins.panels.masterdetailsearch.MasterDetailPanel;
 import com.unigrative.plugins.repository.Repository;
 import com.unigrative.plugins.util.property.PropertyGetter;
@@ -24,13 +27,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class GenericPlugin extends FishbowlPlugin implements PropertyGetter, Repository.RunSql, ApiCaller {
 
-    private static final String MODULE_NAME = "GenericPlugin"; //TODO CHANGE
+    public static final String MODULE_NAME = "GenericPlugin"; //TODO CHANGE
     public static final String MODULE_FRIENDLY_NAME = "Generic Plugin"; //TODO CHANGE
     private static final Logger LOGGER = LoggerFactory.getLogger((Class) GenericPlugin.class);
 
@@ -203,8 +207,33 @@ public class GenericPlugin extends FishbowlPlugin implements PropertyGetter, Rep
     private void btnSaveActionPerformed() {
         this.saveSettings();
 
+        this.saveSeed();
+
     }
 
+    private void saveSeed(){
+
+        Seed seed = new Seed();
+        seed.setCommonName("TestCommon");
+        seed.setScientificName("Test Scientific");
+
+        //final EVEvent request = this.getPluginEveManager().createRequest(MethodConst.UNKNOWN); //CANT USE UINKNOWN UNTIL FB REMOVES THE CALL TO METHODCONST.GETMODULENAME SINCE THE MODULE IS NULL
+        final EVEvent request = this.getPluginEveManager().createRequest(MethodConst.RUN_DATA_EXPORT); //GENERIC CALL FOR NOW
+
+        //OVERRIDE THE DESTINATION TO GET AROUND THE METHOD.CONST ISSUE
+        request.getDestination().setModule("Seed");
+        request.getDestination().setHandler("updateSeed");
+
+        request.getSource().setModule("Seed");
+        request.getSource().setHandler("updateSeed");
+        request.addObject("Seed", seed);
+        EVEvent response = this.getPluginEveManager().sendAndWait(request);
+
+        if (response.isMessageException()){
+            LOGGER.error("Error saving seed : {}", response.getErrorMessage());
+        }
+
+    }
 
 
     private void initLayout() {
