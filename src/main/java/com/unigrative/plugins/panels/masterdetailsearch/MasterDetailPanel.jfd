@@ -8,8 +8,6 @@ new FormModel {
 		}
 		add( new FormContainer( "com.fbi.gui.panel.FBSplitPane", new FormLayoutManager( class javax.swing.JSplitPane ) ) {
 			name: "this"
-			"oneTouchExpandable": true
-			"dividerLocation": 250
 			auxiliary() {
 				"JavaCodeGenerator.variableGetter": true
 			}
@@ -122,8 +120,21 @@ new FormModel {
 			}, new FormLayoutConstraints( class java.lang.String ) {
 				"value": "left"
 			} )
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+				name: "panel2"
+				add( new FormComponent( "com.unigrative.plugins.panels.masterdetailsearch.details.table.TablePanelWithActions" ) {
+					name: "tablePanelWithActions1"
+					auxiliary() {
+						"JavaCodeGenerator.variableGetter": true
+					}
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "Center"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "right"
+			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 0, 596 )
+			"location": new java.awt.Point( 0, 0 )
 			"size": new java.awt.Dimension( 725, 565 )
 		} )
 	}

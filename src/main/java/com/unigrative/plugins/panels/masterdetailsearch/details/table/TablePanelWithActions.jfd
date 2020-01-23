@@ -1,0 +1,53 @@
+JFDML JFormDesigner: "7.0.0.6.255" Java: "11.0.3" encoding: "UTF-8"
+
+new FormModel {
+	contentType: "form/swing"
+	root: new FormRoot {
+		add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+			"$columnSpecs": "0:1.0, 0"
+			"$rowSpecs": "0:1.0"
+			"$hGap": 5
+			"$vGap": 5
+			"$alignLeft": true
+			"$alignTop": true
+		} ) {
+			name: "this"
+			add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
+				name: "scrollPane1"
+				"horizontalScrollBarPolicy": 31
+				add( new FormComponent( "com.fbi.gui.table.FBTable" ) {
+					name: "detailsTable"
+					auxiliary() {
+						"JavaCodeGenerator.variableGetter": true
+					}
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) )
+			add( new FormContainer( "com.fbi.gui.button.FBSideToolbar", new FormLayoutManager( class javax.swing.JToolBar ) ) {
+				name: "fBSideToolbar1"
+				add( new FormComponent( "com.fbi.gui.button.FBSideToolbarButton" ) {
+					name: "btnAdd"
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/icon24/textanddocuments/documents/document_new.png" )
+					"buttonSize": new java.awt.Dimension( 40, 40 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btnAddActionPerformed", true ) )
+				} )
+				add( new FormComponent( "com.fbi.gui.button.FBSideToolbarButton" ) {
+					name: "btnEdit"
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/icon24/toolbar/edit/edit.png" )
+					"buttonSize": new java.awt.Dimension( 40, 40 )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btnEditActionPerformed", true ) )
+				} )
+				add( new FormComponent( "com.fbi.gui.button.FBSideToolbarButton" ) {
+					name: "btnDelete"
+					"buttonSize": new java.awt.Dimension( 40, 40 )
+					"icon": new com.jformdesigner.model.SwingIcon( 0, "/icon24/toolbar/others/delete.png" )
+					addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "btnDeleteActionPerformed", true ) )
+				} )
+			}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+				"gridx": 1
+			} )
+		}, new FormLayoutConstraints( null ) {
+			"location": new java.awt.Point( 0, 0 )
+			"size": new java.awt.Dimension( 400, 300 )
+		} )
+	}
+}

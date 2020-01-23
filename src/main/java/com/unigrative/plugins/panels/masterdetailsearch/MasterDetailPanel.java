@@ -7,7 +7,9 @@ package com.unigrative.plugins.panels.masterdetailsearch;
 import com.evnt.client.common.EVEManagerUtil;
 import com.fbi.gui.misc.IconTitleBorderPanel;
 import com.fbi.gui.panel.FBSplitPane;
+import com.fbi.gui.util.UtilGui;
 import com.unigrative.plugins.GenericPlugin;
+import com.unigrative.plugins.panels.masterdetailsearch.details.table.*;
 import com.unigrative.plugins.util.sql.SqlUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -68,12 +70,34 @@ public class MasterDetailPanel extends FBSplitPane {
 
 
     private void loadGenericItemDetails(){
+        //TODO: THIS CHANGES BASED ON IF WE ARE LOADING A SINGLE RECORD OR A ONE-TO-MANY DETAILS SETUP
+
+        //SINGLE
+
+
+
+        //LIST DETAILS
+        //get table with actions object and load data on that side
+        if (this.searchPanel.getSearchPanelFromSql().getSelectedRowCount() > 1){
+            UtilGui.showMessageDialog("Can't load more than one record");
+        }
+        else if (this.searchPanel.getSearchPanelFromSql().getSelectedRowCount() == 1) {
+            final int selectedId = this.searchPanel.searchPanelFromSql.getSelectedID();
+            this.tablePanelWithActions1.loadData(selectedId);
+        }
+
+
+
 //        if (this.searchPanel.getPnlPagedSearch().getSelectedRowCount() == 0) {
 //            UtilGui.showMessageDialog("Select an item to be edited.", "No Item Selected", 0);
 //            return;
 //        }
 //        final int selectedID = this.searchPanel.getPnlPagedSearch().getSelectedID();
 //        UtilGui.showMessageDialog("Selected item GetID method returned: " + selectedID, "No Item Selected", 0);
+    }
+
+    public TablePanelWithActions getTablePanelWithActions1() {
+        return this.tablePanelWithActions1;
     }
 
 
@@ -86,21 +110,21 @@ public class MasterDetailPanel extends FBSplitPane {
         this.bottomButtonsPanel = new JPanel();
         this.viewButton = new JButton();
         this.searchPanel = new SearchPanel();
+        this.panel2 = new JPanel();
+        this.tablePanelWithActions1 = new TablePanelWithActions();
 
         //======== this ========
-        setOneTouchExpandable(true);
-        setDividerLocation(250);
 
         //======== panel1 ========
         {
             this.panel1.setMinimumSize(new Dimension(50, 0));
             this.panel1.setPreferredSize(new Dimension(50, 0));
-            this.panel1.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new javax.swing.border.
-            EmptyBorder(0,0,0,0), "JFor\u006dDesi\u0067ner \u0045valu\u0061tion",javax.swing.border.TitledBorder.CENTER,javax.swing
-            .border.TitledBorder.BOTTOM,new java.awt.Font("Dia\u006cog",java.awt.Font.BOLD,12),
-            java.awt.Color.red),this.panel1. getBorder()));this.panel1. addPropertyChangeListener(new java.beans.PropertyChangeListener()
-            {@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("bord\u0065r".equals(e.getPropertyName()))
-            throw new RuntimeException();}});
+            this.panel1.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border
+            . EmptyBorder( 0, 0, 0, 0) , "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e", javax. swing. border. TitledBorder. CENTER, javax
+            . swing. border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069al\u006fg" ,java .awt .Font .BOLD ,
+            12 ), java. awt. Color. red) ,this.panel1. getBorder( )) ); this.panel1. addPropertyChangeListener (new java. beans
+            . PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062or\u0064er" .equals (e .
+            getPropertyName () )) throw new RuntimeException( ); }} );
             this.panel1.setLayout(new BorderLayout(5, 5));
 
             //======== iconTitleBorderPanel1 ========
@@ -132,6 +156,13 @@ public class MasterDetailPanel extends FBSplitPane {
             this.panel1.add(this.iconTitleBorderPanel1, BorderLayout.CENTER);
         }
         setLeftComponent(this.panel1);
+
+        //======== panel2 ========
+        {
+            this.panel2.setLayout(new BorderLayout());
+            this.panel2.add(this.tablePanelWithActions1, BorderLayout.CENTER);
+        }
+        setRightComponent(this.panel2);
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
@@ -142,6 +173,8 @@ public class MasterDetailPanel extends FBSplitPane {
     private JPanel bottomButtonsPanel;
     private JButton viewButton;
     public SearchPanel searchPanel;
+    private JPanel panel2;
+    private TablePanelWithActions tablePanelWithActions1;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
 
