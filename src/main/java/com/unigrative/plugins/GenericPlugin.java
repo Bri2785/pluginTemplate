@@ -17,6 +17,7 @@ import com.unigrative.plugins.exception.FishbowlException;
 import com.unigrative.plugins.fbapi.ApiCaller;
 import com.unigrative.plugins.models.InitializeModels;
 import com.unigrative.plugins.models.Seed;
+import com.unigrative.plugins.panels.SettingsPanel;
 import com.unigrative.plugins.panels.masterdetailsearch.MasterDetailPanel;
 import com.unigrative.plugins.repository.Repository;
 import com.unigrative.plugins.util.property.PropertyGetter;
@@ -52,12 +53,12 @@ public class GenericPlugin extends FishbowlPlugin implements PropertyGetter, Rep
 
     private JPanel pnlCards;
 
-    //PICK A PANEL TO ADD TO THE CARDS PANEL UNLESS WE HAVE A WAY TO SWITCH BETWEEN THEM
+    //TODO PICK A PANEL TO ADD TO THE CARDS PANEL UNLESS WE HAVE A WAY TO SWITCH BETWEEN THEM
     //GENERIC SETTINGS PANEL OPTION
-    //private SettingsPanel settingsPanel;
+    private SettingsPanel settingsPanel;
 
     //MASTER DETAIL TABLE SEARCH OPTION
-    private MasterDetailPanel masterDetailPanel;
+    //private MasterDetailPanel masterDetailPanel;
 
 
 
@@ -88,7 +89,7 @@ public class GenericPlugin extends FishbowlPlugin implements PropertyGetter, Rep
         this.setButtonPrintVisible(false); //TODO: OPTIONAL
         this.setButtonEmailVisible(false); //TODO : OPTIONAL
 
-        GUIProperties.registerComponent(this.masterDetailPanel, this.getModuleName()); //TODO HIDE IF NOT USING MASTER DETAIL. SAVES WIDTH
+        //GUIProperties.registerComponent(this.masterDetailPanel, this.getModuleName()); //TODO HIDE IF NOT USING MASTER DETAIL. SAVES WIDTH
 
         GUIProperties.loadComponents(this.getModuleName());
     }
@@ -98,15 +99,19 @@ public class GenericPlugin extends FishbowlPlugin implements PropertyGetter, Rep
         if (this.eveManager.isConnected()) {
             super.activateModule();
             if (this.isInitialized()) {
-                LOGGER.info("Initializing models");
-                InitializeModels.init(this); //TODO: build tables if needed
-                this.masterDetailPanel.searchPanel.executeSearch(); //TODO : ONLY NEEDED TO SEARCH RIGHT ON START UP
-
+                initModule(); //TODO only needed if adding custom tables
                 return this.isInitialized();
             }
         }
 
         return false;
+    }
+
+    private void initModels(){
+        LOGGER.info("Initializing models");
+        InitializeModels.init(this); //TODO: build tables if needed
+        //this.masterDetailPanel.searchPanel.executeSearch(); //TODO : ONLY NEEDED TO SEARCH RIGHT ON START UP
+
     }
 
     public boolean closeModule() {
@@ -207,7 +212,7 @@ public class GenericPlugin extends FishbowlPlugin implements PropertyGetter, Rep
     private void btnSaveActionPerformed() {
         this.saveSettings();
 
-        this.saveSeed();
+        //this.saveSeed();
 
     }
 
@@ -240,13 +245,14 @@ public class GenericPlugin extends FishbowlPlugin implements PropertyGetter, Rep
         //PANELS TO BE ADDED TO THE CARD LAYOUT (TYPICALLY ONLY ONE UNLESS THE ENTIRE SCREEN NEEDS TO BE SWITCHED)
         //TABBED PANELS ARE CREATED SEPARATELY (SETTINGS PANEL)
 
+        //todo pick which panel is the main
         //GENERIC SETTINGS PANEL
-//        this.settingsPanel = new SettingsPanel(this);
-//        this.pnlCards.add(this.settingsPanel, PLUGIN_GENERIC_PANEL );
+        this.settingsPanel = new SettingsPanel(this);
+        this.pnlCards.add(this.settingsPanel, PLUGIN_GENERIC_PANEL );
 
         //GENERIC MASTER DETAIL TABLE
-        this.masterDetailPanel = new MasterDetailPanel(this);
-        this.pnlCards.add(this.masterDetailPanel, PLUGIN_GENERIC_PANEL);
+//        this.masterDetailPanel = new MasterDetailPanel(this);
+//        this.pnlCards.add(this.masterDetailPanel, PLUGIN_GENERIC_PANEL);
 
 
         this.hideShowPanels(); //Makes the interior panel visible

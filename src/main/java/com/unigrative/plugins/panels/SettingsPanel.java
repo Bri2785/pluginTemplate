@@ -27,7 +27,9 @@ public class SettingsPanel extends JPanel {
     }
 
     private void button1ActionPerformed(ActionEvent e) {
-        textField1.setText(System.getProperty("java.home"));
+
+
+
     }
 
     private void initComponents() {
@@ -35,18 +37,21 @@ public class SettingsPanel extends JPanel {
         // Generated using JFormDesigner Evaluation license - Brian Nordstrom
         panel1 = new JPanel();
         textField1 = new JTextField();
+        scrollPane1 = new JScrollPane();
+        txtOutput = new JTextArea();
         panel2 = new JPanel();
-        button1 = new JButton();
-        button2 = new JButton();
+        btnTest = new JButton();
+        btnCancel = new JButton();
 
         //======== this ========
-        setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax.
-        swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e", javax. swing. border
-        . TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("Dialo\u0067"
-        ,java .awt .Font .BOLD ,12 ), java. awt. Color. red) , getBorder
-        ( )) );  addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java
-        .beans .PropertyChangeEvent e) {if ("borde\u0072" .equals (e .getPropertyName () )) throw new RuntimeException
-        ( ); }} );
+        setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder (
+        new javax . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion"
+        , javax. swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM
+        , new java. awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 )
+        ,java . awt. Color .red ) , getBorder () ) );  addPropertyChangeListener(
+        new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e
+        ) { if( "bord\u0065r" .equals ( e. getPropertyName () ) )throw new RuntimeException( )
+        ;} } );
         setLayout(new BorderLayout());
 
         //======== panel1 ========
@@ -60,6 +65,14 @@ public class SettingsPanel extends JPanel {
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                 new Insets(0, 0, 5, 0), 0, 0));
 
+            //======== scrollPane1 ========
+            {
+                scrollPane1.setViewportView(txtOutput);
+            }
+            panel1.add(scrollPane1, new GridBagConstraints(0, 2, 1, 1, 0.0, 0.0,
+                GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                new Insets(0, 0, 5, 0), 0, 0));
+
             //======== panel2 ========
             {
                 panel2.setLayout(new GridBagLayout());
@@ -68,16 +81,16 @@ public class SettingsPanel extends JPanel {
                 ((GridBagLayout)panel2.getLayout()).columnWeights = new double[] {1.0, 0.0, 0.0, 1.0E-4};
                 ((GridBagLayout)panel2.getLayout()).rowWeights = new double[] {0.0, 1.0E-4};
 
-                //---- button1 ----
-                button1.setText("Test");
-                button1.addActionListener(e -> button1ActionPerformed(e));
-                panel2.add(button1, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
+                //---- btnTest ----
+                btnTest.setText("Test");
+                btnTest.addActionListener(e -> button1ActionPerformed(e));
+                panel2.add(btnTest, new GridBagConstraints(1, 0, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 0, 5), 0, 0));
 
-                //---- button2 ----
-                button2.setText("Cancel");
-                panel2.add(button2, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0,
+                //---- btnCancel ----
+                btnCancel.setText("Cancel");
+                panel2.add(btnCancel, new GridBagConstraints(2, 0, 1, 1, 0.0, 0.0,
                     GridBagConstraints.CENTER, GridBagConstraints.BOTH,
                     new Insets(0, 0, 0, 0), 0, 0));
             }
@@ -93,8 +106,10 @@ public class SettingsPanel extends JPanel {
     // Generated using JFormDesigner Evaluation license - Brian Nordstrom
     private JPanel panel1;
     private JTextField textField1;
+    private JScrollPane scrollPane1;
+    private JTextArea txtOutput;
     private JPanel panel2;
-    private JButton button1;
-    private JButton button2;
+    private JButton btnTest;
+    private JButton btnCancel;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
