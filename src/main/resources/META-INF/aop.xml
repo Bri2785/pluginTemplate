@@ -1,0 +1,13 @@
+<aspectj>
+
+    <aspects>
+        <!-- Aspects -->
+        <aspect name="com.unigrative.aspectj.GenericAspect"/>
+    </aspects>
+
+    <weaver options="-verbose -showWeaveInfo">
+        <include within="com.evnt.eve.modules.logic.extra.LogicSeed"/>
+        <include within="com.unigrative.aspectj.GenericAspect"/>
+    </weaver>
+
+</aspectj>
