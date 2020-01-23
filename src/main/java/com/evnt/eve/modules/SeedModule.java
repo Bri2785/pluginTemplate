@@ -37,6 +37,15 @@ public class SeedModule extends BaseModule  {
         }
     }
 
+    //TODO: TO GET LISTS, MAKE SURE THE RESPONSE HAS AN ARRAY LIST ADDED AS TH OBJECT
+    //EXAMPLE
+//        final ArrayList<CustomFieldFpo> customFieldTypes = this.logicCustomField.getCustomFields(RecordTypeConst.getConst(tableId));
+//        final EVEvent response = EVEventUtil.createResponse(request, 105);
+//        response.addObject((Object)"customFieldDefs", (Serializable)customFieldTypes);
+//
+
+
+
     @Override
     public String getModuleName() {
         return "Seed";

@@ -22,7 +22,6 @@ public class LogicSeed extends ImplController {
         if (seed == null) {
             throw new ExceptionMainFree("Seed cannot be null");
         }
-
         if (seed.getCommonName() == null || seed.getCommonName().isEmpty()){
             throw new ExceptionMainFree("Seed common name cannot be null");
         }
@@ -36,13 +35,22 @@ public class LogicSeed extends ImplController {
 //        }
 
         SeedFpo seedFpo = this.convertSeed(seed);
-
-        //SeedRepository repository = new SeedRepository();
-
         seedFpo = seedRepository.save(seedFpo);
 
         return this.toObject(seedFpo);
     }
+
+    //TODO: GET LIST EXAMPLE
+//    @FbReadOnlyTransactional
+//    public ArrayList<CustomFieldFpo> getCustomFields(final RecordTypeConst recordType) {
+//        if (recordType == null) {
+//            return new ArrayList<CustomFieldFpo>();
+//        }
+//        return (ArrayList<CustomFieldFpo>)this.getCustomFieldRepository().findByTableId(recordType.getId());
+//    }
+
+
+
 
     private SeedFpo convertSeed(Seed seed) {
         if (seed == null){
