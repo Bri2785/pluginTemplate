@@ -34,24 +34,16 @@ public class SettingsPanel extends JPanel {
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Brian Nordstrom
         panel1 = new JPanel();
         textField1 = new JTextField();
         scrollPane1 = new JScrollPane();
         txtOutput = new JTextArea();
         panel2 = new JPanel();
+        textArea1 = new JTextArea();
         btnTest = new JButton();
         btnCancel = new JButton();
 
         //======== this ========
-        setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder (
-        new javax . swing. border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion"
-        , javax. swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder . BOTTOM
-        , new java. awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 )
-        ,java . awt. Color .red ) , getBorder () ) );  addPropertyChangeListener(
-        new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e
-        ) { if( "bord\u0065r" .equals ( e. getPropertyName () ) )throw new RuntimeException( )
-        ;} } );
         setLayout(new BorderLayout());
 
         //======== panel1 ========
@@ -80,6 +72,9 @@ public class SettingsPanel extends JPanel {
                 ((GridBagLayout)panel2.getLayout()).rowHeights = new int[] {0, 0};
                 ((GridBagLayout)panel2.getLayout()).columnWeights = new double[] {1.0, 0.0, 0.0, 1.0E-4};
                 ((GridBagLayout)panel2.getLayout()).rowWeights = new double[] {0.0, 1.0E-4};
+                panel2.add(textArea1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
+                    GridBagConstraints.CENTER, GridBagConstraints.BOTH,
+                    new Insets(0, 0, 0, 5), 0, 0));
 
                 //---- btnTest ----
                 btnTest.setText("Test");
@@ -103,12 +98,12 @@ public class SettingsPanel extends JPanel {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Brian Nordstrom
     private JPanel panel1;
     private JTextField textField1;
     private JScrollPane scrollPane1;
     private JTextArea txtOutput;
     private JPanel panel2;
+    private JTextArea textArea1;
     private JButton btnTest;
     private JButton btnCancel;
     // JFormDesigner - End of variables declaration  //GEN-END:variables

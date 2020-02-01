@@ -99,7 +99,7 @@ public class GenericPlugin extends FishbowlPlugin implements PropertyGetter, Rep
         if (this.eveManager.isConnected()) {
             super.activateModule();
             if (this.isInitialized()) {
-                initModule(); //TODO only needed if adding custom tables
+                //initModels); //TODO only needed if adding custom tables
                 return this.isInitialized();
             }
         }

@@ -36,6 +36,9 @@ new FormModel {
 					"$alignTop": true
 				} ) {
 					name: "panel2"
+					add( new FormComponent( "javax.swing.JTextArea" ) {
+						name: "textArea1"
+					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) )
 					add( new FormComponent( "javax.swing.JButton" ) {
 						name: "btnTest"
 						"text": "Test"
