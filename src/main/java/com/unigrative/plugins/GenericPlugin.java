@@ -142,6 +142,15 @@ public class GenericPlugin extends FishbowlPlugin implements PropertyGetter, Rep
         return (List<QueryRow>)this.runQuery(query);
     }
 
+    @Override
+    public int getObjectId() {
+        return 1; //this is usually the id for the loaded object. Set to 1 to get our own function. This calls loadData() override
+    }
+
+    @Override
+    public void loadData(int objectId) {
+        //custom load data method. Also called on refreshButton being clicked
+    }
 
     private void loadSettings() {
         LOGGER.debug("Loading Settings");
