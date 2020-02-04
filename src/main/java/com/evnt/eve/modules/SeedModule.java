@@ -8,13 +8,10 @@ import com.evnt.eve.annotations.ClientCalled;
 import com.evnt.eve.event.EVEvent;
 import com.evnt.eve.event.EVEventUtil;
 import com.evnt.eve.modules.logic.extra.LogicSeed;
-import com.unigrative.plugins.models.Seed;
+import com.unigrative.pluginUniquePackage.plugins.models.Seed;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
-
-import java.io.Serializable;
-import java.lang.annotation.Annotation;
 
 @Service
 @Controller

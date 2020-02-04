@@ -3,7 +3,7 @@ package com.evnt.eve.modules.logic.extra;
 import com.evnt.common.exceptions.FBException;
 import com.evnt.eve.modules.ImplController;
 import com.fbi.util.exception.ExceptionMainFree;
-import com.unigrative.plugins.models.Seed;
+import com.unigrative.pluginUniquePackage.plugins.models.Seed;
 import com.fbi.fbdata.misc.SeedFpo;
 import com.fbi.entity.extra.SeedRepository;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -3,7 +3,7 @@ package com.evnt.client.modules.so;
 import com.evnt.client.modules.customer.CustomerModuleClient;
 import com.fbi.gui.util.UtilGui;
 import com.fbi.plugins.FishbowlPluginButton;
-import com.unigrative.plugins.GenericPlugin;
+import com.unigrative.pluginUniquePackage.plugins.GenericPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
