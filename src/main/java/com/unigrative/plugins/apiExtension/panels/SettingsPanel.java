@@ -17,6 +17,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author unknown
@@ -72,6 +74,25 @@ public class SettingsPanel extends JPanel {
             txtOutput.append(System.lineSeparator());
             txtOutput.append(ex.getMessage());
         }
+    }
+
+
+    public void loadSettings() {
+        LOGGER.info("Loading Settings");
+
+        LOGGER.info("Settings Loaded");
+
+    }
+    public void saveSettings(){
+        LOGGER.info("Saving settings");
+
+        final Map<String, String> properties = new HashMap<>();
+
+        //add in settings
+
+        this.apiExtensionsPlugin.savePluginProperties(properties);
+
+        LOGGER.info("Settings Saved");
     }
 
     private void initComponents() {

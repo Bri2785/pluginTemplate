@@ -113,23 +113,12 @@ public class ApiExtensionsPlugin extends FishbowlPlugin implements PropertyGette
     @Override
     public void loadData(int objectId) {
         //custom load data method. Also called on refreshButton being clicked
+        this.settingsPanel.loadSettings();
     }
 
-    private void loadSettings() {
-        LOGGER.info("Loading Settings");
-
-        LOGGER.info("Settings Loaded");
-
-    }
 
     protected void saveSettings(){
-        LOGGER.info("Saving settings");
-
-        final Map<String, String> properties = new HashMap<>();
-
-        this.savePluginProperties(properties);
-
-        LOGGER.info("Settings Saved");
+        this.settingsPanel.saveSettings();
     }
 
     private void btnSaveActionPerformed() {
@@ -141,8 +130,8 @@ public class ApiExtensionsPlugin extends FishbowlPlugin implements PropertyGette
 
     private void initLayout() {
         //PANELS TO BE ADDED TO THE TABBED LAYOUT IF DESIRED
-
-        this.pnlCards.add(settingsPanel, "GenericPanel" );
+        this.settingsPanel = new SettingsPanel(this);
+        this.pnlCards.add(settingsPanel, PLUGIN_GENERIC_PANEL );
         this.hideShowPanels();
     }
 
