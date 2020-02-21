@@ -1,5 +1,5 @@
 fbifbo jar has the binding files
-extract binding-objects.xml fil from new fbifbo.jar. 
+extract binding-objects.xml file from new fbifbo.jar.
 Edit xml file. 
 
 Replace ours with the new versions, with the edits for the precomplied lines, and the heading line to include the package name (wo)

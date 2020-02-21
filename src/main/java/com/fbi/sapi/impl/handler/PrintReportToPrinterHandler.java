@@ -36,6 +36,7 @@ import java.util.Map;
 @Service("PrintReportToPrinterRq")
 public class PrintReportToPrinterHandler extends Handler {
 
+    //TODO: check on autowire for this
     LogicReport logicReport;
 
     @Override
