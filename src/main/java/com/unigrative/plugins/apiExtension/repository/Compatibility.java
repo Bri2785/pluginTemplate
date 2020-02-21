@@ -1,5 +1,5 @@
 
-package com.unigrative.plugins.repository;
+package com.unigrative.plugins.apiExtension.repository;
 
 import com.fbi.fbo.impl.dataexport.QueryRow;
 
@@ -7,14 +7,14 @@ public final class Compatibility
 {
     public static final int FB_VERSION_2017_01 = 100;
     
-    public static String handleFirebirdCompatibility(final Repository repository, final String method) {
+    public static String handleFirebirdCompatibility(final com.unigrative.plugins.apiExtension.repository.Repository repository, final String method) {
         if (repository.getDatabaseVersion() < 100) {
             return "firebird/" + method;
         }
         return method;
     }
     
-    public static boolean getBoolean(final Repository repository, final QueryRow queryRow, final String property) {
+    public static boolean getBoolean(final com.unigrative.plugins.apiExtension.repository.Repository repository, final QueryRow queryRow, final String property) {
         if (repository.getDatabaseVersion() >= 100) {
             return queryRow.getBoolean(property);
         }

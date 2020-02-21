@@ -1,6 +1,6 @@
-package com.unigrative.plugins.util.property;
+package com.unigrative.plugins.apiExtension.util.property;
 
-import com.unigrative.plugins.util.property.reader.Reader;
+import com.unigrative.plugins.apiExtension.util.property.reader.Reader;
 
 public final class GlobalProperty<T> extends PluginProperty<T>
 {

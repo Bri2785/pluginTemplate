@@ -1,5 +1,5 @@
 
-package com.unigrative.plugins.util.property.reader;
+package com.unigrative.plugins.apiExtension.util.property.reader;
 
 @FunctionalInterface
 public interface Reader<T>

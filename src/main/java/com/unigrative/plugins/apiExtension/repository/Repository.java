@@ -1,9 +1,9 @@
 
-package com.unigrative.plugins.repository;
+package com.unigrative.plugins.apiExtension.repository;
 
 import com.evnt.util.Util;
 import com.fbi.fbo.impl.dataexport.QueryRow;
-import com.unigrative.plugins.ApiExtensionsPlugin;
+import com.unigrative.plugins.apiExtension.ApiExtensionsPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

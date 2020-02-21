@@ -1,14 +1,16 @@
-package com.unigrative.plugins;
+package com.unigrative.plugins.apiExtension;
 
 import com.evnt.client.common.EVEManager;
 import com.evnt.client.common.EVEManagerUtil;
 import com.fbi.fbo.impl.dataexport.QueryRow;
 import com.fbi.gui.button.FBMainToolbarButton;
+import com.fbi.gui.misc.GUIProperties;
 import com.fbi.gui.panel.TitlePanel;
 import com.fbi.plugins.FishbowlPlugin;
 import com.fbi.sdk.constants.MenuGroupNameConst;
-import com.unigrative.plugins.repository.Repository;
-import com.unigrative.plugins.util.property.PropertyGetter;
+import com.unigrative.plugins.apiExtension.panels.SettingsPanel;
+import com.unigrative.plugins.apiExtension.repository.Repository;
+import com.unigrative.plugins.apiExtension.util.property.PropertyGetter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,7 +40,8 @@ public class ApiExtensionsPlugin extends FishbowlPlugin implements PropertyGette
     private FBMainToolbarButton btnSave;
 
     private JPanel pnlCards;
-    private JPanel pnlGeneric;
+
+    private SettingsPanel settingsPanel;
 
     public ApiExtensionsPlugin() {
         instance = this; //this is so we can access the FishbowlPlugin module methods from other classes
@@ -51,6 +54,39 @@ public class ApiExtensionsPlugin extends FishbowlPlugin implements PropertyGette
         this.repository = new Repository(this);
 
     }
+
+    protected void initModule() {
+        super.initModule();
+        this.initComponents(); //HAS TO COME FIRST SINCE THE PANELS NEED TO BE MADE
+        this.setMainToolBar(this.mainToolBar);
+        this.initLayout(); //FILLS THE CARD PANEL WITH THE INTERIOR PANELS
+        this.setButtonPrintVisible(false); //TODO: OPTIONAL
+        this.setButtonEmailVisible(false); //TODO : OPTIONAL
+
+        //GUIProperties.registerComponent(this.masterDetailPanel, this.getModuleName()); //TODO HIDE IF NOT USING MASTER DETAIL. SAVES WIDTH
+
+        GUIProperties.loadComponents(this.getModuleName());
+    }
+
+    @Override
+    public boolean activateModule() {
+        if (this.eveManager.isConnected()) {
+            super.activateModule();
+            if (this.isInitialized()) {
+                //initModels); //TODO only needed if adding custom tables
+                return this.isInitialized();
+            }
+        }
+
+        return false;
+    }
+
+    public boolean closeModule() {
+        GUIProperties.saveComponents(this.getModuleName());
+        //this.getController().setModified(false); //TODO: TURN ON WHEN CONTROLLER IS SETUP
+        return super.closeModule();
+    }
+    //TODO: REGISTER CONTROLLER FOR MASTER DETAIL CHANGES TO DETAILS
 
 
     public static ApiExtensionsPlugin getInstance() {
@@ -69,19 +105,18 @@ public class ApiExtensionsPlugin extends FishbowlPlugin implements PropertyGette
         return (List<QueryRow>)this.runQuery(query);
     }
 
+    @Override
+    public int getObjectId() {
+        return 1; //this is usually the id for the loaded object. Set to 1 to get our own function. This calls loadData() override
+    }
+
+    @Override
+    public void loadData(int objectId) {
+        //custom load data method. Also called on refreshButton being clicked
+    }
 
     private void loadSettings() {
         LOGGER.info("Loading Settings");
-//        this.txtSqlConnectionUrl.setText(Property.SQL_CONNECTION_URL.get(this));
-//        LOGGER.info(Property.SQL_CONNECTION_URL.get(this));
-//        this.txtUsername.setText(Property.USERNAME.get(this));
-//        this.txtPassword.setText(Encryptor.getInstance().decrypt(Property.PASSWORD.get(this)));
-//
-//        this.apiKeyTextField.setText(Property.CC_API_KEY.get(this));
-//        this.OAuthTokenTextField.setText(Property.CC_TOKEN.get(this));
-//        this.txtLastSync.setText(Property.LAST_SYNC_TIME.get(this));
-//
-//        this.txtCampaignDate.setText(Property.CAMPAIGN_CREATED_DATE.get(this));
 
         LOGGER.info("Settings Loaded");
 
@@ -91,44 +126,6 @@ public class ApiExtensionsPlugin extends FishbowlPlugin implements PropertyGette
         LOGGER.info("Saving settings");
 
         final Map<String, String> properties = new HashMap<>();
-
-//        properties.put(Property.USERNAME.getKey(), txtUsername.getText());
-//        properties.put(Property.PASSWORD.getKey(), Encryptor.getInstance().encrypt(txtPassword.getText()));
-//        properties.put(Property.SQL_CONNECTION_URL.getKey(), txtSqlConnectionUrl.getText());
-//
-//        properties.put(Property.CC_API_KEY.getKey(), apiKeyTextField.getText());
-//        properties.put(Property.CC_TOKEN.getKey(), OAuthTokenTextField.getText());
-//
-//
-//        String lastSync = "";
-//        DateTimeFormatter format = ISODateTimeFormat.dateHourMinuteSecond();
-//        try {
-//
-//            lastSync = format.print(format.parseDateTime(txtLastSync.getText())); //set in settings
-//        }
-//        catch (Exception e){
-//            LOGGER.error("Unable to parse Last Sync Time", e);
-//            UtilGui.showMessageDialog("Unable to parse Last Sync time");
-//            return; //dont save
-//        }
-//
-//        properties.put(Property.LAST_SYNC_TIME.getKey(), lastSync);
-//
-//
-//        String campaignDate = "";
-//        try {
-//            campaignDate = format.print(format.parseDateTime(txtCampaignDate.getText())); //set in settings
-//
-//        }
-//        catch (Exception e){
-//            LOGGER.error("Unable to parse campaign date", e);
-//            UtilGui.showMessageDialog("Unable to parse campaign date");
-//            return; //dont save
-//        }
-//
-//        properties.put(Property.CAMPAIGN_CREATED_DATE.getKey(), campaignDate);
-//
-
 
         this.savePluginProperties(properties);
 
@@ -140,25 +137,12 @@ public class ApiExtensionsPlugin extends FishbowlPlugin implements PropertyGette
 
     }
 
-    protected void initModule() {
-        super.initModule();
-        this.initComponents(); //HAS TO COME FIRST SINCE THE PANELS NEED TO BE MADE
-        this.setMainToolBar(this.mainToolBar);
-        this.initLayout();
-        this.setButtonPrintVisible(false); //OPTIONAL
-        this.setButtonEmailVisible(false); //OPTIONAL
 
-
-    }
 
     private void initLayout() {
         //PANELS TO BE ADDED TO THE TABBED LAYOUT IF DESIRED
-        JLabel lblMessage = new JLabel();
-        lblMessage.setText("This plugin is for extending the API to include custom functions"); //CHANGE
 
-
-        this.pnlCards.add(lblMessage);
-        this.pnlCards.add(pnlGeneric, "GenericPanel" );
+        this.pnlCards.add(settingsPanel, "GenericPanel" );
         this.hideShowPanels();
     }
 
@@ -178,9 +162,6 @@ public class ApiExtensionsPlugin extends FishbowlPlugin implements PropertyGette
             this.pnlCards = new JPanel(); //Tabbed layout Option
             this.mainToolBar = new JToolBar();
             this.btnSave = new FBMainToolbarButton();
-
-            //GENERIC PANEL
-            this.pnlGeneric  = new JPanel();
 
             this.mainToolBar.setFloatable(false);
             this.mainToolBar.setRollover(true);

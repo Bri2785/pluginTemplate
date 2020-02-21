@@ -2,7 +2,7 @@
 // Decompiled by Procyon v0.5.30
 // 
 
-package com.unigrative.plugins.util.property.reader;
+package com.unigrative.plugins.apiExtension.util.property.reader;
 
 import com.evnt.util.Util;
 
