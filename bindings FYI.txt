@@ -1,0 +1,17 @@
+fbifbo jar has the binding files
+extract binding-objects.xml fil from new fbifbo.jar. 
+Edit xml file. 
+
+Replace ours with the new versions, with the edits for the precomplied lines, and the heading line to include the package name (wo)
+Insert back into original jar file through winrar.
+
+to debug through plugin---------------
+----------------
+jibx plugin needs to be run from IntelliJ 2018?
+
+use configuration idea-plugin-jibx to run the pulgin, open new instance of intellij
+open the api extensions plugin and build to debug build process
+
+http://www.jetbrains.org/intellij/sdk/docs/reference_guide/frameworks_and_external_apis/external_builder_api.html -> turn on debug build process -> only on test debug ide, not plugin ide
+
+build apiExtension plugin. It will wait for remote debug to attach. In original IDE, change debug menu to remotePlugin (with port number ) and run debug

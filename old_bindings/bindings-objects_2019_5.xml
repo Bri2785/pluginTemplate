@@ -2,12 +2,12 @@
 
     <format type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate"/>
 
-<!--    <include path="../../../../../data/fpo/src/main/resources/bindings_accounts.xml" precompiled="true"/>-->
-<!--    <include path="../../../../../data/flo/src/main/resources/bindings_lite_manufacture.xml" precompiled="true"/>-->
-<!--    <include path="../../../../../data/fpo/src/main/resources/bindings_reports.xml" precompiled="true"/>-->
+    <!--<include path="../../../../../data/fpo/src/main/resources/bindings_accounts.xml" precompiled="true"/>-->
+    <!--<include path="../../../../../data/flo/src/main/resources/bindings_lite_manufacture.xml" precompiled="true"/>-->
+    <!--<include path="../../../../../data/fpo/src/main/resources/bindings_reports.xml" precompiled="true"/>-->
 
-<!--    <include path="bindings-requests.xml" precompiled="false"/>-->
-<!--    <include path="bindings-responses.xml" precompiled="false"/>-->
+    <!--<include path="bindings-requests.xml" precompiled="false"/>-->
+    <!--<include path="bindings-responses.xml" precompiled="false"/>-->
 
     <!-- CONTACTS -->
     <mapping name="Customer" class="com.fbi.fbo.impl.CustomerImpl" ordered="false" flexible="true">
@@ -37,7 +37,6 @@
         <value name="ParentID" get-method="getParentID" set-method="setParentID" usage="optional" />
         <value name="URL" get-method="getURL" set-method="setURL" usage="optional" />
         <value name="QuickBooksClassName" get-method="getQuickBooksClassName" set-method="setQuickBooksClassName" usage="optional" />
-        <value name="FullName" get-method="getFullName" set-method="setFullName" usage="optional" />
         <collection name="Addresses" add-method="addAddress" item-type="com.fbi.fbdata.accounts.AddressFpo" size-method="getAddressSize" load-method="getAddress" usage="optional" test-method="hasAddress"/>
         <collection name="CustomFields" field="customFields" item-type="com.fbi.fbo.CustomField" usage="optional" test-method="hasCustomFields" />
     </mapping>
@@ -636,7 +635,6 @@
         <value name="ShipTo" get-method="getShipTo" set-method="setShipTo" usage="optional" />
         <value name="ShipToNum" get-method="getShipToNum" set-method="setShipToNum" usage="optional" />
         <value name="Carrier" get-method="getCarrier" set-method="setCarrier" usage="optional" />
-        <value name="CarrierService" get-method="getCarrierService" set-method="setCarrierService" usage="optional" />
         <value name="DateScheduled" get-method="getDateScheduled" set-method="setDateScheduled" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional" />
         <value name="DateShipped" get-method="getDateShipped" set-method="setDateShipped" type="java.util.Date" serializer="com.fbi.util.UtilXML.formatDate" deserializer="com.fbi.util.UtilXML.parseDate" usage="optional" />
         <value name="Status" get-method="getStatus" set-method="setStatus" usage="optional"/>
@@ -1037,18 +1035,7 @@
         <structure get-method="getLocation" set-method="setLocation" type="com.fbi.fbo.impl.LocationImpl" usage="optional"/>
     </mapping>
 
-    <mapping name="Carrier" class="com.fbi.fbo.impl.CarrierListImpl" ordered="false" flexible="true">
-        <value name="Name" get-method="getName" set-method="setName" usage="optional" />
-    </mapping>
-
-    <mapping name="CarrierList" class="com.fbi.fbo.impl.CarrierImpl" ordered="false" flexible="true">
-        <value name="Id" get-method="getID" set-method="setID" usage="optional" />
-        <value name="Name" get-method="getName" set-method="setName" usage="optional" />
-        <collection name="carrierServiceList" field="carrierServiceList" type="java.util.ArrayList" usage="optional" />
-    </mapping>
-
-    <mapping name="CarrierService" class="com.fbi.fbo.impl.CarrierService" ordered="false" flexible="true">
-        <value name="Id" get-method="getId" set-method="setId" usage="optional" />
+    <mapping name="Carrier" class="com.fbi.fbo.impl.CarrierImpl" ordered="false" flexible="true">
         <value name="Name" get-method="getName" set-method="setName" usage="optional" />
     </mapping>
 

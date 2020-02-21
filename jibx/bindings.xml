@@ -1,6 +1,7 @@
 <binding name="apiExtensions" package="com.fbi.fbo" >
     <!--<include path="../src/main/resources/bindings-objects.xml" precompiled="true" >-->
     <include path="classpath:bindings-objects.xml" precompiled="true" >
+<!--        this class path include is pulling from the fbifbo.jar file that we need to replace our edited on into-->
         <!--<binding package="com.fbi.fbo">-->
             <!--<mapping name="SalesOrder" class="com.fbi.fbo.impl.orders.SalesOrderImpl" ordered="false" flexible="true"/>-->
         <!--</binding>-->
