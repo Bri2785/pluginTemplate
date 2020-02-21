@@ -1,19 +1,21 @@
 package com.fbi.fbo.message.response;
 
 
+import com.printnode.api.Printer;
+
 import java.util.ArrayList;
 
 public interface GetServerPrinterListResponse extends ResponseBase {
 
     public static final String BEAN_NAME = "GetServerPrinterListResponse";
 
-    ArrayList<String> getPrinters();
+    ArrayList<Printer> getPrinters();
 
-    void setPrinters(ArrayList<String> printers);
+    void setPrinters(ArrayList<Printer> printers);
 
     boolean hasPrinters();
 
-    String getPrinter(int i);
+    Printer getPrinter(int i);
 
     int getPrinterSize();
 }

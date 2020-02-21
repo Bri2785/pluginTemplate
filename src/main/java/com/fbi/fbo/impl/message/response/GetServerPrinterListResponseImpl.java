@@ -1,23 +1,24 @@
 package com.fbi.fbo.impl.message.response;
 
 import com.fbi.fbo.message.response.GetServerPrinterListResponse;
+import com.printnode.api.Printer;
 
 import java.util.ArrayList;
 
 public class GetServerPrinterListResponseImpl extends ResponseBaseImpl implements GetServerPrinterListResponse {
 
-    private ArrayList<String> printers = new ArrayList<>();
+    private ArrayList<Printer> printers = new ArrayList<>();
 
     public GetServerPrinterListResponseImpl(){
     }
 
     @Override
-    public ArrayList<String> getPrinters() {
+    public ArrayList<Printer> getPrinters() {
         return printers;
     }
 
     @Override
-    public void setPrinters(ArrayList<String> printers) {
+    public void setPrinters(ArrayList<Printer> printers) {
         this.printers = printers;
     }
 
@@ -30,7 +31,7 @@ public class GetServerPrinterListResponseImpl extends ResponseBaseImpl implement
     }
 
     @Override
-    public String getPrinter(int i) {
+    public Printer getPrinter(int i) {
         if (printers != null && printers.size() > 0){
             return printers.get(i);
         }
