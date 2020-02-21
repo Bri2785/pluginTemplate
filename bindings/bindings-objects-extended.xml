@@ -1,4 +1,4 @@
-<binding name="bindings_objects" force-classes="true" add-constructors="true" package="com.fbi.fbo.impl.wo">
+<binding name="bindings_objects_extended" force-classes="true" add-constructors="true" package="com.fbi.fbo.impl.wo">
     <!--CUSTOM FIELDS-->
     <mapping name="Printer" class="com.printnode.api.Printer" ordered="false" flexible="true">
         <value name="Id" get-method="getId" usage="optional"/>
