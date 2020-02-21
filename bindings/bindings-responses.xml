@@ -18,7 +18,7 @@
 
     <mapping name="GetServerPrinterListRs" class="com.fbi.fbo.impl.message.response.GetServerPrinterListResponseImpl">
         <!--<collection name="Printers" field="printers" get-method="getPrinters" set-method="setPrinters" usage="optional" create-type="java.util.List" item-type="java.lang.String" test-method="hasPrinters" />-->
-        <collection name="Printers" field="printers" type="java.util.ArrayList" item-type="com.printnode.api.Printer" usage="optional" />
+        <collection name="Printers" field="printers" type="java.util.ArrayList" item-type="com.printnode.api.impl.Printer" usage="optional" />
 <!--            <value name="Printer" type="com.fbi.fbo.CustomField" usage="optional" />-->
 <!--        </collection>    LOOK BACK IN REPO HISTORY 2-21-20 TO SEE ORIGINAL STRING IMPLEMENTATION   -->
         <value name="statusCode" style="attribute" get-method="getStatusCode" set-method="setStatusCode" usage="optional" />

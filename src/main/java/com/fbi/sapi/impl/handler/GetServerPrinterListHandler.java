@@ -1,29 +1,24 @@
 package com.fbi.sapi.impl.handler;
 
-import com.fbi.entity.plugin.PluginPropertyRepository;
 import com.fbi.fbdata.plugins.PluginPropertyFpo;
 import com.fbi.fbo.impl.message.response.GetServerPrinterListResponseImpl;
 import com.fbi.fbo.impl.message.response.MasterResponseImpl;
 import com.fbi.fbo.message.Response;
 import com.fbi.fbo.message.response.GetServerPrinterListResponse;
 import com.fbi.util.FbiException;
-import com.fbi.util.exception.ExceptionMainFree;
 import com.fbi.util.logging.FBLogger;
-import com.printnode.api.APIClient;
-import com.printnode.api.Auth;
-import com.printnode.api.Printer;
+import com.printnode.api.impl.APIClient;
+import com.printnode.api.impl.Auth;
+import com.printnode.api.impl.Printer;
 import com.unigrative.plugins.apiExtension.ApiExtensionsPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.Collections;
 
 @Service("GetServerPrinterListRq")
 public class GetServerPrinterListHandler extends Handler {
@@ -50,13 +45,15 @@ public class GetServerPrinterListHandler extends Handler {
         APIClient client = new APIClient(auth);
 
         try {
-            List<Printer> printers = Arrays.asList(client.getPrinters(""));
+            Printer[] printers = client.getPrinters("");
 
-            if (printers.size() == 0){
+            if (printers.length == 0){
                throw new FbiException("No printers found under account: " + client.getWhoami().getEmail());
             }
 
-            printerListResponse.setPrinters((ArrayList)printers);
+            ArrayList<Printer> printerList = new ArrayList<>();
+            Collections.addAll(printerList, printers);
+            printerListResponse.setPrinters(printerList);
 
          }
          catch (FbiException var8) {

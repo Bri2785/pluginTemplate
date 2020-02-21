@@ -6,9 +6,9 @@ package com.unigrative.plugins.apiExtension.panels;
 
 import com.fbi.gui.misc.*;
 import com.fbi.gui.util.UtilGui;
-import com.printnode.api.APIClient;
-import com.printnode.api.Auth;
-import com.printnode.api.Printer;
+import com.printnode.api.impl.APIClient;
+import com.printnode.api.impl.Auth;
+import com.printnode.api.impl.Printer;
 import com.unigrative.plugins.apiExtension.ApiExtensionsPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

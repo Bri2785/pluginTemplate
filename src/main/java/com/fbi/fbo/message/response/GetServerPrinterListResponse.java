@@ -1,7 +1,7 @@
 package com.fbi.fbo.message.response;
 
 
-import com.printnode.api.Printer;
+import com.printnode.api.impl.Printer;
 
 import java.util.ArrayList;
 
