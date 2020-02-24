@@ -6,7 +6,7 @@
             <!--<mapping name="SalesOrder" class="com.fbi.fbo.impl.orders.SalesOrderImpl" ordered="false" flexible="true"/>-->
         <!--</binding>-->
     </include>
-<!--    <include path="../bindings/bindings-objects-extended.xml"/>-->
+    <include path="../bindings/bindings-objects-extended.xml"/>
     <include path="../bindings/bindings-requests.xml"/>
     <include path="../bindings/bindings-responses.xml"/>
 

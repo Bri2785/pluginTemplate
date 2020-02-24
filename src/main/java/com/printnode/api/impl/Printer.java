@@ -45,6 +45,10 @@ public class Printer {
      * */
     private String state;
 
+    public Printer() {
+
+    }
+
     /**
      * Parses a JsonObject into Printer.
      * Firstly, it begins iterating over the object.
@@ -60,6 +64,8 @@ public class Printer {
      * @see JsonPrimitive
      * @see JsonElement
      * */
+
+
 
     public Printer(final JsonObject response) {
         if (!response.get("id").isJsonNull()) {
@@ -154,4 +160,16 @@ public class Printer {
         return json;
     }
 
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 }
