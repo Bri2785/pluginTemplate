@@ -133,9 +133,9 @@ public class SettingsPanel extends JPanel {
                 iconTitleBorderPanel1.setTitle("PrintNode Settings");
                 iconTitleBorderPanel1.setLayout(new GridBagLayout());
                 ((GridBagLayout)iconTitleBorderPanel1.getLayout()).columnWidths = new int[] {0, 0, 0, 0};
-                ((GridBagLayout)iconTitleBorderPanel1.getLayout()).rowHeights = new int[] {0, 0, 0, 0};
+                ((GridBagLayout)iconTitleBorderPanel1.getLayout()).rowHeights = new int[] {0, 0, 0, 0, 0, 0, 0, 0};
                 ((GridBagLayout)iconTitleBorderPanel1.getLayout()).columnWeights = new double[] {0.0, 1.0, 0.0, 1.0E-4};
-                ((GridBagLayout)iconTitleBorderPanel1.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 1.0E-4};
+                ((GridBagLayout)iconTitleBorderPanel1.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0E-4};
 
                 //---- label1 ----
                 label1.setText("PrintNode API Key");
@@ -155,10 +155,10 @@ public class SettingsPanel extends JPanel {
 
                 //======== scrollPane1 ========
                 {
+                    scrollPane1.setPreferredSize(new Dimension(497, 150));
 
                     //---- txtOutput ----
-                    txtOutput.setMinimumSize(new Dimension(1, 150));
-                    txtOutput.setPreferredSize(new Dimension(1, 150));
+                    txtOutput.setLineWrap(true);
                     scrollPane1.setViewportView(txtOutput);
                 }
                 iconTitleBorderPanel1.add(scrollPane1, new GridBagConstraints(0, 1, 3, 1, 0.0, 0.0,

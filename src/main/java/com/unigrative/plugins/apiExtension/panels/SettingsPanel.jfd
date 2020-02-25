@@ -16,7 +16,7 @@ new FormModel {
 				name: "panel1"
 				add( new FormContainer( "com.fbi.gui.misc.IconTitleBorderPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
 					"$columnSpecs": "0, 0:1.0, 0"
-					"$rowSpecs": "0, 0, 0"
+					"$rowSpecs": "0, 0, 0, 0, 0, 0, 0"
 					"$hGap": 5
 					"$vGap": 5
 					"$alignLeft": true
@@ -43,10 +43,10 @@ new FormModel {
 					} )
 					add( new FormContainer( "javax.swing.JScrollPane", new FormLayoutManager( class javax.swing.JScrollPane ) ) {
 						name: "scrollPane1"
+						"preferredSize": new java.awt.Dimension( 497, 150 )
 						add( new FormComponent( "javax.swing.JTextArea" ) {
 							name: "txtOutput"
-							"minimumSize": new java.awt.Dimension( 1, 150 )
-							"preferredSize": new java.awt.Dimension( 1, 150 )
+							"lineWrap": true
 						} )
 					}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 						"gridy": 1
