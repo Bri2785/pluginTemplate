@@ -19,5 +19,9 @@
 
     <mapping name="GetServerPrinterListRq" class="com.fbi.fbo.impl.message.request.GetServerPrinterListRequestImpl" ordered="false" flexible="true">
     </mapping>
+
+    <mapping name="VoidPickRq" class="com.fbi.fbo.impl.message.request.VoidPickRequestImpl" ordered="false" flexible="true">
+        <value name="PickId" get-method="getPickId" set-method="setPickId" />
+    </mapping>
 </binding>
 
