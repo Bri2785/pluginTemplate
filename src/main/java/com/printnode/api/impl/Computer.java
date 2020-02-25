@@ -50,6 +50,10 @@ public class Computer {
     private String state = null;
 
 
+    //default constructor for serialization
+    public Computer() {
+    }
+
     /**
      * Parses a JsonObject into Computer.
      * Firstly, it begins iterating over the object.
@@ -166,4 +170,16 @@ public class Computer {
         return json;
     }
 
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
 }

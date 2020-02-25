@@ -8,9 +8,9 @@ public interface PrintReportToPrinterRequest extends RequestBase{
 
     public static final String BEAN_NAME = "PrintReportToPrinterRequest";
 
-    String getReportName();
+    int getReportId();
 
-    void setReportName(final String reportName);
+    void setReportId(int reportId);
 
     void setParamList(final List<ReportParam> p0);
 
@@ -24,9 +24,9 @@ public interface PrintReportToPrinterRequest extends RequestBase{
 
     ReportParam getReportParam(final int p0);
 
-    String getPrinterName();
+    int getPrinterId();
 
-    void setPrinterName(String printerName);
+    void setPrinterId(int printerId);
 
     int getNumberOfCopies();
 

@@ -68,7 +68,7 @@ public class PrintJobJson {
         printerId = newPrinterId;
         title = newTitle;
         contentType = newContentType;
-        if (contentType == "pdf_base64" || contentType == "raw_base64") {
+        if (contentType.equals("pdf_uri") || contentType == "raw_uri") {
             Path filePath = Paths.get(newContent);
             byte[] fileContent = Files.readAllBytes(filePath);
             content = new String(Base64.encodeBase64(fileContent));

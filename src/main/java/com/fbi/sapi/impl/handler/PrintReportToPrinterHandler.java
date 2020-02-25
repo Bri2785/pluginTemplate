@@ -2,6 +2,7 @@ package com.fbi.sapi.impl.handler;
 
 import com.evnt.eve.modules.logic.extra.LogicReport;
 import com.evnt.util.Util;
+import com.fbi.fbdata.plugins.PluginPropertyFpo;
 import com.fbi.fbdata.reports.ReportFpo;
 import com.fbi.fbdata.reports.ReportParameterFpo;
 import com.fbi.fbo.impl.message.request.PrintReportToPrinterRequestImpl;
@@ -13,13 +14,18 @@ import com.fbi.fbo.message.response.PrintReportToPrinterResponse;
 import com.fbi.fbo.property.ReportParam;
 import com.fbi.util.FbiException;
 import com.fbi.util.UtilXML;
-import com.fbi.util.exception.ExceptionMainFree;
 import com.fbi.util.logging.FBLogger;
+import com.printnode.api.impl.*;
+import com.unigrative.plugins.apiExtension.ApiExtensionsPlugin;
 import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPrintServiceExporter;
 import net.sf.jasperreports.export.SimpleExporterInput;
 import net.sf.jasperreports.export.SimplePrintServiceExporterConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.print.PrintService;
@@ -28,15 +34,15 @@ import javax.print.attribute.HashPrintRequestAttributeSet;
 import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.standard.Copies;
 import javax.print.attribute.standard.OrientationRequested;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.IOException;
+import java.util.*;
 
 @Service("PrintReportToPrinterRq")
 public class PrintReportToPrinterHandler extends Handler {
 
-    //TODO: check on autowire for this
+    private static final Logger LOGGER = LoggerFactory.getLogger( PrintReportToPrinterHandler.class);
+
+    @Autowired
     LogicReport logicReport;
 
     @Override
@@ -51,50 +57,92 @@ public class PrintReportToPrinterHandler extends Handler {
         try {
             final PrintReportToPrinterRequest printerRequest = (PrintReportToPrinterRequest) UtilXML.getObject(request, PrintReportToPrinterRequestImpl.class);
 
-            if (Util.isEmpty(printerRequest.getReportName())) {
-                throw new FbiException("Report Name is Required");
+            if (printerRequest.getReportId() <= 0) {
+                throw new FbiException("Report Id is Invalid");
             }
 
-            if (Util.isEmpty(printerRequest.getPrinterName())) {
-                throw new FbiException("Printer Name is Required");
+            if (printerRequest.getPrinterId() <= 0) {
+                throw new FbiException("Printer Id is Invalid");
             }
 
-            logicReport = new LogicReport();
+            PluginPropertyFpo propertyFpo = this.getPluginPropertyRepository().findByPluginAndKey(ApiExtensionsPlugin.MODULE_NAME, "PrintNodeApiKey");
+            String apiKey = propertyFpo.getInfo();
 
-            //locate the printer on the machine
-            PrintService selectedService = getMatchingPrintService(printerRequest.getPrinterName());
-
-
-            if (selectedService == null) {
-                refreshSystemPrinterList(); //try to refresh it first
-                selectedService = getMatchingPrintService(printerRequest.getPrinterName());
+            if (apiKey == null || apiKey.isEmpty()) {
+                throw new FbiException("PrintNode Api key needs to be setup in module settings");
             }
 
-            if (selectedService == null) { //still cant find so throw error
-                throw new FbiException("Printer requested not found. Check printer name or installation");
-            }
+            Auth auth = new Auth();
+            auth.setApiKey(apiKey);
+
+            APIClient client = new APIClient(auth);
 
 
+            Printer[] printers = client.getPrinters(String.valueOf(printerRequest.getPrinterId()));
+
+            //client throws IO exception already
+//            if (printers.length == 0) {
+//                throw new FbiException("No printer found matching id: " + printerRequest.getPrinterId());
+//            }
+
+            //load report from FB
             final HashMap<String, Object> requestParamList = new HashMap<String, Object>();
 
-            //get the parameters from the request and add them to the list
-            for (final ReportParam reportParam : printerRequest.getParamList()) {
-                requestParamList.put(reportParam.getName(), reportParam.getValue());
+            List<ReportParam> paramList = printerRequest.getParamList();
+            if (paramList != null) {
+                //get the parameters from the request and add them to the list
+                for (final ReportParam reportParam : printerRequest.getParamList()) {
+                    requestParamList.put(reportParam.getName(), reportParam.getValue());
+                    LOGGER.debug("Report Parameter received {}, {}", reportParam.getName(), reportParam.getValue());
+                }
             }
 
-            ReportFpo requestReport = this.getReport(printerRequest.getReportName());
-            JasperPrint jasperPrint = this.loadAndCompileReport(requestReport, requestParamList);
-            //system print method, only prints to default printer
-            //LogicReport.printReport(jasperPrint, printerRequest.getPrinterName(), true,true,false);
+            ReportFpo requestReport = this.getReport(printerRequest.getReportId());
+            if (requestReport == null) {
+                throw new FbiException(String.format("Report id %s not found", printerRequest.getReportId()));
+            }
 
-            //custom exporter print method
+            JasperPrint jasperPrint = this.loadAndFillReport(requestReport, requestParamList);
 
-            //number of copies is optional
+            //convert report to base64 pdf
+            byte[] reportBytes = JasperExportManager.exportReportToPdf(jasperPrint);
+            String base64Report = Base64.getEncoder().encodeToString(reportBytes);
+
+            //send print job to Print Node
             int numberOfCopies = 1;
-            if (printerRequest.getNumberOfCopies() > 0){
+            if (printerRequest.getNumberOfCopies() > 0) {
                 numberOfCopies = printerRequest.getNumberOfCopies();
             }
-            printReport(jasperPrint, selectedService, numberOfCopies);
+
+            PrintJobJson job = new PrintJobJson(printerRequest.getPrinterId(), requestReport.getName(),"pdf_base64",base64Report,"Created from FB API");
+            job.getOptions().setCopies(numberOfCopies);
+
+            int jobId = client.createPrintJob(job);
+
+            //return the print job ID or error to Caller
+            printReportToPrinterResponse.setJobId(jobId);
+
+
+        } catch (JRException | IOException e) {
+            FBLogger.error(e.getMessage(), e);
+            printReportToPrinterResponse.setStatusCode(9000);
+            printReportToPrinterResponse.setStatusMessage(e.getMessage());
+        } catch (FbiException var8) {
+            FBLogger.error(var8.getMessage(), var8);
+            printReportToPrinterResponse.setStatusCode(var8.getStatusCode());
+            printReportToPrinterResponse.setStatusMessage(var8.getMessage());
+
+        }
+
+
+        //system print method, only prints to default printer
+        //LogicReport.printReport(jasperPrint, printerRequest.getPrinterName(), true,true,false);
+
+        //custom exporter print method
+
+        //number of copies is optional
+
+        //printReport(jasperPrint, selectedService, numberOfCopies);
 
 
 //            this.getDataManager().getReportLogic().mergeParameters(reportFpo, null);
@@ -111,42 +159,35 @@ public class PrintReportToPrinterHandler extends Handler {
 //            final JasperPrint jasperPrint = this.getDataManager().getReportLogic().getJasperPrint(reportFpo, requestParamList);
 //            this.printReport(jasperPrint, selectedService, printerRequest.getNumberOfCopies(), true, false);
 
-            //JasperPrintManager.printReport(jasperPrint, false);
+        //JasperPrintManager.printReport(jasperPrint, false);
 
-        } catch (JRException e) {// | PrinterException e){
-            FBLogger.error(e.getMessage(), e);
-        } catch (FbiException e) {
-            FBLogger.error(e.getMessage(), e);
-            printReportToPrinterResponse.setStatusCode(e.getStatusCode());
-            printReportToPrinterResponse.setStatusMessage(e.getMessage());
-        } catch (ExceptionMainFree e2) {
-            FBLogger.error(e2.getMessage(), e2);
-            printReportToPrinterResponse.setStatusCode(e2.getCode());
-            printReportToPrinterResponse.setStatusMessage(e2.getMsgErr());
-        }
+//        } catch (JRException e) {// | PrinterException e){
+//            FBLogger.error(e.getMessage(), e);
+//        } catch (FbiException e) {
+//            FBLogger.error(e.getMessage(), e);
+//            printReportToPrinterResponse.setStatusCode(e.getStatusCode());
+//            printReportToPrinterResponse.setStatusMessage(e.getMessage());
+//        } catch (ExceptionMainFree e2) {
+//            FBLogger.error(e2.getMessage(), e2);
+//            printReportToPrinterResponse.setStatusCode(e2.getCode());
+//            printReportToPrinterResponse.setStatusMessage(e2.getMsgErr());
+//        }
+
 
     }
 
-    private ReportFpo getReport(String reportName) throws FbiException {
-
-        //trying the report module way to load and populate the reports
-
-        List<ReportFpo> reportSearchResults = this.getReportRepository().searchReports(reportName, null, null, 0);
-
-        if (reportSearchResults.size() != 1) {
-            //none or more than one returned
-            throw new FbiException("No report or more than one report found matching this name");
-        }
-
-        int reportID = reportSearchResults.get(0).getId();
+    private ReportFpo getReport(int reportId) throws FbiException {
 
         final Map<String, String> userDefaultParameters = logicReport.getUserDefaultParameters();
-        return logicReport.getReport(reportID, userDefaultParameters);
-
-
+        try {
+            return logicReport.getReport(reportId, userDefaultParameters);
+        }
+        catch (NullPointerException e){
+            return null;
+        }
     }
 
-    private JasperPrint loadAndCompileReport(ReportFpo jasperReport, final Map<String, Object> parameterOverrides) throws FbiException {
+    private JasperPrint loadAndFillReport(ReportFpo jasperReport, final Map<String, Object> parameterOverrides) throws FbiException {
 
         if (parameterOverrides != null) {
             for (final Map.Entry<String, Object> entry : parameterOverrides.entrySet()) {
@@ -226,6 +267,7 @@ public class PrintReportToPrinterHandler extends Handler {
 
         exporter.setExporterInput(new SimpleExporterInput(printObject));
         exporter.setConfiguration(configuration);
+
 
         exporter.exportReport();
 

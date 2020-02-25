@@ -35,16 +35,20 @@ public class GetServerPrinterListHandler extends Handler {
         masterResponse.getResponseList().add(printerListResponse);
 
         //get API key
+        try {
 
         PluginPropertyFpo propertyFpo = this.getPluginPropertyRepository().findByPluginAndKey(ApiExtensionsPlugin.MODULE_NAME, "PrintNodeApiKey");
         String apiKey = propertyFpo.getInfo();
 
+        if (apiKey == null || apiKey.isEmpty()){
+            throw new FbiException("PrintNode Api key need to be setup in module settings");
+        }
         Auth auth = new Auth();
         auth.setApiKey(apiKey);
 
         APIClient client = new APIClient(auth);
 
-        try {
+
             Printer[] printers = client.getPrinters("");
 
             if (printers.length == 0){
@@ -58,11 +62,12 @@ public class GetServerPrinterListHandler extends Handler {
          }
          catch (FbiException var8) {
              FBLogger.error(var8.getMessage(), var8);
-             response.setStatusCode(var8.getStatusCode());
-             response.setStatusMessage(var8.getMessage());
+             printerListResponse.setStatusCode(var8.getStatusCode());
+             printerListResponse.setStatusMessage(var8.getMessage());
 
          }
          catch (IOException ex){
+             FBLogger.error(ex.getMessage(), ex);
             printerListResponse.setStatusCode(9000);
             printerListResponse.setStatusMessage(ex.getMessage());
          }

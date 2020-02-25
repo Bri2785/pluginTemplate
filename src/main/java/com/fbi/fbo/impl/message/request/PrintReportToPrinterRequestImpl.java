@@ -9,20 +9,20 @@ import java.util.List;
 
 public class PrintReportToPrinterRequestImpl extends RequestBaseImpl implements PrintReportToPrinterRequest {
 
-    private String _reportName;
+    private int reportId;
     private List<ReportParam> paramList;
     private int numberOfCopies;
-    private String printerName;
+    private int printerId;
 
 
     @Override
-    public String getReportName() {
-        return this._reportName;
+    public int getReportId() {
+        return this.reportId;
     }
 
     @Override
-    public void setReportName(String reportName) {
-        this._reportName = reportName;
+    public void setReportId(int reportId) {
+        this.reportId = reportId;
     }
 
     @Override
@@ -67,13 +67,13 @@ public class PrintReportToPrinterRequestImpl extends RequestBaseImpl implements 
     }
 
     @Override
-    public String getPrinterName() {
-        return printerName;
+    public int getPrinterId() {
+        return printerId;
     }
 
     @Override
-    public void setPrinterName(String printerName) {
-        this.printerName = printerName;
+    public void setPrinterId(int printerId) {
+        this.printerId = printerId;
     }
 
     @Override

@@ -33,7 +33,7 @@ public class ApiExtensionsPlugin extends FishbowlPlugin implements PropertyGette
 
     private static ApiExtensionsPlugin instance = null;
 
-    EVEManager eveManager = EVEManagerUtil.getEveManager(); //get access to eve manager
+    private EVEManager eveManager = EVEManagerUtil.getEveManager(); //get access to eve manager
 
     private TitlePanel titleLabel;
     private JToolBar mainToolBar;
@@ -45,7 +45,7 @@ public class ApiExtensionsPlugin extends FishbowlPlugin implements PropertyGette
 
     public ApiExtensionsPlugin() {
         instance = this; //this is so we can access the FishbowlPlugin module methods from other classes
-        this.setModuleName(ApiExtensionsPlugin.MODULE_NAME);
+        this.setModuleName(ApiExtensionsPlugin.MODULE_FRIENDLY_NAME);
         this.setMenuGroup(MenuGroupNameConst.INTEGRATIONS);//this is the module group it shows up in
         this.setMenuListLocation(1000); //bottom of the list
         this.setIconClassPath("/images/unigrative48.png"); // make sure there is a 24 version in the folder so it can use that for the tabs
@@ -73,6 +73,7 @@ public class ApiExtensionsPlugin extends FishbowlPlugin implements PropertyGette
         if (this.eveManager.isConnected()) {
             super.activateModule();
             if (this.isInitialized()) {
+                this.settingsPanel.loadSettings();
                 //initModels); //TODO only needed if adding custom tables
                 return this.isInitialized();
             }
@@ -135,7 +136,7 @@ public class ApiExtensionsPlugin extends FishbowlPlugin implements PropertyGette
         this.hideShowPanels();
     }
 
-    void hideShowPanels() {
+    private void hideShowPanels() {
         final CardLayout layout = (CardLayout)this.pnlCards.getLayout();
         this.enableControls(true);
         layout.show(this.pnlCards, PLUGIN_GENERIC_PANEL);
@@ -148,7 +149,7 @@ public class ApiExtensionsPlugin extends FishbowlPlugin implements PropertyGette
     private void initComponents() {
         try {
             this.titleLabel = new TitlePanel();
-            this.pnlCards = new JPanel(); //Tabbed layout Option
+            this.pnlCards = new JPanel();
             this.mainToolBar = new JToolBar();
             this.btnSave = new FBMainToolbarButton();
 
@@ -180,7 +181,7 @@ public class ApiExtensionsPlugin extends FishbowlPlugin implements PropertyGette
             ((GridBagLayout) this.getLayout()).columnWeights = new double[]{1.0, 1.0E-4};
             ((GridBagLayout) this.getLayout()).rowWeights = new double[]{0.0, 1.0, 1.0E-4};
             this.titleLabel.setModuleIcon(new ImageIcon(this.getClass().getResource("/images/unigrative32.png"))); //CHANGE
-            this.titleLabel.setModuleTitle(this.MODULE_FRIENDLY_NAME);
+            this.titleLabel.setModuleTitle(MODULE_FRIENDLY_NAME);
             this.titleLabel.setBackground(new Color(44, 94, 140));
             this.titleLabel.setName("titleLabel");
             this.add((Component) this.titleLabel, (Object) new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0, 10, 1, new Insets(0, 0, 0, 0), 0, 0));

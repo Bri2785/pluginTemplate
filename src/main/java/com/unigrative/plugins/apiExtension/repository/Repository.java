@@ -35,7 +35,7 @@ public class Repository {
 
 
     public String getProperty(String key) {
-        List<QueryRow> result = this.sql.executeSql(this.loadSql(Compatibility.handleFirebirdCompatibility(this, "getProperty.sql"), quote(key), quote(ApiExtensionsPlugin.MODULE_NAME)));
+        List<QueryRow> result = this.sql.executeSql(this.loadSql(Compatibility.handleFirebirdCompatibility(this, "/queries/getProperty.sql"), quote(key), quote(ApiExtensionsPlugin.MODULE_NAME)));
         return Util.isEmpty(result) ? "" : ((QueryRow)result.get(0)).getString("info");
     }
 

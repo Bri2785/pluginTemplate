@@ -4,7 +4,15 @@
         <value name="Id" get-method="getId" set-method="setId" usage="optional"/>
         <value name="State" get-method="getState" set-method="setState" usage="optional"/>
         <value name="Description" get-method="getDescription" set-method="setDescription" usage="optional" />
-<!--        <structure  get-method="getCustomList" set-method="setCustomList" type="com.fbi.fbo.impl.CustomListImpl" usage="optional" />-->
+        <value name="Name" get-method="getName" set-method="setName" usage="optional" />
+        <structure  get-method="getComputer" set-method="setComputer" type="com.printnode.api.impl.Computer" usage="optional" />
+    </mapping>
+
+    <mapping name="Computer" class="com.printnode.api.impl.Computer" ordered="false" flexible="true">
+        <value name="Id" get-method="getId" set-method="setId" usage="optional"/>
+        <value name="Name" get-method="getName" set-method="setName" usage="optional"/>
+        <value name="State" get-method="getState" set-method="setState" usage="optional" />
+        <!--        <structure  get-method="getCustomList" set-method="setCustomList" type="com.fbi.fbo.impl.CustomListImpl" usage="optional" />-->
     </mapping>
     <!--<mapping name="CustomList" class="com.fbi.fbo.impl.CustomListImpl" ordered="false" flexible="true">-->
         <!--<value name="ID" get-method="getID" set-method="setID" usage="optional"/>-->

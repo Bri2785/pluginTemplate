@@ -45,6 +45,8 @@ public class Printer {
      * */
     private String state;
 
+
+    //default constructor for serialization
     public Printer() {
 
     }
@@ -171,5 +173,14 @@ public class Printer {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+
+    }
+
+    public void setComputer(Computer computer) {
+        this.computer = computer;
     }
 }

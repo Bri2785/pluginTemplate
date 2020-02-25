@@ -14,6 +14,7 @@
     <mapping name="PrintReportToPrinterRs" class="com.fbi.fbo.impl.message.response.PrintReportToPrinterResponseImpl">
         <value name="statusCode" style="attribute" get-method="getStatusCode" set-method="setStatusCode" usage="optional" />
         <value name="statusMessage" style="attribute" get-method="getStatusMessage" set-method="setStatusMessage" usage="optional" />
+        <value name="JobId" get-method="getJobId" set-method="setJobId" usage="optional" />
     </mapping>
 
     <mapping name="GetServerPrinterListRs" class="com.fbi.fbo.impl.message.response.GetServerPrinterListResponseImpl">

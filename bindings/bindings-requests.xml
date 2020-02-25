@@ -12,8 +12,8 @@
 
     <mapping name="PrintReportToPrinterRq" class="com.fbi.fbo.impl.message.request.PrintReportToPrinterRequestImpl" ordered="false" flexible="true">
         <value name="NumberOfCopies" get-method="getNumberOfCopies" set-method="setNumberOfCopies" usage="optional"/>
-        <value name="PrinterName" get-method="getPrinterName" set-method="setPrinterName" usage="optional"/>
-        <value name="ReportName" get-method="getReportName" set-method="setReportName" usage="optional"/>
+        <value name="PrinterId" get-method="getPrinterId" set-method="setPrinterId" usage="optional"/>
+        <value name="ReportId" get-method="getReportId" set-method="setReportId" usage="optional"/>
         <collection name="ParameterList" add-method="addReportParam" item-type="com.fbi.fbo.property.ReportParam" size-method="getParamListSize" load-method="getReportParam" test-method="hasParams"  usage="optional" />
     </mapping>
 

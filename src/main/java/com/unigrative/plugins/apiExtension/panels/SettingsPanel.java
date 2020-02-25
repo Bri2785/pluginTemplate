@@ -56,8 +56,17 @@ public class SettingsPanel extends JPanel {
         auth.setApiKey(apiKey);
 
         APIClient client = new APIClient(auth);
-
         try {
+
+        txtOutput.append(client.getWhoami().getEmail());
+            txtOutput.append(System.lineSeparator());
+            txtOutput.append(client.getWhoami().getFirstname());
+            txtOutput.append(" ");
+            txtOutput.append(client.getWhoami().getLastname());
+            txtOutput.append(System.lineSeparator());
+            txtOutput.append(System.lineSeparator());
+            txtOutput.append(System.lineSeparator());
+
             Printer[] printers = client.getPrinters("");
 
             for (Printer printer: printers
@@ -78,21 +87,23 @@ public class SettingsPanel extends JPanel {
 
 
     public void loadSettings() {
-        LOGGER.info("Loading Settings");
-
-        LOGGER.info("Settings Loaded");
+        LOGGER.debug("Loading Settings");
+        String key = this.apiExtensionsPlugin.getProperty("PrintNodeApiKey");
+        this.txtAPIkey.setText(key);
+        LOGGER.debug("Settings Loaded");
 
     }
     public void saveSettings(){
-        LOGGER.info("Saving settings");
+        LOGGER.debug("Saving settings");
 
         final Map<String, String> properties = new HashMap<>();
 
         //add in settings
+        properties.put("PrintNodeApiKey", txtAPIkey.getText());
 
         this.apiExtensionsPlugin.savePluginProperties(properties);
 
-        LOGGER.info("Settings Saved");
+        LOGGER.debug("Settings Saved");
     }
 
     private void initComponents() {
@@ -106,11 +117,7 @@ public class SettingsPanel extends JPanel {
         txtOutput = new JTextArea();
 
         //======== this ========
-        setLayout(new GridBagLayout());
-        ((GridBagLayout)getLayout()).columnWidths = new int[] {0, 0};
-        ((GridBagLayout)getLayout()).rowHeights = new int[] {0, 0};
-        ((GridBagLayout)getLayout()).columnWeights = new double[] {1.0, 1.0E-4};
-        ((GridBagLayout)getLayout()).rowWeights = new double[] {1.0, 1.0E-4};
+        setLayout(new BorderLayout());
 
         //======== panel1 ========
         {
@@ -128,7 +135,7 @@ public class SettingsPanel extends JPanel {
                 ((GridBagLayout)iconTitleBorderPanel1.getLayout()).columnWidths = new int[] {0, 0, 0, 0};
                 ((GridBagLayout)iconTitleBorderPanel1.getLayout()).rowHeights = new int[] {0, 0, 0, 0};
                 ((GridBagLayout)iconTitleBorderPanel1.getLayout()).columnWeights = new double[] {0.0, 1.0, 0.0, 1.0E-4};
-                ((GridBagLayout)iconTitleBorderPanel1.getLayout()).rowWeights = new double[] {0.0, 1.0, 0.0, 1.0E-4};
+                ((GridBagLayout)iconTitleBorderPanel1.getLayout()).rowWeights = new double[] {0.0, 0.0, 0.0, 1.0E-4};
 
                 //---- label1 ----
                 label1.setText("PrintNode API Key");
@@ -148,6 +155,10 @@ public class SettingsPanel extends JPanel {
 
                 //======== scrollPane1 ========
                 {
+
+                    //---- txtOutput ----
+                    txtOutput.setMinimumSize(new Dimension(1, 150));
+                    txtOutput.setPreferredSize(new Dimension(1, 150));
                     scrollPane1.setViewportView(txtOutput);
                 }
                 iconTitleBorderPanel1.add(scrollPane1, new GridBagConstraints(0, 1, 3, 1, 0.0, 0.0,
@@ -156,11 +167,9 @@ public class SettingsPanel extends JPanel {
             }
             panel1.add(iconTitleBorderPanel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
                 GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-                new Insets(0, 0, 0, 0), 0, 0));
+                new Insets(3, 3, 0, 0), 0, 0));
         }
-        add(panel1, new GridBagConstraints(0, 0, 1, 1, 0.0, 0.0,
-            GridBagConstraints.CENTER, GridBagConstraints.BOTH,
-            new Insets(0, 0, 0, 0), 0, 0));
+        add(panel1, BorderLayout.CENTER);
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
