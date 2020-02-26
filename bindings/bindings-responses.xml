@@ -32,4 +32,10 @@
         <value name="statusCode" style="attribute" get-method="getStatusCode" set-method="setStatusCode" usage="optional" />
         <value name="statusMessage" style="attribute" get-method="getStatusMessage" set-method="setStatusMessage" usage="optional" />
     </mapping>
+    <mapping name="VoidPickItemsRs" class="com.fbi.fbo.impl.message.response.VoidPickItemsResponseImpl">
+        <structure get-method="getPick" set-method="setPick" type="com.fbi.fbo.impl.picking.PickImpl" usage="optional" />
+        <value name="unvoidableItems" get-method="getUnvoidableItems" set-method="setUnvoidableItems" usage="optional" />
+        <value name="statusCode" style="attribute" get-method="getStatusCode" set-method="setStatusCode" usage="optional" />
+        <value name="statusMessage" style="attribute" get-method="getStatusMessage" set-method="setStatusMessage" usage="optional" />
+    </mapping>
 </binding>

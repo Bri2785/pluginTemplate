@@ -11,7 +11,8 @@ public enum ApiCallType {
     SAVE_SO_WITH_CF("SaveSOWithCF", SaveSOWithCFRequestImpl.class, SaveSOWithCFResponseImpl.class),
     PRINT_REPORT_TO_PRINTER("PrintReportToPrinter", PrintReportToPrinterRequestImpl.class, PrintReportToPrinterResponseImpl.class),
     GET_SERVER_PRINTER_LIST("GetServerPrinterList", GetServerPrinterListRequestImpl.class, GetServerPrinterListResponseImpl.class),
-    VOID_PICK("VoidPick", VoidPickRequestImpl.class, VoidPickResponseImpl.class);
+    VOID_PICK("VoidPick", VoidPickRequestImpl.class, VoidPickResponseImpl.class),
+    VOID_PICK_ITEMS("VoidPickItems", VoidPickItemsRequestImpl.class, VoidPickItemsResponseImpl.class);
 
 
 

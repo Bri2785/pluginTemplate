@@ -23,5 +23,11 @@
     <mapping name="VoidPickRq" class="com.fbi.fbo.impl.message.request.VoidPickRequestImpl" ordered="false" flexible="true">
         <value name="PickId" get-method="getPickId" set-method="setPickId" />
     </mapping>
+
+    <mapping name="VoidPickItemsRq" class="com.fbi.fbo.impl.message.request.VoidPickItemsRequestImpl" ordered="false" flexible="true">
+        <structure get-method="getPick" set-method="setPick" type="com.fbi.fbo.impl.picking.PickImpl" />
+        <collection name="ItemList" field="itemList" type="java.util.ArrayList" item-type="com.fbi.fbo.impl.picking.PickItemImpl" />
+
+    </mapping>
 </binding>
 
