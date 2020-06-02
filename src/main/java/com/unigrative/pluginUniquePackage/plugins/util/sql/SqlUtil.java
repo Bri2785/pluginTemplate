@@ -239,7 +239,7 @@ public class SqlUtil {
         request.add(KeyConst.SUPPORT_LOGGED_IN, true);
 
         try {
-            DataExportFpo.validateSQL(query, true);
+            DataExportFpo.validateSQL(query);
         } catch (ExceptionMainFree var4) {
             LOGGER.error("Ran from elevated, so ignore not allowed warning");
             LOGGER.error("Error validating query", var4);
@@ -262,7 +262,7 @@ public class SqlUtil {
         request.add(KeyConst.SUPPORT_LOGGED_IN, true);
 
         try {
-            DataExportFpo.validateSQL(query, true);
+            DataExportFpo.validateSQL(query);
         } catch (ExceptionMainFree var4) {
             LOGGER.error("Error validating query", var4);
         }
