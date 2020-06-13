@@ -7,7 +7,7 @@ public  class InitializeModels {
 
     public static void init(GenericPlugin genericPlugin) {
 
-        SqlUtil.createTableFromFile("gcs_seed", "/searchSqlQueries/create_gcs_table1.sql", genericPlugin.getPluginEveManager());
+        //SqlUtil.createTableFromFile("gcs_seed", "/sqlQueries/test.sql", genericPlugin.getPluginEveManager());
     }
 
 }

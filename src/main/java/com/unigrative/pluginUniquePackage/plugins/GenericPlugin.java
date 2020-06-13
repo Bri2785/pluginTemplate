@@ -68,7 +68,7 @@ public class GenericPlugin extends FishbowlPlugin implements PropertyGetter, Rep
         this.setIconClassPath("/images/unigrative48.png"); // make sure there is a 24 version in the folder so it can use that for the tabs
         this.setDefaultHelpPath("https://www.unigrative.com/kbtopic/fishbowl-plugins/");
 
-        //this.addAccessRight("Import Button"); //optional access rights that can be set and checked later
+        //this.addAccessRight("Add Item Button"); //optional access rights that can be set and checked later
 
         this.setButtonPrintVisible(false); //CHANGE IF NEEDED
         this.setButtonEmailVisible(false);

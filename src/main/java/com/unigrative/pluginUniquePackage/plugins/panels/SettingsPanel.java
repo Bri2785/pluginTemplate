@@ -6,6 +6,7 @@ package com.unigrative.pluginUniquePackage.plugins.panels;
 
 import java.awt.event.*;
 
+import com.fbi.gui.util.UtilGui;
 import com.unigrative.pluginUniquePackage.plugins.GenericPlugin;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +29,7 @@ public class SettingsPanel extends JPanel {
 
     private void button1ActionPerformed(ActionEvent e) {
 
-
+        UtilGui.showMessageDialog("Test Message");
 
     }
 

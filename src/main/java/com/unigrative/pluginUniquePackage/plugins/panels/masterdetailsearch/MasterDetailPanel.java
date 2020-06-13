@@ -204,7 +204,7 @@ public class MasterDetailPanel extends FBSplitPane {
 
         public void init(){
             //CHANGE QUERY FILE NAME IF NEEDED
-            this.searchPanelFromSql.init(GenericRow.getSettings(), EVEManagerUtil.getEveManager(), "/searchSqlQueries/query.sql", sqlUtil);
+            this.searchPanelFromSql.init(GenericRow.getSettings(), EVEManagerUtil.getEveManager(), "/sqlQueries/query.sql", sqlUtil);
         }
 
 

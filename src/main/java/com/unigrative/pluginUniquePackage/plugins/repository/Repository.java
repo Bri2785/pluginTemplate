@@ -28,12 +28,30 @@ public class Repository {
     }
 
 
+    //CUSTOM QUERY METHODS
     public String getCompanyName() {
         List<QueryRow> result = this.sql.executeSql("SELECT name FROM company");
         return result.isEmpty() ? "" : ((QueryRow)result.get(0)).getString("name");
     }
 
 
+    public QueryRow getOrderInfo(int soId) {
+        return this.getOrderInfoFromQueryFile(soId).get(0); //return the first return row.
+    }
+
+    //OTHER SAMPLES
+    //LOAD QUERY FROM EMBEDDED SQL FILE
+    //THE SQL QUERIES ARE STORED IN THE RESOURCES SECTION IN THE sqlQueries folder
+    public List<QueryRow> getOrderInfoFromQueryFile(int soId) {
+        return this.sql.executeSql(this.loadSql(Compatibility.handleFirebirdCompatibility(this, "/sqlQueries/getOrderInfo.sql"), soId)); //YOU CAN PROVIDE UNLIMITED PARAMETERS
+    }
+
+    public QueryRow getCartonName() {
+        return this.getSingleResult(this.sql.executeSql(this.loadSql("YOUR_QUERY_HERE.sql"))); //returns single row
+    }
+
+
+    //RETREIVES STORED PROPERTIES SPECIFIC TO THIS PLUGIN. PULLS THEM FROM THE PLUGINPROPERTIES TABLE IN THE DB
     public String getProperty(String key) {
         List<QueryRow> result = this.sql.executeSql(this.loadSql(Compatibility.handleFirebirdCompatibility(this, "getProperty.sql"), quote(key), quote(GenericPlugin.MODULE_FRIENDLY_NAME)));
         return Util.isEmpty(result) ? "" : ((QueryRow)result.get(0)).getString("info");
@@ -41,7 +59,7 @@ public class Repository {
 
     public synchronized int getDatabaseVersion() {
         if (databaseVersion == -1) {
-            databaseVersion = ((QueryRow)this.sql.executeSql("SELECT MAX(version) AS version FROM databaseVersion ").get(0)).getInt("version").intValue();
+            databaseVersion = (this.sql.executeSql("SELECT MAX(version) AS version FROM databaseVersion ").get(0)).getInt("version").intValue();
         }
 
         return databaseVersion;
@@ -171,6 +189,8 @@ public class Repository {
     private static <T> List<T> page(List<T> l, int start) {
         return l.subList(start, Math.min(l.size(), start + 1500));
     }
+
+
 
     @FunctionalInterface
     public interface RunSql {
