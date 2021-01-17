@@ -12,6 +12,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.awt.*;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.*;
 
 /**
@@ -32,6 +34,25 @@ public class SettingsPanel extends JPanel {
         UtilGui.showMessageDialog("Test Message");
 
     }
+
+    public void loadSettings(){
+        LOGGER.debug("Loading Settings");
+        //this.txtApiToken.setText(this.restApiPlugin.getPluginData(KeyConstants.API_SECURITY_TOKEN));
+
+        LOGGER.debug("Settings Loaded");
+    }
+
+    public void saveSettings(){
+        LOGGER.debug("Saving settings");
+
+        final Map<String, String> staticData = new HashMap<>();
+        //staticData.put(KeyConstants.API_SECURITY_TOKEN, this.txtApiToken.getText());
+
+        this.genericPlugin.savePluginData(staticData);
+
+        LOGGER.debug("Settings Saved");
+    }
+
 
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents

@@ -148,6 +148,7 @@ public class GenericPlugin extends FishbowlPlugin implements PropertyGetter, Rep
     @Override
     public void loadData(int objectId) {
         //custom load data method. Also called on refreshButton being clicked
+        this.settingsPanel.loadSettings();
     }
 
     private void loadSettings() {
